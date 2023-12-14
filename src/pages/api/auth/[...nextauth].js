@@ -11,5 +11,11 @@ export const authOptions = {
       from: process.env.EMAIL_FROM,
     }),
   ],
+  pages: {
+    signIn: "/auth/login",
+    signOut: "/auth/logout",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
+  },
 };
 export default NextAuth(authOptions);
