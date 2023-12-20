@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
+import { CustomsendVerificationRequest } from "./signinemail";
 
 export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -9,6 +10,9 @@ export const authOptions = {
     EmailProvider({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
+      sendVerificationRequest({ identifier, url, provider }) {
+        CustomsendVerificationRequest({ identifier, url, provider });
+      },
     }),
   ],
   pages: {
