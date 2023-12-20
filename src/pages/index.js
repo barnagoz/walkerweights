@@ -1,14 +1,15 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
-import Component from "@/components/login-btn";
 import Template from "@/components/common/template";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <Template>
-      <Component />
+      <div className="flex justify-center flex-col w-full h-auto py-24 px-10">
+        <h1 className="text-4xl font-extrabold italic text-foreground">
+          Teszt alkalmazás
+        </h1>
+        <p>Semmire nem jó, de jól néz ki</p>
+      </div>
     </Template>
   );
 }
