@@ -6,7 +6,6 @@ import Template from "@/components/common/template";
 import { LoadingSpinner } from "@/components/ui/spinner";
 import { useEffect } from "react";
 import Router from "next/router";
-import { cn } from "@/lib/utils";
 
 export default function SignOut() {
   const { data: session, status } = useSession();
