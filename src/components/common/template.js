@@ -1,5 +1,6 @@
 import Navigation from "./navigation";
 import Footer from "./footer";
+import { cn } from "@/lib/utils";
 
 export default function Template({
   children,
@@ -7,7 +8,7 @@ export default function Template({
   includeNavigation = true,
 }) {
   return (
-    <div className="relative min-h-screen w-screen">
+    <div className={cn("relative min-h-screen w-screen")}>
       <div>
         {includeNavigation && <Navigation />}
         {children}

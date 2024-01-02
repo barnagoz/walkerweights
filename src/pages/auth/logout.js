@@ -6,6 +6,7 @@ import Template from "@/components/common/template";
 import { LoadingSpinner } from "@/components/ui/spinner";
 import { useEffect } from "react";
 import Router from "next/router";
+import { cn } from "@/lib/utils";
 
 export default function SignOut() {
   const { data: session, status } = useSession();
@@ -39,8 +40,8 @@ export default function SignOut() {
         >
           {status == "loading" && (
             <>
-              <LoadingSpinner className={"mx-auto -mb-1"} />
-              <p className="text-center">Betöltés...</p>
+              <LoadingSpinner className={cn("mx-auto -mb-1")} />
+              <p className={cn("text-center")}>Betöltés...</p>
             </>
           )}
           {status == "authenticated" && (

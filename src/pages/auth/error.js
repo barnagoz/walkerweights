@@ -18,6 +18,7 @@ import {
   AlertDialogFooter,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import { cn } from "@/lib/utils";
 
 export default function Error() {
   const searchParams = useSearchParams();
@@ -46,7 +47,7 @@ export default function Error() {
           </p>
           {error && (
             <Alert variant="destructive">
-              <ExclamationTriangleIcon className="h-4 w-4" />
+              <ExclamationTriangleIcon className={cn("h-4 w-4")} />
               <AlertTitle>Hiba történt</AlertTitle>
               <AlertDescription>
                 A bejelentkezés során hiba történt, kérlek próbáld meg újra,
@@ -55,7 +56,7 @@ export default function Error() {
                 <Link href="mailto:barnagoz@icloud.com">
                   <Button
                     variant="link"
-                    className="text-xs px-2 py-0 -my-1 text-destructive"
+                    className={cn("text-xs px-2 py-0 -my-1 text-destructive")}
                   >
                     Visszajelzés küldése
                   </Button>
@@ -64,7 +65,7 @@ export default function Error() {
                   <AlertDialogTrigger>
                     <Button
                       variant="link"
-                      className="text-xs px-2 py-0 -my-1 text-destructive"
+                      className={cn("text-xs px-2 py-0 -my-1 text-destructive")}
                     >
                       Fejlesztői információ
                     </Button>

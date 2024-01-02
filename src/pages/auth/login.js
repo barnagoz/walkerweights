@@ -23,6 +23,7 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 export default function SignIn() {
   const { data: session, status } = useSession();
@@ -55,8 +56,8 @@ export default function SignIn() {
         <div className={cn("lg:p-8 p-4 gap-2 flex flex-col justify-center ")}>
           {status == "loading" && (
             <>
-              <LoadingSpinner className={"mx-auto -mb-1"} />
-              <p className="text-center">Betöltés...</p>
+              <LoadingSpinner className={cn("mx-auto -mb-1")} />
+              <p className={cn("text-center")}>Betöltés...</p>
             </>
           )}
           {status == "unauthenticated" && (
@@ -66,7 +67,7 @@ export default function SignIn() {
               </h2>
               {error && (
                 <Alert variant="destructive">
-                  <ExclamationTriangleIcon className="h-4 w-4" />
+                  <ExclamationTriangleIcon className={cn("h-4 w-4")} />
                   <AlertTitle>Hiba történt</AlertTitle>
                   <AlertDescription>
                     A bejelentkezés során hiba történt, kérlek próbáld meg újra,
@@ -75,7 +76,9 @@ export default function SignIn() {
                     <Link href="mailto:barnagoz@icloud.com">
                       <Button
                         variant="link"
-                        className="text-xs px-2 py-0 -my-1 text-destructive"
+                        className={cn(
+                          "text-xs px-2 py-0 -my-1 text-destructive"
+                        )}
                       >
                         Visszajelzés küldése
                       </Button>
@@ -84,7 +87,9 @@ export default function SignIn() {
                       <AlertDialogTrigger>
                         <Button
                           variant="link"
-                          className="text-xs px-2 py-0 -my-1 text-destructive"
+                          className={cn(
+                            "text-xs px-2 py-0 -my-1 text-destructive"
+                          )}
                         >
                           Fejlesztői információ
                         </Button>
