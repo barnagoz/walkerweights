@@ -6,7 +6,7 @@ export default function Footer() {
     <div className={cn("w-full h-auto absolute bottom-0 p-3")}>
       <div
         className={cn(
-          "w-full rounded-lg shadow-lg outline outline-gray-200 bg-white bg-opacity-30 backdrop-blur-xl p-4 h-auto flex justify-between text-sm"
+          "w-full rounded-lg shadow-lg border border-gray-200 bg-white bg-opacity-30 backdrop-blur-xl p-4 h-auto flex justify-between text-sm"
         )}
       >
         <div className={cn("text-muted-foreground")}>

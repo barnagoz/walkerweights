@@ -22,10 +22,10 @@ import { cn } from "@/lib/utils";
 export default function Navigation() {
   const { data: session, status } = useSession();
   return (
-    <div className={cn("w-full fixed top-0 p-3")}>
+    <div className={cn("w-full fixed top-0 p-3 h-auto z-50")}>
       <NavigationMenu
         className={cn(
-          "p-3 bg-white rounded-lg backdrop-blur-md outline outline-gray-200 shadow-md bg-opacity-30 min-w-full justify-between"
+          "p-3 bg-white rounded-lg backdrop-blur-md border border-gray-200 shadow-md bg-opacity-30 min-w-full justify-between"
         )}
       >
         <NavigationMenuList>

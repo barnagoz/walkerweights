@@ -8,10 +8,10 @@ export default function Template({
   includeNavigation = true,
 }) {
   return (
-    <div className={cn("relative min-h-screen w-screen")}>
-      <div>
-        {includeNavigation && <Navigation />}
-        {children}
+    <div className={cn("relative min-h-screen h-full w-screen")}>
+      <div className="pb-20">
+        <div className="z-50">{includeNavigation && <Navigation />}</div>
+        <div className="z-0">{children}</div>
       </div>
       {includeFooter && <Footer />}
     </div>
