@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Home() {
   const ref1 = useRef();
@@ -23,6 +25,35 @@ export default function Home() {
 
   const ref4 = useRef();
   const isVisible4 = useIsVisible(ref4);
+
+  const ref5 = useRef();
+  const isVisible5 = useIsVisible(ref5);
+
+  const ref6 = useRef();
+  const isVisible6 = useIsVisible(ref6);
+
+  const ref7 = useRef();
+  const isVisible7 = useIsVisible(ref7);
+
+  const [count, setCount] = useState(3000);
+  const maxCount = 10000;
+
+  useEffect(() => {
+    if (!isVisible5) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      // Update the count if it's less than the maximum count
+      if (count < maxCount) {
+        setCount((prevCount) => prevCount + 17);
+      } else if (count === 10004) {
+        setCount(10000);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [count, maxCount, isVisible5]);
 
   return (
     <Template>
@@ -44,7 +75,7 @@ export default function Home() {
             >
               <div
                 className={cn(
-                  "w-4/5 h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 py-26"
+                  "lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
                 )}
               >
                 <h1 className={cn("text-3xl font-bold mb-2")}>
@@ -57,15 +88,26 @@ export default function Home() {
                   más, mint közvetlen kifizetés a cégüknek, tényleges árbevétel!
                   Ez az EKR RENDSZER nyújtotta lehetőség Önnek.
                 </p>
-                <div className={cn("flex gap-2 mt-2")}>
-                  <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                  <Button variant="secondary">Részletek</Button>
+                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
+                  <Link href="/jelentkezes">
+                    <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
+                  </Link>
+                  <Button
+                    onClick={() =>
+                      document
+                        .getElementById("ekr-rendszer")
+                        .scrollIntoView(true)
+                    }
+                    variant="secondary"
+                  >
+                    Részletek
+                  </Button>
                 </div>
               </div>
             </CarouselItem>
             <CarouselItem
               className={cn(
-                "w-full bg-cover h-[60vh] bg-gray-400 bg-blend-multiply"
+                "w-full bg-cover min-h-[60vh] bg-gray-400 bg-blend-multiply"
               )}
               style={{
                 backgroundImage:
@@ -74,7 +116,7 @@ export default function Home() {
             >
               <div
                 className={cn(
-                  "w-full h-full bg-gradient-to-r from-brand-gold to-transparent flex flex-col justify-center items-start text-white p-4 py-26"
+                  "lg:w-4/5 w-full bg-gradient-to-r from-brand-gold to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
                 )}
               >
                 <h1 className={cn("text-3xl font-bold mb-2")}>
@@ -90,15 +132,26 @@ export default function Home() {
                   folyamatosan energiamegtakarítást termelő megoldásainkat sokak
                   veszik igénybe. A kiszámíthatóság értéket teremt.
                 </p>
-                <div className={cn("flex gap-2 mt-2")}>
-                  <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                  <Button variant="secondary">Részletek</Button>
+                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
+                  <Link href="/jelentkezes">
+                    <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
+                  </Link>
+                  <Button
+                    onClick={() =>
+                      document
+                        .getElementById("ekr-rendszer")
+                        .scrollIntoView(true)
+                    }
+                    variant="secondary"
+                  >
+                    Részletek
+                  </Button>
                 </div>
               </div>
             </CarouselItem>
             <CarouselItem
               className={cn(
-                "w-full bg-cover h-[60vh] bg-gray-500 bg-blend-multiply"
+                "w-full bg-cover min-h-[60vh] bg-gray-500 bg-blend-multiply"
               )}
               style={{
                 backgroundImage:
@@ -107,7 +160,7 @@ export default function Home() {
             >
               <div
                 className={cn(
-                  "w-4/5 h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 py-26"
+                  "lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
                 )}
               >
                 <h1 className={cn("text-3xl font-bold mb-2")}>
@@ -122,9 +175,20 @@ export default function Home() {
                   tanácsadói támogatást más early stage és ready-to-build
                   energetikai projektek fejlesztéséhez is.
                 </p>
-                <div className={cn("flex gap-2 mt-2")}>
-                  <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                  <Button variant="secondary">Részletek</Button>
+                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
+                  <Link href="/jelentkezes">
+                    <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
+                  </Link>
+                  <Button
+                    onClick={() =>
+                      document
+                        .getElementById("ekr-rendszer")
+                        .scrollIntoView(true)
+                    }
+                    variant="secondary"
+                  >
+                    Részletek
+                  </Button>
                 </div>
               </div>
             </CarouselItem>
@@ -141,6 +205,7 @@ export default function Home() {
             backgroundImage:
               "url('https://walkerweights.hu/assets/images/mbr-918x551.jpg')",
           }}
+          id="ekr-rendszer"
         >
           <div
             className={cn(
@@ -216,14 +281,17 @@ export default function Home() {
               energiakereskedő partnerünk várja, hogy folyamatosan EKR
               tanúsítványhoz jusson.
             </p>
-            <Button
-              className={cn(
-                "duration-1000 ease-in transition-opacity",
-                isVisible2 ? "opacity-100" : "opacity-0"
-              )}
-            >
-              Ingyenes konzultáció
-            </Button>
+            <Link href="/jelentkezes">
+              <Button
+                variant="secondary"
+                className={cn(
+                  "duration-1000 ease-in transition-opacity",
+                  isVisible2 ? "opacity-100" : "opacity-0"
+                )}
+              >
+                Ingyenes konzultáció
+              </Button>
+            </Link>
           </div>
         </div>
         <div
@@ -267,15 +335,32 @@ export default function Home() {
         </div>
       </div>
       <div
+        ref={ref5}
+        className={cn(
+          "px-4 py-6 grid lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000 text-center items-center font-semibold text-2xl",
+          isVisible5 ? "opacity-100" : "opacity-0"
+        )}
+      >
+        2022-ben több, mint
+        <div
+          className={cn(
+            "flex border-gray-200 border py-4 px-4 rounded-lg text-center items-center justify-center font-bold text-3xl"
+          )}
+        >
+          {count} GJ
+        </div>
+        EKR tanúsítványt értékesítünk
+      </div>
+      <div
         ref={ref4}
         className={cn(
-          "p-4 grid grid-cols-3 gap-4 transition-opacity ease-in duration-1000",
+          "p-4 grid lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000",
           isVisible4 ? "opacity-100" : "opacity-0"
         )}
       >
         <div
           className={cn(
-            "col-span-1 border border-gray-200 rounded-xl aspect-square p-4"
+            "col-span-1 border border-gray-200 rounded-xl lg:aspect-square p-4"
           )}
         >
           <h3 className="text-xl font-semibold mb-2">
@@ -292,7 +377,7 @@ export default function Home() {
         </div>
         <div
           className={cn(
-            "col-span-1 border border-gray-200 rounded-xl aspect-square p-4"
+            "col-span-1 border border-gray-200 rounded-xl lg:aspect-square p-4"
           )}
         >
           <h3 className="text-xl font-semibold mb-2">Kevéstől a sokig</h3>
@@ -307,7 +392,7 @@ export default function Home() {
         </div>
         <div
           className={cn(
-            "col-span-1 border border-gray-200 rounded-xl aspect-square p-4"
+            "col-span-1 border border-gray-200 rounded-xl lg:aspect-square p-4"
           )}
         >
           <h3 className="text-xl font-semibold mb-2">
@@ -324,7 +409,13 @@ export default function Home() {
           </p>
         </div>
       </div>
-      <div className={cn("p-4 flex flex-col gap-2")}>
+      <div
+        className={cn(
+          "p-4 flex flex-col gap-2 transition-opacity ease-in duration-1000",
+          isVisible6 ? "opacity-100" : "opacity-0"
+        )}
+        ref={ref6}
+      >
         <h2 className={cn("text-2xl font-bold")}>
           Az első mindig ingyen van...
         </h2>
@@ -346,12 +437,25 @@ export default function Home() {
           beszélgetésen elnyertük a bizalmát, és ne azért, mert az első
           konzultáció munkadíját már ránk költötte.
         </p>
-        <Button>Vegye fel velünk a kapcsolatot</Button>
+        <Link className="w-full" href="/kapcsolat">
+          <Button className="w-full">Vegye fel velünk a kapcsolatot</Button>
+        </Link>
       </div>
-      <h3 className={cn("w-full text-center font-bold text-2xl mt-4")}>
+      <h3
+        className={cn(
+          "w-full text-center font-bold text-2xl mt-4 transition-opacity ease-in duration-1000",
+          isVisible7 ? "opacity-100" : "opacity-0"
+        )}
+      >
         Csapatunk
       </h3>
-      <div className={cn("p-4 grid grid-cols-3 gap-4")}>
+      <div
+        className={cn(
+          "p-4 grid grid-cols-2 lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000",
+          isVisible7 ? "opacity-100" : "opacity-0"
+        )}
+        ref={ref7}
+      >
         <div
           className={cn("col-span-1 flex flex-col items-center text-center")}
         >

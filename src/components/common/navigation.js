@@ -40,11 +40,23 @@ export default function Navigation() {
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <div
-                className={cn(" w-64 rounded-lg bg-white drop-shadow-md p-2")}
+                className={cn(
+                  " w-64 rounded-lg bg-white drop-shadow-md p-2 flex flex-col gap-2"
+                )}
               >
                 <Link href="/">
                   <Button variant="secondary" className={cn("w-full")}>
                     Kezdőlap
+                  </Button>
+                </Link>
+                <Link href="/jelentkezes">
+                  <Button variant="secondary" className={cn("w-full")}>
+                    Ingyenes konzultáció
+                  </Button>
+                </Link>
+                <Link href="/kapcsolat">
+                  <Button variant="secondary" className={cn("w-full")}>
+                    Kapcsolat
                   </Button>
                 </Link>
               </div>

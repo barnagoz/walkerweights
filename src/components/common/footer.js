@@ -12,8 +12,9 @@ export default function Footer() {
         <div className={cn("text-muted-foreground")}>
           <strong>Walker & Weights</strong> © {new Date().getFullYear()}
         </div>
-        <div className={cn("text-muted-foreground")}>
+        <div className={cn("text-muted-foreground gap-2 flex")}>
           <Link href="/privacy-policy">Adatvédelmi nyilatkozat</Link>
+          <Link href="/kapcsolat">Kapcsolat</Link>
         </div>
       </div>
     </div>
