@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Development" type="CompoundRunConfigurationType">
+    <toRun name="Development" type="js.build_tools.npm" />
+    <toRun name="Open Arc" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
