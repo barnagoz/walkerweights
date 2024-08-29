@@ -31,7 +31,6 @@ export default function Document() {
         <meta name="application-name" content="Walker &amp; Weights" />
         <meta name="msapplication-TileColor" content="#2d89ef" />
         <meta name="theme-color" content="#ffffff" />
-        <title>Walker &amp; Weights</title>
         <meta name="og:title" content="Walker &amp; Weights" />
         <meta name="og:image" content="/og.png" />
         <meta name="og:url" content="https://walkerweights.barnagoz.com" />
