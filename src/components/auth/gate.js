@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { ShieldX } from "lucide-react";
+import {useEffect, useState} from "react";
+import {useSession} from "next-auth/react";
+import {ShieldX} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 
@@ -12,8 +12,8 @@ import Link from "next/link";
  * @param {React.ReactNode} props.children - The child components to render if access is allowed.
  * @returns {React.ReactNode} The children if access is allowed, otherwise null.
  */
-export default function Gate({ permission, children }) {
-    const { data: session, status } = useSession();
+export default function Gate ({permission, children, inline}) {
+    const {data: session, status} = useSession();
     const [isAllowed, setIsAllowed] = useState(false);
 
     useEffect(() => {
@@ -31,12 +31,17 @@ export default function Gate({ permission, children }) {
         }
     }, [status, permission, session]);
 
-    return isAllowed ? children : (
-        <div className={"w-full h-screen flex items-center justify-center flex-col"}>
-            <ShieldX className={"w-12 h-12 mb-4"}/>
-            <h1 className={"text-lg font-bold"}>Hozzáférés megtagadva</h1>
-            <p>Nincs jogosultsága megtekinteni ezt az oldalt.</p>
-            <Link href={"/"}><Button className={"px-12 mt-2"}>Visszatérés a kezdőlapra →</Button></Link>
-        </div>
-    )
+    
+    if (inline) {
+        return isAllowed ? children : null;
+    } else {
+        return isAllowed ? children : (
+            <div className={"w-full h-screen flex items-center justify-center flex-col"}>
+                <ShieldX className={"w-12 h-12 mb-4"}/>
+                <h1 className={"text-lg font-bold"}>Hozzáférés megtagadva</h1>
+                <p>Nincs jogosultsága megtekinteni ezt az oldalt.</p>
+                <Link href={"/"}><Button className={"px-12 mt-2"}>Visszatérés a kezdőlapra →</Button></Link>
+            </div>
+        )
+    }
 }

@@ -17,7 +17,6 @@ export default function SignIn () {
 
     useEffect(() => {
         if (status === "authenticated") {
-            alert(status)
             if (session.user.access_list.includes("app")) {
                 Router.push("/app");
             } else {
@@ -40,7 +39,7 @@ export default function SignIn () {
                 <div className={cn("lg:bg-amber-700 lg:mt-0 mt-4 flex justify-center")}>
                 </div>
                 <div className={cn("lg:p-8 p-4 gap-2 flex flex-col justify-center ")}>
-                    {status === "loading" && (
+                    {status === "loading" || status === "authenticated" && (
                         <>
                             <LoadingSpinner className={cn("mx-auto -mb-1")}/>
                             <p className={cn("text-center")}>Betöltés...</p>
