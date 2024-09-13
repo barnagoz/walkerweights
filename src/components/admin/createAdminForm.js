@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
@@ -41,9 +42,9 @@ export function CreateAdminForm ({buttonText}) {
 			accessid: session.user.id,
 		});
 		if (resp.data.success) {
-			Router.push("/admin");
+			toast.success("Sikeresen elküldve");
 		} else {
-			console.error(resp.data.error);
+			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
 		}
 	}
 

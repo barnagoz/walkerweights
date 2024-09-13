@@ -1,11 +1,11 @@
 import Admin from "@/../models/adminSchema";
+import { permissionList } from "@/lib/data/permission";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
-import bcrypt from "bcryptjs";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
-		const {email, password, first_name, last_name, access_list, accessid} = req.body;
+		const {accessid} = req.body;
 
 		// Check for sufficient permissions
 		await dbConnect();
@@ -14,23 +14,20 @@ export default async function handler (req, res) {
 			return res.status(403).json({success: false, message: "Insufficient permissions"});
 		}
 
-		// Check for missing fields
-		if (!email || !password || !first_name || !last_name || !access_list) {
-			return res.status(400).json({success: false, message: "Missing fields"});
-		}
-
-		// Create new admin
-		// TODO: setup email verification and let users set their own passwords
-		const newAdmin = new Admin({
-			email,
-			password: bcrypt.hashSync(password, 10),
-			first_name,
-			last_name,
-			access_list,
-		});
+		// Get all admins
 		try {
-			await newAdmin.save();
-			res.status(201).json({success: true, data: newAdmin});
+			let admins = await Admin.find();
+			admins = admins.map(admin => {
+				const adminObj = admin.toObject();
+				delete adminObj.password;
+				delete adminObj._id;
+				adminObj.defaccesslist = adminObj.access_list;
+				adminObj.access_list = adminObj.access_list.map(permission => {
+					return permissionList.find(p => p.code === permission).name;
+				});
+				return adminObj;
+			});
+			res.status(200).json({success: true, data: admins});
 		} catch (error) {
 			res.status(400).json({success: false, error: error.message});
 		}

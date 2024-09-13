@@ -1,11 +1,10 @@
 import Admin from "@/../models/adminSchema";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
-import bcrypt from "bcryptjs";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
-		const {email, password, first_name, last_name, access_list, accessid} = req.body;
+		const {email, accessid} = req.body;
 
 		// Check for sufficient permissions
 		await dbConnect();
@@ -15,22 +14,14 @@ export default async function handler (req, res) {
 		}
 
 		// Check for missing fields
-		if (!email || !password || !first_name || !last_name || !access_list) {
+		if (!email) {
 			return res.status(400).json({success: false, message: "Missing fields"});
 		}
 
-		// Create new admin
-		// TODO: setup email verification and let users set their own passwords
-		const newAdmin = new Admin({
-			email,
-			password: bcrypt.hashSync(password, 10),
-			first_name,
-			last_name,
-			access_list,
-		});
+		// Delete admin
 		try {
-			await newAdmin.save();
-			res.status(201).json({success: true, data: newAdmin});
+			const deletedAdmin = await Admin.findOneAndDelete({email: email});
+			res.status(201).json({success: true, data: deletedAdmin});
 		} catch (error) {
 			res.status(400).json({success: false, error: error.message});
 		}
