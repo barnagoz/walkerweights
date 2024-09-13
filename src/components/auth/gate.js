@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
  */
 export default function Gate ({permission, children, inline}) {
 	const {data: session, status} = useSession();
-	const [isAllowed, setIsAllowed] = useState(false);
+	const [isAllowed, setIsAllowed] = useState(undefined);
 
 	useEffect(() => {
 		if (status === "authenticated") {
@@ -32,11 +32,18 @@ export default function Gate ({permission, children, inline}) {
 		}
 	}, [status, permission, session]);
 
-	if (status === "loading") {
+	if (status === "unauthenticated") {
+		return (<div className={"w-full h-screen flex items-center justify-center flex-col"}>
+			<ShieldX className={"w-12 h-12 mb-4"}/>
+			<h1 className={"text-lg font-bold"}>Hozzáférés megtagadva</h1>
+			<p>Nincs jogosultsága megtekinteni az oldalt, mivel nincs bejelentkezve.</p>
+			<Link href={"/auth/login"}><Button className={"px-12 mt-2"}>Bejelentkezés →</Button></Link>
+		</div>);
+	} else if (status === "loading" || isAllowed === undefined) {
 		return <div className={"w-full h-screen flex items-center justify-center flex-col"}>
 			<LoadingSpinner/>
 			<p>Betöltés...</p>
-			</div>;
+		</div>;
 	} else if (inline) {
 		return isAllowed ? children : null;
 	} else {
