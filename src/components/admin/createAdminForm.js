@@ -15,7 +15,6 @@ const formSchema = z.object({
 	first_name: z.string().min(1, "Keresztnév megadása kötelező!"),
 	last_name: z.string().min(1, "Vezetéknév megadása kötelező!"),
 	email: z.string().email("Érvényes e-mail címet adj meg!"),
-	password: z.string().min(1, "Jelszó megadása kötelező!"),
 	access_list: z.array(z.string()).min(1, "Legalább egy jogosultságot meg kell adni!"),
 });
 
@@ -27,7 +26,6 @@ export function CreateAdminForm ({buttonText}) {
 			first_name: "",
 			last_name: "",
 			email: "",
-			password: "",
 			access_list: ["app"],
 		},
 	});
@@ -85,19 +83,6 @@ export function CreateAdminForm ({buttonText}) {
 							<FormLabel>E-mail cím</FormLabel>
 							<FormControl>
 								<Input {...field} />
-							</FormControl>
-							<FormMessage/>
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({field}) => (
-						<FormItem>
-							<FormLabel>Jelszó</FormLabel>
-							<FormControl>
-								<Input {...field} type="password"/>
 							</FormControl>
 							<FormMessage/>
 						</FormItem>

@@ -24,6 +24,7 @@ export default function AdminManagement () {
 	useEffect(() => {
 		getAdmins();
 	}, [session]);
+
 	return (
 		<Gate permission={['app', 'admin-management']}>
 			<Navigation/>
