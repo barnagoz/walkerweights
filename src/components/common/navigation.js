@@ -31,12 +31,13 @@ export default function Navigation () {
 				<NavigationMenuList className={"gap-2"}>
 					<NavigationMenuItem>
 						<Link href="/">
-							<Button variant="ghost" className={cn("w-full text-brand-green bg-white bg-opacity-40" +
+							<Button variant="secondary" className={cn("w-full text-brand-green bg-white" +
 								" hover:text-brand-green hidden md:block")}>
 								Kezdőlap
 							</Button>
 						</Link>
 					</NavigationMenuItem>
+					{status !== "authenticated" && (
 					<NavigationMenuItem>
 						<Link href="/jelentkezes">
 							<Button variant="default" className={cn("w-full text-white bg-brand-green" +
@@ -45,6 +46,7 @@ export default function Navigation () {
 							</Button>
 						</Link>
 					</NavigationMenuItem>
+					)}
 					{status == "loading" && (
 						<NavigationMenuItem>
 							<NavigationMenuTrigger arrowHidden={true} className={cn("my-2 px-2 border-gray-200" +

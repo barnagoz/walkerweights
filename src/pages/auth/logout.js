@@ -1,3 +1,6 @@
+import { CredentialForm } from "@/components/auth/credentialForm";
+import ErrorAlert from "@/components/auth/error";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {signOut, useSession} from "next-auth/react";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
@@ -17,43 +20,35 @@ export default function SignOut () {
     }, [status]);
 
     return (
-        <Template includeFooter={false}>
+        <Template includeFooter={false} className={"bg-gradient-to-bl from-black to-brand-green"}>
             <NextSeo
                 title={"Kijelentkezés"}
                 noindex={true}
             />
-            <div
-                className={cn(
-                    "w-full lg:grid lg:grid-cols-2 h-screen flex flex-col justify-center"
-                )}
-            >
-                <div className={cn("lg:bg-amber-700 lg:mt-0 mt-4 flex justify-center")}>
-                </div>
-                <div
-                    className={cn(
-                        "lg:p-8 p-4 gap-2 flex flex-col justify-center text-center"
-                    )}
-                >
-                    {status == "loading" && (
-                        <>
+            <div className={"w-full flex items-center justify-center p-4"}>
+                {status === "loading" && (
+                    <Card className={"w-full md:w-1/3"}>
+                        <CardHeader>
+                            <CardTitle>Betöltés...</CardTitle>
+                        </CardHeader>
+                        <CardContent>
                             <LoadingSpinner className={cn("mx-auto -mb-1")}/>
-                            <p className={cn("text-center")}>Betöltés...</p>
-                        </>
-                    )}
-                    {status == "authenticated" && (
-                        <>
-                            <h2 className={cn("text-2xl font-bold text-center")}>
-                                Kijelentkezés
-                            </h2>
-                            <p className={cn("text-center")}>
-                                Biztosan ki szeretnél jelentkezni?
-                            </p>
+                        </CardContent>
+                    </Card>
+                )}
+                {status === "authenticated" && (
+                    <Card className={"w-full md:w-1/3"}>
+                        <CardHeader>
+                            <CardTitle>Lépjen ki fiókjából</CardTitle>
+                            <CardDescription>Biztosan ki szeretne jelentkezni?</CardDescription>
+                        </CardHeader>
+                        <CardContent>
                             <Button className={cn("w-full")} onClick={() => signOut()}>
                                 Igen, kijelentkezem
                             </Button>
-                        </>
-                    )}
-                </div>
+                        </CardContent>
+                    </Card>
+                )}
             </div>
         </Template>
     );

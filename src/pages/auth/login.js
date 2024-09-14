@@ -1,4 +1,6 @@
 import {CredentialForm} from "@/components/auth/credentialForm";
+import { PasswordForm } from "@/components/auth/passwordForm";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import Template from "@/components/common/template";
 import {useEffect} from "react";
@@ -26,35 +28,35 @@ export default function SignIn () {
     }, [status, session]);
 
     return (
-        <Template includeFooter={false}>
+        <Template includeFooter={false} className={"bg-gradient-to-bl from-brand-green to-black"}>
             <NextSeo
                 title={"Bejelentkezés"}
                 noindex={true}
             />
-            <div
-                className={cn(
-                    "w-full lg:grid lg:grid-cols-2 h-screen flex flex-col justify-center"
-                )}
-            >
-                <div className={cn("lg:bg-amber-700 lg:mt-0 mt-4 flex justify-center")}>
-                </div>
-                <div className={cn("lg:p-8 p-4 gap-2 flex flex-col justify-center ")}>
+            <div className={"w-full h-full flex items-center justify-center p-4"}>
+
                     {status === "loading" || status === "authenticated" && (
-                        <>
-                            <LoadingSpinner className={cn("mx-auto -mb-1")}/>
-                            <p className={cn("text-center")}>Betöltés...</p>
-                        </>
+                        <Card className={"w-full md:w-1/3"}>
+                            <CardHeader>
+                                <CardTitle>Betöltés...</CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <LoadingSpinner className={cn("mx-auto -mb-1")}/>
+                            </CardContent>
+                        </Card>
                     )}
                     {status === "unauthenticated" && (
-                        <>
-                            <h2 className={cn("text-2xl font-bold text-center")}>
-                                Bejelentkezés
-                            </h2>
-                            <ErrorAlert error={error}/>
-                            <CredentialForm buttonText={"Bejelentkezés"}/>
-                        </>
+                        <Card className={"w-full md:w-1/3"}>
+                            <CardHeader>
+                                <CardTitle>Jelentkezzen be a fiókjába</CardTitle>
+                                <CardDescription>Még nincs fiókja? Töltse ki ingyenes konzultációnkat!</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <CredentialForm buttonText={"Bejelentkezés"}/>
+                                <ErrorAlert error={error}/>
+                            </CardContent>
+                        </Card>
                     )}
-                </div>
             </div>
         </Template>
     );
