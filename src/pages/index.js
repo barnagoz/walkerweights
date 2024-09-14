@@ -1,517 +1,276 @@
-import {useIsVisible} from "@/lib/isVisible";
 import Template from "@/components/common/template";
-import {cn} from "@/lib/utils";
-import {Carousel, CarouselContent, CarouselItem,} from "@/components/ui/carousel";
-import {Button} from "@/components/ui/button";
-import Autoplay from "embla-carousel-autoplay";
-import {useEffect, useRef, useState} from "react";
-import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useIsVisible } from "@/lib/isVisible";
+import { cn } from "@/lib/utils";
+import { NextSeo } from "next-seo";
 import Link from "next/link";
-import {NextSeo} from "next-seo";
+import { useEffect, useRef, useState } from "react";
+import Iframe from "react-iframe";
 
 export default function Home () {
-    const ref1 = useRef();
-    const isVisible1 = useIsVisible(ref1);
+	const ref5 = useRef();
+	const isVisible5 = useIsVisible(ref5);
 
-    const ref2 = useRef();
-    const isVisible2 = useIsVisible(ref2);
+	const [count, setCount] = useState(60000);
+	const maxCount = 100000;
 
-    const ref3 = useRef();
-    const isVisible3 = useIsVisible(ref3);
+	useEffect(() => {
+		if (!isVisible5) {
+			return;
+		}
 
-    const ref4 = useRef();
-    const isVisible4 = useIsVisible(ref4);
+		const interval = setInterval(() => {
+			// Update the count if it's less than the maximum count
+			if (count < maxCount) {
+				setCount((prevCount) => prevCount + 333);
+			} else if (count === 100293) {
+				setCount(100000);
+			}
+		}, 10);
 
-    const ref5 = useRef();
-    const isVisible5 = useIsVisible(ref5);
+		return () => clearInterval(interval);
+	}, [count, maxCount, isVisible5]);
 
-    const ref6 = useRef();
-    const isVisible6 = useIsVisible(ref6);
+	return (<Template>
+			<NextSeo
+				title={"Kezdőlap"}
+				description={"Ha csak egyszer is megfordult a fejében, hogy energetikai" + "korszerűsítést hajtson végre, akkor jó hírünk van: most van, aki a" + "beruházás költségeinek egy részét átvállalja."}
+			/>
+			<div className={cn("w-full h-full flex flex-col justify-center")}>
+				<div
+					className={cn("w-full bg-cover min-h-[50vh] bg-gray-500 bg-blend-multiply")}
+					style={{
+						backgroundImage: "url('https://walkerweights.hu/assets/images/mbr-1920x1200.jpg')",
+					}}
+				>
+					<div
+						className={cn("lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex" + " flex-col" + " justify-center items-start text-white p-8 !py-36")}
+					>
+						<h1 className={cn("text-4xl font-bold mb-2")}>
+							A mi célunk, hogy minél több extra profitot szerezzen!
+						</h1>
+						<h2 className={"text-2xl font-semibold mb-2"}>Okos energiahatékonysági beruházásokkal gyorsan és
+							egyszerűen!</h2>
+						<p className={"w-2/3"}>
+							A Walker & Weigths profi csapatával Ön is könnyedén kihasználhatja az energiahatákonysági
+							rendszer előnyeit, amivel rövid és hosszú távon is többletbevételhez juthat!
+						</p>
+					</div>
+				</div>
+			</div>
+			<div className={"grid-cols-1 md:grid-cols-5 grid p-8 gap-4 max-w-full"}>
+				<div
+					className={"border-2 shadow-sm border-brand-gold relative rounded-3xl p-8 text-gray-950 flex flex-col gap-4"}>
+					<div className={"flex justify-start items-center gap-2"}>
+						<div
+							className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>1
+						</div>
+						<h2 className={cn("text-xl font-semibold text-brand-gold")}>
+							Felmérünk
+						</h2>
+					</div>
+					<p> Energetikai auditorunk ingyenesen felméri a cégénél megvalósítható, legnagyobb
+						költségcsökkentéssel járó energiahatékonysági beruházásokat.</p>
+				</div>
+				<div
+					className={"border-2 shadow-sm border-brand-gold relative rounded-3xl p-8 text-gray-950 flex flex-col gap-4"}>
+					<div className={"flex justify-start items-center gap-2"}>
+						<div
+							className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>2
+						</div>
+						<h2 className={cn("text-xl font-semibold text-brand-gold")}>
+							Segítünk
+						</h2>
+					</div>
+					<p> Csapatunk a kiválaszott beruházás lebonyolításában is segítséget nyújt, hogy minden szükséges
+						lépést biztosan megvalósíthasson.</p>
 
-    const ref7 = useRef();
-    const isVisible7 = useIsVisible(ref7);
-
-    const [count, setCount] = useState(6000);
-    const maxCount = 10000;
-
-    useEffect(() => {
-        if (!isVisible5) {
-            return;
-        }
-
-        const interval = setInterval(() => {
-            // Update the count if it's less than the maximum count
-            if (count < maxCount) {
-                setCount((prevCount) => prevCount + 33);
-            } else if (count === 10026) {
-                setCount(10000);
-            }
-        }, 30);
-
-        return () => clearInterval(interval);
-    }, [count, maxCount, isVisible5]);
-
-    return (
-        <Template>
-            <NextSeo
-                title={"Kezdőlap"}
-                description={"Ha csak egyszer is megfordult a fejében, hogy energetikai" +
-                    "korszerűsítést hajtson végre, akkor jó hírünk van: most van, aki a" +
-                    "beruházás költségeinek egy részét átvállalja."}
-            />
-            <div className={cn("w-full h-full flex flex-col justify-center")}>
-                <Carousel
-                    className={cn("w-full")}
-                    opts={{loop: true}}
-                    plugins={[Autoplay({delay: 6000})]}
-                >
-                    <CarouselContent>
-                        <CarouselItem
-                            className={cn(
-                                "w-full bg-cover min-h-[60vh] bg-gray-400 bg-blend-multiply"
-                            )}
-                            style={{
-                                backgroundImage:
-                                    "url('https://walkerweights.hu/assets/images/mbr-1920x1440.jpg')",
-                            }}
-                        >
-                            <div
-                                className={cn(
-                                    "lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
-                                )}
-                            >
-                                <h1 className={cn("text-3xl font-bold mb-2")}>
-                                    EKR menedzsment - Pénzt keresünk cégének!
-                                </h1>
-                                <p>
-                                    Ha csak egyszer is megfordult a fejében, hogy energetikai
-                                    korszerűsítést hajtson végre, akkor jó hírünk van: most van,
-                                    aki a beruházás költségeinek egy részét átvállalja. Ez nem
-                                    más, mint közvetlen kifizetés a cégüknek, tényleges árbevétel!
-                                    Ez az EKR RENDSZER nyújtotta lehetőség Önnek.
-                                </p>
-                                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
-                                    <Link href="/jelentkezes">
-                                        <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                                    </Link>
-                                    <Button
-                                        onClick={() =>
-                                            document
-                                            .getElementById("ekr-rendszer")
-                                            .scrollIntoView(true)
-                                        }
-                                        variant="secondary"
-                                    >
-                                        Részletek
-                                    </Button>
-                                </div>
-                            </div>
-                        </CarouselItem>
-                        <CarouselItem
-                            className={cn(
-                                "w-full bg-cover min-h-[60vh] bg-gray-400 bg-blend-multiply"
-                            )}
-                            style={{
-                                backgroundImage:
-                                    "url('https://walkerweights.hu/assets/images/mbr-6-1920x1280.jpg')",
-                            }}
-                        >
-                            <div
-                                className={cn(
-                                    "lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-gold to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
-                                )}
-                            >
-                                <h1 className={cn("text-3xl font-bold mb-2")}>
-                                    Ha ön energiakereskedő, ez biztosan érdekli!
-                                </h1>
-                                <p>
-                                    Energiahatékonysági beruházásokat valósítunk meg, és a
-                                    beruházáson keletkezett EKR tanúsítványokat az
-                                    energiakereskedők részére értékesítjük. Folyamatosan
-                                    rendelkezünk többfajta értékesítésre váró EKR tanúsítvánnyal,
-                                    ezért könnyebben megtaláljuk az EKR kötelezettsége
-                                    teljesítésének leghatékonyabb módját. Hosszú távú, évek alatt
-                                    folyamatosan energiamegtakarítást termelő megoldásainkat sokak
-                                    veszik igénybe. A kiszámíthatóság értéket teremt.
-                                </p>
-                                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
-                                    <Link href="/jelentkezes">
-                                        <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                                    </Link>
-                                    <Button
-                                        onClick={() =>
-                                            document
-                                            .getElementById("ekr-rendszer")
-                                            .scrollIntoView(true)
-                                        }
-                                        variant="secondary"
-                                    >
-                                        Részletek
-                                    </Button>
-                                </div>
-                            </div>
-                        </CarouselItem>
-                        <CarouselItem
-                            className={cn(
-                                "w-full bg-cover min-h-[60vh] bg-gray-500 bg-blend-multiply"
-                            )}
-                            style={{
-                                backgroundImage:
-                                    "url('https://walkerweights.hu/assets/images/mbr-1920x1200.jpg')",
-                            }}
-                        >
-                            <div
-                                className={cn(
-                                    "lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex flex-col justify-center items-start text-white p-4 !py-28"
-                                )}
-                            >
-                                <h1 className={cn("text-3xl font-bold mb-2")}>
-                                    Energetikai projektek átvilágítása
-                                </h1>
-                                <p>
-                                    A receptünk egyszerű. Tapasztalt energetikai szakjogászokkal
-                                    és kiváló tervezőkkel, villamosmérnökökkel dolgozunk együtt az
-                                    átvilágítások során. Naperőmű fejlesztések és villamosenergia
-                                    tárolók teljeskörű energia jogi, pénzügyi, adójogi, valamint
-                                    energetikai átvilágításával foglalkozunk, de nyújtunk
-                                    tanácsadói támogatást más early stage és ready-to-build
-                                    energetikai projektek fejlesztéséhez is.
-                                </p>
-                                <div className={cn("flex gap-2 mt-2 flex-wrap")}>
-                                    <Link href="/jelentkezes">
-                                        <Button>Vegye igénybe ingyenes konzultációnkat!</Button>
-                                    </Link>
-                                    <Button
-                                        onClick={() =>
-                                            document
-                                            .getElementById("ekr-rendszer")
-                                            .scrollIntoView(true)
-                                        }
-                                        variant="secondary"
-                                    >
-                                        Részletek
-                                    </Button>
-                                </div>
-                            </div>
-                        </CarouselItem>
-                    </CarouselContent>
-                </Carousel>
-            </div>
-            <div
-                ref={ref5}
-                className={cn(
-                    "px-4 py-6 grid lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000 text-center items-center font-semibold text-2xl",
-                    isVisible5 ? "opacity-100" : "opacity-0"
-                )}
-            >
-                2022-ben több, mint
-                <div
-                    className={cn(
-                        "flex border-gray-200 border py-4 px-4 rounded-lg text-center items-center justify-center font-bold text-3xl"
-                    )}
-                >
-                    {count} GJ
-                </div>
-                EKR tanúsítványt értékesítünk
-            </div>
-            <div className="p-4 flex flex-col gap-4">
-                <div
-                    ref={ref1}
-                    className={cn(
-                        "transition-opacity ease-in duration-700 border border-gray-200 rounded-xl overflow-hidden"
-                    )}
-                    style={{
-                        backgroundImage:
-                            "url('https://walkerweights.hu/assets/images/mbr-918x551.jpg')",
-                    }}
-                    id="ekr-rendszer"
-                >
-                    <div
-                        className={cn(
-                            "w-full flex-col flex gap-2 col-span-3 p-4 rounded-xl duration-1000",
-                            isVisible1
-                                ? "backdrop-blur-md bg-black bg-opacity-30 text-white"
-                                : "text-transparent"
-                        )}
-                    >
-                        <h2 className={cn("text-2xl font-semibold")}>
-                            Mi az EKR rendszer?
-                        </h2>
-                        <p>
-                            Az EKR rendszer az energiahatékonysági kötelezettségi rendszer
-                            rövidített neve, melyet 2021. január 1. napjával vezettek be
-                            Magyarországon.
-                        </p>
-                        <p>
-                            Az EKR rendszer lényege, hogy ha egy energiahatékonysági
-                            beruházással (pl. épület világításkorszerűsítésével vagy
-                            szigetelésével) energiamegtakarítást ér el, és ezt a megtakarítást
-                            egy energetikai auditorral hitelesíti, akkor ún. EKR tanúsítvány
-                            (azaz hitelesített energiamegtakarítás) keletkezik, melyet
-                            értékesíteni tud a piacon. Ez tényleges extra árbevételt jelent!
-                        </p>
-                        <p>
-                            Ki veszi meg az EKR tanúsítványt? Az energiakereskedők nagy
-                            mennyiségben vásárolják, mert jogszabály kötelezi erre őket.
-                        </p>
-                        <p>
-                            Az EKR rendszer tehát lehetővé teszi, hogy az EKR tanúsítvány
-                            értékesítésével pénzt keressen cégének.
-                        </p>
-                        <p>
-                            A mi dolgunk kitalálni hogyan… ezt nevezzük EKR menedzsmentnek.
-                        </p>
-                    </div>
-                </div>
-                <div
-                    ref={ref2}
-                    className={cn(
-                        "transition-opacity ease-in duration-700 border border-gray-200 rounded-xl overflow-hidden bg-cover bg-center"
-                    )}
-                    style={{
-                        backgroundImage:
-                            "url('https://images.unsplash.com/photo-1634474588578-7f0565a1cea5?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-                    }}
-                >
-                    <div
-                        className={cn(
-                            "w-full flex-col flex gap-2 col-span-3 p-4 rounded-xl duration-1000",
-                            isVisible2
-                                ? "backdrop-blur-md bg-black bg-opacity-30 text-white"
-                                : "text-transparent"
-                        )}
-                    >
-                        <h2 className={cn("text-2xl font-semibold")}>
-                            Hogyan értékesíthetünk EKR tanusítványt?
-                        </h2>
-                        <p>
-                            Az energiahatékonysági törvény alapján, 2021. január óta az
-                            energiakereskedőknek (áramkereskedők, gázkereskedők, és üzemanyag
-                            kereskedők) törvényi kötelezettségük adott mennyiségű
-                            energiamegtakarítást elérni, amit a leggyakrabban úgy tudnak
-                            teljesíteni, hogy EKR tanúsítványt (tehát hitelesített
-                            energiamegtakarítást) vásárolnak a piacon. Az EKR tanúsítvány
-                            eladása Önnek tényleges extra árbevételt jelent.
-                        </p>
-                        <p className={cn("font-semibold")}>
-                            Mi abban nyújtunk segítséget, hogy a hatályos jogszabályi
-                            környezetben hogyan tud EKR tanúsítványt energiahatékonysági
-                            beruházással létrehozni, és segítünk annak eladásában. Számos
-                            energiakereskedő partnerünk várja, hogy folyamatosan EKR
-                            tanúsítványhoz jusson.
-                        </p>
-                        <Link href="/jelentkezes">
-                            <Button
-                                variant="secondary"
-                                className={cn(
-                                    "duration-1000 ease-in transition-opacity",
-                                    isVisible2 ? "opacity-100" : "opacity-0"
-                                )}
-                            >
-                                Ingyenes konzultáció
-                            </Button>
-                        </Link>
-                    </div>
-                </div>
-                <div
-                    ref={ref3}
-                    className={cn(
-                        "transition-opacity ease-in duration-700 border border-gray-200 rounded-xl overflow-hidden bg-cover bg-center"
-                    )}
-                    style={{
-                        backgroundImage:
-                            "url('https://walkerweights.hu/assets/images/mbr-1080x720.jpg')",
-                    }}
-                >
-                    <div
-                        className={cn(
-                            "w-full flex-col flex gap-2 col-span-3 p-4 rounded-xl duration-1000",
-                            isVisible3
-                                ? "backdrop-blur-md bg-black bg-opacity-30 text-white"
-                                : "text-transparent"
-                        )}
-                    >
-                        <h2 className={cn("text-2xl font-semibold")}>
-                            Fuvarozó cégeknek speciális lehetőség az eco driving
-                        </h2>
-                        <p className={cn("font-semibold")}>
-                            Energiatakarékos vezetés (eco driving) képzéssel
-                            energiamegtakarítást érhető el, amit a piacon energiakereskedőknek
-                            tudunk értékesíteni. Biztosan megtérül a beruházás, ezzel
-                            lehetetlen rosszul járni!
-                        </p>
-                        <p>
-                            Közel 10.000 GJ energiamegtakarítást hoztunk létre eco driving
-                            képzések megszervezésével, és az ebből származó
-                            energiamegtakarítás hitelesítésével. Az így keletkezett EKR
-                            tanúsítványokat sikerrel értélesítettük a piacon.
-                        </p>
-                        <p>
-                            Ráadásul, a statisztikák szerint az eco driving képzéssel évente
-                            5% üzemanyag mennyiség is megtakarítható.{" "}
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div
-                ref={ref4}
-                className={cn(
-                    "p-4 grid lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000",
-                    isVisible4 ? "opacity-100" : "opacity-0"
-                )}
-            >
-                <div
-                    className={cn(
-                        "col-span-1 border border-gray-200 rounded-xl p-4"
-                    )}
-                >
-                    <h3 className="text-xl font-semibold mb-2">
-                        A mi dolgunk kitalálni...
-                    </h3>
-                    <p className="text-sm">
-                        Energetikai auditorunk egy ingyenes EKR felmérést követően
-                        javaslatot tesz a Ön cégénél megvalósítható, legnagyobb árbevétellel
-                        járó energiahatékonysági beruházás(ok)ra. A beruházás
-                        lebonyolításához segítséget nyújtunk, a beruházással keletkező
-                        energiamegtakarítást hitelesítjük, és az EKR tanúsítványt
-                        értékesítjük. Ön pedig ezzel pénzt keres.
-                    </p>
-                </div>
-                <div
-                    className={cn(
-                        "col-span-1 border border-gray-200 rounded-xl p-4"
-                    )}
-                >
-                    <h3 className="text-xl font-semibold mb-2">Kevéstől a sokig</h3>
-                    <p className="text-sm">
-                        Ha Ön energiakereskedő, és vásárlási céllal EKR tanúsítványokat
-                        keres az EKR kötelezettsége feltöltése érdekében, akkor nálunk
-                        többfajta csomagajánlat közül is válogathat. Akkor is segítünk, ha
-                        csak minimális mennyiségű GJ energiamegtakarításra van szüksége, és
-                        akkor is, ha több éves EKR kötelezettségét szeretné egy
-                        megállapodással megoldani. Ez utóbbi komoly előnyökkel is járhat.
-                    </p>
-                </div>
-                <div
-                    className={cn(
-                        "col-span-1 border border-gray-200 rounded-xl p-4"
-                    )}
-                >
-                    <h3 className="text-xl font-semibold mb-2">
-                        Mindenhova &quot;bevilágítunk&quot;
-                    </h3>
-                    <p className="text-sm">
-                        Villamosenergia termeléssel foglalkozó projektjével kapcsolatos
-                        kérdések esetén csapatunk szívesen ad szakmai tanácsot, illetve
-                        elvégezzük a meglévő vagy a megvásárolni szándékozott projekt
-                        teljeskörű átvilágítását energiajogi, adójogi, pénzügyi, és
-                        energetikai szakterületen. Jogászaink, villamosmérnökeink,
-                        tervezőink már összeszoktak, értik egymást, azonos nyelvet
-                        beszélnek.
-                    </p>
-                </div>
-            </div>
-            <div
-                className={cn(
-                    "p-4 flex flex-col gap-2 transition-opacity ease-in duration-1000 lg:px-24",
-                    isVisible6 ? "opacity-100" : "opacity-0"
-                )}
-                ref={ref6}
-            >
-                <h2 className={cn("text-2xl font-bold")}>
-                    Az első mindig ingyen van...
-                </h2>
-                <p>
-                    <strong>Ha Ön beruházó</strong>, ingyenesen felmérjük az Ön cégénél
-                    elérhető összes energiamegtakarítást.
-                </p>
-                <p>
-                    <strong>Ha Ön energiakereskedő</strong>, ingyenesen összeállítjuk az
-                    Ön számára legoptimálisabb EKR tanúsítvány csomagajánlatot.
-                </p>
-                <p>
-                    <strong>Ha Ön energetikai tanácsadót keres</strong>, az első
-                    konzultáción ingyenesen áttekintjük a projektjét, és iránymutatást
-                    adunk a céljai eléréséhez.
-                </p>
-                <p className={cn("font-semibold")}>
-                    Azt szeretnénk, hogy azért válasszon bennünket, mert az első
-                    beszélgetésen elnyertük a bizalmát, és ne azért, mert az első
-                    konzultáció munkadíját már ránk költötte.
-                </p>
-                <Link className="w-full" href="/kapcsolat">
-                    <Button className="w-full">Vegye fel velünk a kapcsolatot</Button>
-                </Link>
-            </div>
-            <h3
-                className={cn(
-                    "w-full text-center font-bold text-2xl mt-4 transition-opacity ease-in duration-1000",
-                    isVisible7 ? "opacity-100" : "opacity-0"
-                )}
-            >
-                Csapatunk
-            </h3>
-            <div
-                className={cn(
-                    "p-4 grid grid-cols-2 lg:grid-cols-3 gap-4 transition-opacity ease-in duration-1000",
-                    isVisible7 ? "opacity-100" : "opacity-0"
-                )}
-                ref={ref7}
-            >
-                <div
-                    className={cn("col-span-1 flex flex-col items-center text-center")}
-                >
-                    <Avatar className="w-1/2 h-auto">
-                        <AvatarImage className="bg-" src="/team/Marianna.jpg"/>
-                        <AvatarFallback>SZM</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-semibold my-2">Szeifert Marianna</h3>
-                    <p className="text-sm">ügyvezető, kontrolling szakközgazdász</p>
-                </div>
-                <div
-                    className={cn("col-span-1 flex flex-col items-center text-center")}
-                >
-                    <Avatar className="w-1/2 h-auto">
-                        <AvatarImage className="bg-" src="/team/Robert.jpg"/>
-                        <AvatarFallback>SR</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-semibold my-2">dr. Sulyok Róbert</h3>
-                    <p className="text-sm">ügyvéd, energiajogász, EKR jogi szakértő</p>
-                </div>
-                <div
-                    className={cn("col-span-1 flex flex-col items-center text-center")}
-                >
-                    <Avatar className="w-1/2 h-auto">
-                        <AvatarImage className="bg-" src="/team/Gabor.jpg"/>
-                        <AvatarFallback>HG</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-semibold my-2">Hajdu Gábor</h3>
-                    <p className="text-sm">
-                        energetikai auditor és szakreferens, okleveles villamosmérnök,
-                        gépészmérnök, közgazdász, EKR auditálási szakértő
-                    </p>
-                </div>
-                <div
-                    className={cn("col-span-1 flex flex-col items-center text-center")}
-                >
-                    <Avatar className="w-1/2 h-auto">
-                        <AvatarImage className="bg-" src="/team/Aron.jpg"/>
-                        <AvatarFallback>HG</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-semibold my-2">Horváth Áron</h3>
-                    <p className="text-sm">kereskedelmi vezető</p>
-                </div>
-                <div
-                    className={cn("col-span-1 flex flex-col items-center text-center")}
-                >
-                    <Avatar className="w-1/2 h-auto">
-                        <AvatarImage className="bg-" src="/team/Orsolya.jpg"/>
-                        <AvatarFallback>HG</AvatarFallback>
-                    </Avatar>
-                    <h3 className="text-xl font-semibold my-2">Deák Orsolya</h3>
-                    <p className="text-sm">projekt koordinátor</p>
-                </div>
-            </div>
-        </Template>
-    );
+				</div>
+				<div
+					className={"border-2 shadow-sm border-brand-gold relative rounded-3xl p-8 text-gray-950 flex flex-col gap-4"}>
+					<div className={"flex justify-start items-center gap-2"}>
+						<div
+							className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>3
+						</div>
+						<h2 className={cn("text-xl font-semibold text-brand-gold")}>
+							Hitelesítünk
+						</h2>
+					</div>
+					<p> Miután elkészült a beruházás, a vele keletkező energiamegtakarítást a lehető legrövidebb idő
+						alatt hitelesítjük.</p>
+				</div>
+				<div
+					className={"border-2 shadow-sm border-brand-gold relative rounded-3xl p-8 text-gray-950 flex flex-col gap-4"}>
+					<div className={"flex justify-start items-center gap-2"}>
+						<div
+							className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>4
+						</div>
+						<h2 className={cn("text-xl font-semibold text-brand-gold")}>
+							Értékesítünk
+						</h2>
+					</div>
+					<p> A sikeres hitelesítés után keletkezett EKR tanúsítványt értékesítjük, mellyel extra bevételt
+						generálunk Önnek.</p>
+				</div>
+				<div
+					className={"border-2 shadow-sm border-brand-gold relative rounded-3xl p-8 text-gray-950 flex flex-col gap-4"}>
+					<div className={"flex justify-start items-center gap-2"}>
+						<div
+							className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>5
+						</div>
+						<h2 className={cn("text-xl font-semibold text-brand-gold")}>
+							Tanácsokat adunk
+						</h2>
+					</div>
+					<p> Ha szakmai kérdése van elektromos energia termelésével, vagy adott projekt teljes körű
+						átvilágításával kapcsolatban, villamosmérnökeink, jogászaink és tervezőink örömmel válaszolnak
+						rá.</p>
+				</div>
+			</div>
+			<div className={cn("p-8")}>
+				<h3 className={cn("text-xl font-bold mb-4 text-gray-800")}>
+					Üzleti partnereink, akik már profitáltak szolgáltatásainkból
+				</h3>
+				<div className={cn("flex flex-wrap gap-4 font-medium text-white")}>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>OMV</p>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>e.on</p>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>audax</p>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>castrum
+						ferrerum</p>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>Áramcentrum</p>
+					<p className={cn("px-4 py-1.5 bg-brand-green bg-opacity-90 hover:bg-opacity-100 rounded-full" + " transition-shadow" + " duration-300")}>EMOGÁ</p>
+				</div>
+			</div>
+			<div
+				ref={ref5}
+				className={cn("bg-brand-green px-8 py-12 grid lg:grid-cols-3 gap-8 text-center items-center font-semibold" + " text-2xl text-white",)}
+			>
+				Több mint
+				<div
+					className={cn("flex border-gray-200 border py-4 px-4 rounded-lg text-center items-center justify-center font-bold text-3xl")}
+				>
+					{count} GJ
+				</div>
+				értékesített EKR tanúsítvány
+			</div>
+			<div className={cn("p-8")}>
+				<h3 className={"text-xl font-semibold text-gray-800"}>
+					Energiakereskedőként EKR tanúsítványt vásárolna?
+				</h3>
+				<p className={"text-gray-800"}>
+					Bármekkora energiamegtakarításara is van szüksége, nálunk biztosan megtalálja, hiszen
+					többfajta csomagajánlatot is kínálunk.
+				</p>
+				<div className={"grid grid-cols-1 md:grid-cols-3 mt-4 gap-4"}>
+					<Card>
+						<CardHeader>
+							<CardTitle>
+								Alap
+							</CardTitle>
+							<CardDescription>
+								Kezdőcsomag
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<div className={cn("flex flex-col gap-4")}>
+								<p> 10 GJ</p>
+								<p> 100 000 Ft</p>
+								<p> 10 000 Ft/GJ</p>
+							</div>
+						</CardContent>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>
+								Premium
+							</CardTitle>
+							<CardDescription>
+								Közép csomag
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<div className={cn("flex flex-col gap-4")}>
+								<p> 30 GJ</p>
+								<p> 250 000 Ft</p>
+								<p> 8 333 Ft/GJ</p>
+							</div>
+						</CardContent>
+					</Card>
+					<Card>
+						<CardHeader>
+							<CardTitle>
+								Exkluzív
+							</CardTitle>
+							<CardDescription>
+								Premium csomag
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<div className={cn("flex flex-col gap-4")}>
+								<p> 50 GJ</p>
+								<p> 400 000 Ft</p>
+								<p> 8 000 Ft/GJ</p>
+							</div>
+						</CardContent>
+					</Card>
+				</div>
+			</div>
+			<div className={"bg-brand-gold p-8 text-white"}>
+				<h3 className={"text-xl font-semibold"}>
+					Lépjen velünk kapcsolatba!
+				</h3>
+				<p>
+					Töltse ki űrlapunkat és kollégáink 24 órán belül visszahívják!
+				</p>
+				<Link href={"/jelentkezes"}>
+					<Button variant={"secondary"} className={cn("w-full mt-4")}>
+						Ingyenes konzultáció
+					</Button>
+				</Link>
+			</div>
+			<div className={"flex flex-col gap-4 p-8"}>
+				<Card>
+					<CardHeader>
+						<CardTitle>Megéri minket választania!</CardTitle>
+						<CardDescription>
+							Nálunk nincs semmi vesztenivalója, hiszen első konzultációnk teljesen ingyenes akár
+							beruházóként, akár energiakereskedőként, vagy csak szakmai tanácsért fordul
+							hozzánk.
+						</CardDescription>
+					</CardHeader>
+				</Card>
+				<Card>
+					<CardHeader>
+						<CardTitle>Nézzen be hozzánk!</CardTitle>
+						<CardDescription>Önt is szeretettel várjuk Budapest belvárosában lévő
+							irodánkban!</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<div
+							className="grid grid-cols-1 lg:grid-cols-4 lg:gap-4 h-[70vh] border border-gray-200 rounded-xl overflow-hidden">
+							<div className="col-span-1 flex flex-col items-center justify-center text-center gap-2">
+								<p>
+									1054 Budapest, Szabadság tér 7.,
+									<br/>
+									Bank Center, Citi torony, I. emelet
+								</p>
+								<p>+36 30 99 89 114</p>
+								<p>info@walkerweights.hu</p>
+							</div>
+							<Iframe
+								src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=House%20of%20Business%20Bank%20Center+(Walker%20&amp;%20Weights)&amp;t=h&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+								width="100%"
+								height="100%"
+								frameborder="0"
+								style="border:0"
+								className="col-span-3"
+								allowfullscreen
+							></Iframe>
+						</div>
+					</CardContent>
+				</Card>
+			</div>
+		</Template>
+	);
 }
