@@ -1,0 +1,22 @@
+import mongoose from "mongoose";
+
+const ClientSchema = new mongoose.Schema({
+	company_name: {type: String, required: true},
+	email: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+	phone: {type: String, required: true},
+	first_name: {type: String},
+	last_name: {type: String},
+	data: {type: Array, default: []},
+	created_at: {type: Date, default: Date.now},
+	energeticInvestmentSince2021: {type: Boolean},
+	energeticInvestmentWhen: {type: String},
+	energeticInvestmentType: {type: String},
+	energeticInvestmentAmount: {type: String},
+	registerMessage: {type: String},
+});
+
+module.exports = mongoose.models.Client || mongoose.model("Client", ClientSchema);
