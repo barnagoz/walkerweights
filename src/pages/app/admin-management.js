@@ -1,7 +1,7 @@
 import ActionMenu from "@/components/admin/actionMenu";
 import CreateAdminPanel from "@/components/admin/createAdminPanel";
 import Gate from "@/components/auth/gate";
-import Navigation from "@/components/common/navigation";
+import Template from "@/components/common/template";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -27,8 +27,8 @@ export default function AdminManagement () {
 
 	return (
 		<Gate permission={['app', 'admin-management']}>
-			<Navigation/>
-			<div className={"mt-24 p-4"}>
+			<Template>
+				<div className={"p-4"}>
 				<div className={"flex justify-between"}>
 					<h1 className={"text-2xl font-bold"}>Adminisztrátorok</h1>
 					<CreateAdminPanel/>
@@ -57,6 +57,7 @@ export default function AdminManagement () {
 					</TableBody>
 				</Table>
 			</div>
+			</Template>
 		</Gate>
 	);
 }

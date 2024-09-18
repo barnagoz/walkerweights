@@ -1,15 +1,14 @@
 import Gate from "@/components/auth/gate";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Template from "@/components/common/template";
 
 export default function App () {
 	return (
 		<Gate permission="app">
-			<div>
-				<h1>App</h1>
-				<Gate permission="admin-management" inline>
-					<Link href={"/app/admin-management"}><Button>Adminisztrátori fiókok kezelése</Button></Link>
-				</Gate>
-			</div>
-		</Gate>);
+			<Template>
+				<div className={"p-4"}>
+					<h1 className={"text-2xl font-bold"}>Adminisztrációs konzol</h1>
+				</div>
+			</Template>
+		</Gate>
+	);
 }
