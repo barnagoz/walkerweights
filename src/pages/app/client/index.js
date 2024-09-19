@@ -42,7 +42,7 @@ export default function ListClients () {
 				<div className={"p-4"}>
 					<div className={"flex flex-row justify-between"}>
 						<h1 className={"text-2xl font-bold"}>Ügyfelek</h1>
-						<Button onClick={exportData}>Letöltés</Button>
+						<Gate permission={"client-export"} inline><Button onClick={exportData}>Letöltés</Button></Gate>
 					</div>
 					<p className={"muted mt-2"}>Alább láthatók a különböző beérkezett jelentkezések &quot;Ingyenes
 						konzultáció&quot; néven.</p>

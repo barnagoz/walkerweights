@@ -1,3 +1,4 @@
+import Gate from "@/components/auth/gate";
 import AppButton from "@/components/ui/app-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -61,8 +62,12 @@ export function NavigationSheet ({children}) {
 					<SheetTitle>Alkalmazásválasztó</SheetTitle>
 				</SheetHeader>
 				<div className={"grid grid-cols-2 gap-4 mt-4"}>
-					<AppButton link={"/app"} title={"Főoldal"}/>
-					<AppButton link={"/app/admin-management"} title={"Fiók kezelés"}/>
+					<Gate permission={"app"} inline><AppButton link={"/app"} title={"Főoldal"}/></Gate>
+					<Gate permission={["app", "client-list"]} inline><AppButton link={"/app/client"}
+					                                                            title={"Ügyfélkezelés"}/></Gate>
+					<Gate permission={["app", "admin-management"]} inline><AppButton link={"/app/admin-management"}
+					                                                                 title={"Fiók" +
+						                                                                 " kezelés"}/></Gate>
 				</div>
 			</SheetContent>
 		</Sheet>
