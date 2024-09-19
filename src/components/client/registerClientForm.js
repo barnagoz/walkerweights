@@ -111,7 +111,9 @@ export function RegisterClientForm () {
 					<FormItem>
 						<FormControl>
 							<div className={"flex gap-1 items-center my-4"}>
-								<Checkbox {...field}/>
+								<Checkbox {...field}
+								          onCheckedChange={(e) => form.setValue("energeticInvestmentSince2021", e)}
+								          value={form.getValues("energeticInvestmentSince2021")}/>
 								<FormLabel>2021 óta történt energetikai beruházás a cégemnél.</FormLabel>
 							</div>
 						</FormControl>
