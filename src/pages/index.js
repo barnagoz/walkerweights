@@ -45,7 +45,9 @@ export default function Home () {
 					}}
 				>
 					<div
-						className={cn("lg:w-4/5 w-full h-full bg-gradient-to-r from-brand-green to-transparent flex" + " flex-col" + " justify-center items-start text-white p-8 !py-36")}
+                        className={cn("lg:w-4/5 w-full min-h-[50vh] h-full bg-gradient-to-r from-brand-green" +
+                            " to-transparent" +
+                            " flex" + " flex-col" + " justify-center items-start text-white p-8 !py-36")}
 					>
 						<h1 className={cn("text-4xl font-bold mb-2")}>
 							A mi célunk, hogy minél több extra profitot szerezzen!
