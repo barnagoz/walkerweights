@@ -4,6 +4,7 @@ import {Inter as FontSans} from "next/font/google";
 import {cn} from "@/lib/utils";
 import SEO from '/seo.config';
 import {DefaultSeo} from "next-seo";
+import {Toaster} from "@/components/ui/sonner"
 
 export const fontSans = FontSans({
     subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function App ({
             <DefaultSeo {...SEO} />
             <SessionProvider session={session}>
                 <Component {...pageProps} />
+                <Toaster />
             </SessionProvider>
         </div>
     );
