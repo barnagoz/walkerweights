@@ -8,8 +8,8 @@ import {
 export default function StatCard ({title, icon, value, description}) {
 	return (
 		<Card>
-			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-2">
-				<CardTitle className="text-sm font-medium">{title}</CardTitle>
+			<CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 gap-4">
+				<CardTitle className="text-sm font-medium mr-2">{title}</CardTitle>
 				{icon}
 			</CardHeader>
 			<CardContent>

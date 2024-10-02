@@ -48,7 +48,7 @@ export default function ShowClient () {
 							          value={new Date(client.created_at).toLocaleDateString()}/>
 						</div>
 						<div className={"flex flex-wrap w-full gap-2 mt-2"}>
-							<Card>
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Kapcsolattartó</CardTitle>
 								</CardHeader>
@@ -81,7 +81,7 @@ export default function ShowClient () {
 									</Table>
 								</CardContent>
 							</Card>
-							<Card>
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Energetikai fejlesztések</CardTitle>
 								</CardHeader>
@@ -109,7 +109,7 @@ export default function ShowClient () {
 									</Table>
 								</CardContent>
 							</Card>
-							<Card>
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Megjegyzés</CardTitle>
 								</CardHeader>
