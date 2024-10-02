@@ -91,7 +91,7 @@ export default function ShowClient () {
 											<TableRow>
 												<TableCell>2021 óta történt energetikai beruházás</TableCell>
 												<TableCell><Checkbox
-													checked={client.energeticInvestmentSince2021}/></TableCell>
+													checked={client.energeticInvestmentSince2021} disabled/></TableCell>
 											</TableRow>
 											<TableRow>
 												<TableCell>Ennek befejezési éve</TableCell>
