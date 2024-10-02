@@ -17,7 +17,7 @@ const formSchema = z.object({
 	first_name: z.string().min(1, {message: "Keresztnév megadása kötelező"}).max(255, {message: "A keresztnév maximum 255 karakter lehet"}),
 	last_name: z.string().min(1, {message: "Vezetéknév megadása kötelező"}).max(255, {message: "A vezetéknév maximum 255 karakter lehet"}),
 	energeticInvestmentSince2021: z.boolean(),
-	energeticInvestmentWhen: z.string().max(255, {message: "A mező maximum 255 karakter lehet"}),
+	energeticInvestmentWhen: z.string().regex(new RegExp(/^(202[1-9]|20[3-9]\d|2[1-9]\d{2}|[3-9]\d{3}|\d{5,})$/), {message: "2021 utáni évszám megadása szükséges"}).max(255, {message: "A mező maximum 255 karakter lehet"}),
 	energeticInvestmentType: z.string().max(255, {message: "A mező maximum 255 karakter lehet"}),
 	energeticInvestmentAmount: z.string().max(255, {message: "A mező maximum 255 karakter lehet"}),
 	registerMessage: z.string(),
@@ -124,7 +124,7 @@ export function RegisterClientForm () {
 					<FormItem className={"mt-3"}>
 						<FormLabel>Amennyiben történt, melyik évben történt meg ennek befejezése?</FormLabel>
 						<FormControl>
-							<Input {...field} placeholder={"pl.: 2023"}/>
+							<Input type={"number"} {...field} placeholder={"pl.: 2023"}/>
 						</FormControl>
 						<FormMessage/>
 					</FormItem>

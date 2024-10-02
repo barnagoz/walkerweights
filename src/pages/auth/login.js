@@ -52,8 +52,8 @@ export default function SignIn () {
                                 <CardDescription>Még nincs fiókja? Töltse ki ingyenes konzultációnkat!</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <CredentialForm buttonText={"Bejelentkezés"}/>
                                 <ErrorAlert error={error}/>
+                                <CredentialForm buttonText={"Bejelentkezés"}/>
                             </CardContent>
                         </Card>
                     )}

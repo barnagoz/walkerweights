@@ -48,7 +48,7 @@ export default function ShowClient () {
 							          value={new Date(client.created_at).toLocaleDateString()}/>
 						</div>
 						<div className={"flex flex-wrap w-full gap-2 mt-2"}>
-							<Card>
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Kapcsolattartó</CardTitle>
 								</CardHeader>
@@ -81,7 +81,7 @@ export default function ShowClient () {
 									</Table>
 								</CardContent>
 							</Card>
-							<Card>
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Energetikai fejlesztések</CardTitle>
 								</CardHeader>
@@ -91,7 +91,7 @@ export default function ShowClient () {
 											<TableRow>
 												<TableCell>2021 óta történt energetikai beruházás</TableCell>
 												<TableCell><Checkbox
-													checked={client.energeticInvestmentSince2021}/></TableCell>
+													checked={client.energeticInvestmentSince2021} disabled/></TableCell>
 											</TableRow>
 											<TableRow>
 												<TableCell>Ennek befejezési éve</TableCell>
@@ -109,7 +109,8 @@ export default function ShowClient () {
 									</Table>
 								</CardContent>
 							</Card>
-							<Card>
+							{client.registerMessage && (
+							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Megjegyzés</CardTitle>
 								</CardHeader>
@@ -117,6 +118,7 @@ export default function ShowClient () {
 									{client.registerMessage}
 								</CardContent>
 							</Card>
+							)}
 						</div>
 					</div>
 				)}

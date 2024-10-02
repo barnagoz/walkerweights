@@ -40,7 +40,7 @@ export function AdminNavigation () {
 					</Link>
 				</div>
 				<div className={"flex items-center justify-end gap-4"}>
-					<p>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
+					<p className={"hidden md:block"}>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
 					<AccountDropdown>
 						<Avatar className={"w-8 h-8"}>
 							<AvatarImage src={session?.user?.image ?? ""}/>
