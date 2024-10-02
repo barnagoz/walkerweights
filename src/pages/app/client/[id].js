@@ -109,6 +109,7 @@ export default function ShowClient () {
 									</Table>
 								</CardContent>
 							</Card>
+							{client.registerMessage && (
 							<Card className={"flex-grow"}>
 								<CardHeader>
 									<CardTitle>Megjegyzés</CardTitle>
@@ -117,6 +118,7 @@ export default function ShowClient () {
 									{client.registerMessage}
 								</CardContent>
 							</Card>
+							)}
 						</div>
 					</div>
 				)}
