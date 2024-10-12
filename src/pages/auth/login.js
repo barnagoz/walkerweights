@@ -1,6 +1,5 @@
 import {CredentialForm} from "@/components/auth/credentialForm";
-import { PasswordForm } from "@/components/auth/passwordForm";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import Template from "@/components/common/template";
 import {useEffect} from "react";
@@ -19,10 +18,15 @@ export default function SignIn () {
 
     useEffect(() => {
         if (status === "authenticated") {
-            if (session.user.access_list.includes("app")) {
-                Router.push("/app");
-            } else {
-                Router.push("/");
+            if (session.user.type === "client") {
+                Router.push("/portal");
+            }
+            if (session.user.type === "admin") {
+                if (session.user.access_list.includes("app")) {
+                    Router.push("/app");
+                } else {
+                    Router.push("/");
+                }
             }
         }
     }, [status, session]);

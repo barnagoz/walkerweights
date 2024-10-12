@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 const formSchema = z.object({
 	email: z.string().email("Érvényes e-mail címet adj meg!"),
-	password: z.string().min(1,"Jelszó megadása kötelező!"),
+	password: z.string().min(8, "A jelszónak legalább 8 karakter hosszúnak kell lennie!"),
 });
 
 export function PasswordForm ({token, apiLink}) {
@@ -73,11 +73,14 @@ export function PasswordForm ({token, apiLink}) {
 									type="password"
 								/>
 							</FormControl>
+							<FormDescription>
+								Egy ön által választott minimum 8 karakter hosszú jelszó.
+							</FormDescription>
 							<FormMessage/>
 						</FormItem>
 					)}
 				/>
-				<Button className={cn("w-full mt-2")} type="submit">
+				<Button className={cn("w-full mt-4")} type="submit">
 					Jelszó mentése
 				</Button>
 			</form>

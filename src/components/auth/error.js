@@ -21,23 +21,13 @@ export default function ErrorAlert ({error}) {
     return (
         <>
             {error && (
-                <Alert variant="destructive">
+                <Alert variant="destructive" className={"mt-2"}>
                     <ExclamationTriangleIcon className={cn("h-4 w-4")}/>
                     <AlertTitle>Hiba történt</AlertTitle>
                     <AlertDescription>
                         A bejelentkezés során hiba történt, kérlek próbáld meg újra,
                         vagy lépj kapcsolatba az adminisztrátorral.
                         <br/>
-                        <Link href="mailto:barnagoz@icloud.com">
-                            <Button
-                                variant="link"
-                                className={cn(
-                                    "text-xs px-2 py-0 -my-1 text-destructive"
-                                )}
-                            >
-                                Visszajelzés küldése
-                            </Button>
-                        </Link>
                         <AlertDialog>
                             <AlertDialogTrigger>
                                 <Button
@@ -46,7 +36,7 @@ export default function ErrorAlert ({error}) {
                                         "text-xs px-2 py-0 -my-1 text-destructive"
                                     )}
                                 >
-                                    Fejlesztői információ
+                                    További információ
                                 </Button>
                             </AlertDialogTrigger>
                             <AlertDialogOverlay>
