@@ -40,12 +40,15 @@ export const authOptions = {
                 if (client) {
                     const isValidPassword = await bcrypt.compare(credentials.password, client.password);
                     if (isValidPassword) {
+	                    client.session_token = await bcrypt.hashSync(client.email + Date.now(), 10);
+	                    await client.save();
                         return {
                             type: "client",
                             id: client._id,
                             email: client.email,
                             first_name: client.first_name,
                             last_name: client.last_name,
+	                        session_token: client.session_token,
                         };
                     }
                 }
@@ -69,6 +72,7 @@ export const authOptions = {
                     token.email = user.email;
                     token.first_name = user.first_name;
                     token.last_name = user.last_name;
+	                token.session_token = user.session_token
                 }
             }
             return token;
@@ -85,6 +89,7 @@ export const authOptions = {
                 session.user.email = token.email;
                 session.user.name = `${token.first_name} ${token.last_name}`;
                 session.user.type = token.type;
+	            session.user.session_token = token.session_token;
             }
             return session;
         },

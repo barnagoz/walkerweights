@@ -34,7 +34,7 @@ export default async function handler (req, res) {
 			phone,
 			first_name,
 			last_name,
-			energeticInvestmentSince2011: energeticInvestmentSince2011 || false,
+			energeticInvestmentSince2011: energeticInvestmentSince2011 !== undefined ? energeticInvestmentSince2011 : false,
 			energeticInvestmentWhen: energeticInvestmentWhen || "",
 			energeticInvestmentType: energeticInvestmentType || "",
 			energeticInvestmentAmount: energeticInvestmentAmount || "",

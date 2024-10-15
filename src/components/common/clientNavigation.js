@@ -57,9 +57,12 @@ export function NavigationSheet ({children}) {
 			<SheetTrigger>{children}</SheetTrigger>
 			<SheetContent side={"left"}>
 				<SheetHeader>
-					<SheetTitle>Alkalmazásválasztó</SheetTitle>
+					<SheetTitle>Lehetőségek</SheetTitle>
 				</SheetHeader>
-				<div className={"grid grid-cols-2 gap-4 mt-4"}>
+				<div className={"flex flex-col gap-2 mt-4"}>
+					<Link href={"/portal"}><Button variant={"secondary"} className={"w-full"}>Főoldal</Button></Link>
+					<Link href={"/portal/account"}><Button variant={"secondary"} className={"w-full"}>Személyes
+						adatok</Button></Link>
 				</div>
 			</SheetContent>
 		</Sheet>
