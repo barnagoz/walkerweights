@@ -1,4 +1,5 @@
 import {CredentialForm} from "@/components/auth/credentialForm";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import Template from "@/components/common/template";
@@ -9,6 +10,7 @@ import {useSession} from "next-auth/react";
 import {LoadingSpinner} from "@/components/ui/spinner";
 import {NextSeo} from "next-seo";
 import ErrorAlert from "@/components/auth/error";
+import Link from "next/link";
 
 export default function SignIn () {
     const {data: session, status} = useSession();
@@ -57,6 +59,9 @@ export default function SignIn () {
                             </CardHeader>
                             <CardContent>
                                 <CredentialForm buttonText={"Bejelentkezés"}/>
+                                <Link href={"/auth/forgot-password"}><Button variant={"ghost"}
+                                                                             className={"w-full mt-2"}>Elfelejtett
+                                    jelszó →</Button></Link>
                                 <ErrorAlert error={error}/>
                             </CardContent>
                         </Card>

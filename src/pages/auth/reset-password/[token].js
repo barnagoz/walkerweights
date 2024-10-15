@@ -11,14 +11,14 @@ export default function AdminPasswordSetup () {
 			<Card className={"w-full md:w-1/3"}>
 				<CardHeader>
 					<Image src={"/asset/logo.svg"} alt={"Walker&Weights"} className={"mb-4"} width={90} height={43}/>
-					<CardTitle>Fiók jelszavának beállítása</CardTitle>
-					<CardDescription>Kérjük adja meg a jelentkezési email címét, valamint adjon meg egy új
+					<CardTitle>Fiók jelszavának módosítása</CardTitle>
+					<CardDescription>Kérjük adja meg a bejelentkezési email címét, valamint adjon meg egy új
 						jelszót a fiókjához.</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<PasswordForm
 						token={token}
-						apiLink="/api/auth/client-password"
+						apiLink="/api/auth/reset-password"
 					/>
 				</CardContent>
 			</Card>

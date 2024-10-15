@@ -90,7 +90,7 @@ export function AccountDropdown ({children}) {
 					</div>
 				</div>
 				<DropdownMenuSeparator/>
-				<Button onClick={() => signOut()} className={"w-full"}>Kijelentkezés</Button>
+				<Link href={"/auth/logout"}><Button className={"w-full"}>Kijelentkezés</Button></Link>
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)
