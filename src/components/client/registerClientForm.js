@@ -29,16 +29,16 @@ export function RegisterClientForm ({data, isEdit = false}) {
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			company_name: data.company_name || "",
-			email: data.email || "",
-			phone: data.phone || "",
-			first_name: data.first_name || "",
-			last_name: data.last_name || "",
-			energeticInvestmentSince2021: data.energeticInvestmentSince2021 || false,
-			energeticInvestmentWhen: data.energeticInvestmentWhen || "",
-			energeticInvestmentType: data.energeticInvestmentType || "",
-			energeticInvestmentAmount: data.energeticInvestmentAmount || "",
-			registerMessage: data.registerMessage || "",
+			company_name: data?.company_name || "",
+			email: data?.email || "",
+			phone: data?.phone || "",
+			first_name: data?.first_name || "",
+			last_name: data?.last_name || "",
+			energeticInvestmentSince2021: data?.energeticInvestmentSince2021 || false,
+			energeticInvestmentWhen: data?.energeticInvestmentWhen || "",
+			energeticInvestmentType: data?.energeticInvestmentType || "",
+			energeticInvestmentAmount: data?.energeticInvestmentAmount || "",
+			registerMessage: data?.registerMessage || "",
 		},
 	});
 
