@@ -2,12 +2,12 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { permissionList } from "@/lib/data/permission";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
-import axios from "axios";
 
 const formSchema = z.object({
 	access_list: z.array(z.string()).min(1, "Legalább egy jogosultságot meg kell adni!"),
@@ -26,11 +26,13 @@ export function UpdateAdminAccessForm ({defaultValues, email, accessid}) {
 			...values,
 			accessid: accessid,
 			email: email,
+		}).catch((e) => {
+			toast.error("Hiba történt a frissítés során, kérlek próbáld újra");
+			console.log(e);
 		});
+
 		if (resp.data.success) {
 			toast.success("Sikeresen frissítve");
-		} else {
-			toast.error("Hiba történt a frissítés során, kérlek próbáld újra");
 		}
 	}
 
@@ -44,23 +46,23 @@ export function UpdateAdminAccessForm ({defaultValues, email, accessid}) {
 						<FormItem>
 							<FormControl>
 								<>
-								{permissionList.map((permission) => (
-									<div key={permission.code}>
-										<Checkbox id={permission.code} value={permission.code}
-										          {...field}
-										          checked={field.value.includes(permission.code)}
-										          onCheckedChange={(e) => {
-											          if (e) {
-												          field.onChange([...field.value, permission.code]);
-											          } else {
-												          field.onChange(field.value.filter((code) => code !== permission.code));
-											          }
-										          }}/>
-										<label htmlFor={permission.code}>
-											{permission.name}
-										</label>
-									</div>
-								))}
+									{permissionList.map((permission) => (
+										<div key={permission.code}>
+											<Checkbox id={permission.code} value={permission.code}
+											          {...field}
+											          checked={field.value.includes(permission.code)}
+											          onCheckedChange={(e) => {
+												          if (e) {
+													          field.onChange([...field.value, permission.code]);
+												          } else {
+													          field.onChange(field.value.filter((code) => code !== permission.code));
+												          }
+											          }}/>
+											<label htmlFor={permission.code}>
+												{permission.name}
+											</label>
+										</div>
+									))}
 								</>
 							</FormControl>
 							<FormMessage/>

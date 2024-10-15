@@ -1,4 +1,3 @@
-import { CredentialForm } from "@/components/auth/credentialForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,13 +14,14 @@ export default function ForgotPassword () {
 	const [email, setEmail] = useState("");
 
 	async function resetPassword () {
-		const resp = await axios.post("/api/auth/forgot-password", {email: email});
+		const resp = await axios.post("/api/auth/forgot-password", {email: email}).catch((e) => {
+			toast.error("Hiba történt a jelszó visszaállítása során!");
+			console.log(e);
+		});
 
 		if (resp.status === 200) {
 			toast.success("Jelszó visszaállítási email elküldve!");
 			Router.push("/auth/login");
-		} else {
-			toast.error("Hiba történt a jelszó visszaállítás során!");
 		}
 	}
 

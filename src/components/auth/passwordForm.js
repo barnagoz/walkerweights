@@ -1,13 +1,13 @@
-import { toast } from "sonner";
-import * as z from "zod";
-import {zodResolver} from "@hookform/resolvers/zod";
-import {useForm} from "react-hook-form";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "../ui/form";
-import {Input} from "../ui/input";
-import {Button} from "../ui/button";
-import {cn} from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import * as z from "zod";
+import { Button } from "../ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, } from "../ui/form";
+import { Input } from "../ui/input";
 
 const formSchema = z.object({
 	email: z.string().email("Érvényes e-mail címet adj meg!"),
@@ -28,6 +28,9 @@ export function PasswordForm ({token, apiLink}) {
 		const resp = await axios.post(apiLink, {
 			...values,
 			token: token,
+		}).catch((e) => {
+			toast.error("Hiba történt a mentés során, kérlek próbáld újra", {description: "Amennyiben nem sikerül, vedd fel a kapcsolatot velünk"});
+			console.log(e);
 		});
 
 		if (resp.data.success) {
@@ -35,8 +38,6 @@ export function PasswordForm ({token, apiLink}) {
 			setTimeout(() => {
 				router.push("/auth/login");
 			}, 3000);
-		} else {
-			toast.error("Hiba történt a mentés során, kérlek próbáld újra", {description: "Amennyiben nem sikerül, vedd fel a kapcsolatot velünk"});
 		}
 	}
 

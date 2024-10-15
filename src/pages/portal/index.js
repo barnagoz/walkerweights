@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "sonner";
 
 export default function Portal () {
 	const {data: session} = useSession();
@@ -16,6 +17,9 @@ export default function Portal () {
 		const resp = await axios.post("/api/client/get-account", {
 			client_id: session.user.id,
 			session_token: session.user.session_token
+		}).catch((e) => {
+			toast.error("Hiba történt az adatok lekérdezése során");
+			console.log(e);
 		});
 
 		if (resp.status === 200) {

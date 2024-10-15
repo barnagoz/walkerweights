@@ -48,21 +48,24 @@ export function RegisterClientForm ({data, isEdit = false}) {
 				...values,
 				client_id: data._id,
 				session_token: session.user.session_token,
+			}).catch((e) => {
+				toast.error("Hiba történt a mentés során, kérlek próbáld újra");
+				console.log(e);
 			});
+
 			if (resp.data.success) {
 				toast.success("Sikeresen frissítve.");
-			} else {
-				toast.error("Hiba történt a mentés során, kérlek próbáld újra");
 			}
-			return;
 		}
 		const resp = await axios.post("/api/client/register", {
 			...values,
+		}).catch((e) => {
+			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
+			console.log(e);
+			return;
 		});
 		if (resp.data.success) {
 			toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
-		} else {
-			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
 		}
 	}
 

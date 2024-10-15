@@ -1,13 +1,10 @@
 import Gate from "@/components/auth/gate";
 import { RegisterClientForm } from "@/components/client/registerClientForm";
 import Template from "@/components/common/template";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Account () {
 	const {data: session} = useSession();
@@ -17,6 +14,9 @@ export default function Account () {
 		const resp = await axios.post("/api/client/get-account", {
 			client_id: session.user.id,
 			session_token: session.user.session_token
+		}).catch((e) => {
+			toast.error("Hiba történt az adatok lekérdezése során");
+			console.log(e);
 		});
 
 		if (resp.status === 200) {
