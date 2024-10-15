@@ -1,6 +1,6 @@
 import {CredentialForm} from "@/components/auth/credentialForm";
-import { PasswordForm } from "@/components/auth/passwordForm";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {cn} from "@/lib/utils";
 import Template from "@/components/common/template";
 import {useEffect} from "react";
@@ -10,6 +10,7 @@ import {useSession} from "next-auth/react";
 import {LoadingSpinner} from "@/components/ui/spinner";
 import {NextSeo} from "next-seo";
 import ErrorAlert from "@/components/auth/error";
+import Link from "next/link";
 
 export default function SignIn () {
     const {data: session, status} = useSession();
@@ -19,10 +20,15 @@ export default function SignIn () {
 
     useEffect(() => {
         if (status === "authenticated") {
-            if (session.user.access_list.includes("app")) {
-                Router.push("/app");
-            } else {
-                Router.push("/");
+            if (session.user.type === "client") {
+                Router.push("/portal");
+            }
+            if (session.user.type === "admin") {
+                if (session.user.access_list.includes("app")) {
+                    Router.push("/app");
+                } else {
+                    Router.push("/");
+                }
             }
         }
     }, [status, session]);
@@ -52,8 +58,11 @@ export default function SignIn () {
                                 <CardDescription>Még nincs fiókja? Töltse ki ingyenes konzultációnkat!</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <ErrorAlert error={error}/>
                                 <CredentialForm buttonText={"Bejelentkezés"}/>
+                                <Link href={"/auth/forgot-password"}>
+                                  <Button variant={"ghost"} className={"w-full mt-2"}>Elfelejtett jelszó →</Button>
+                                </Link>
+                                <ErrorAlert error={error}/>
                             </CardContent>
                         </Card>
                     )}

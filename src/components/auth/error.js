@@ -21,7 +21,7 @@ export default function ErrorAlert ({error}) {
     return (
         <>
             {error && (
-                <Alert variant="destructive" className={"mb-4"}>
+                <Alert variant="destructive" className={"mt-2"}>
                     <ExclamationTriangleIcon className={cn("h-4 w-4")}/>
                     <AlertTitle>Hibás e-mail cím vagy jelszó</AlertTitle>
                     <AlertDescription>

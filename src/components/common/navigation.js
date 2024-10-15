@@ -1,3 +1,4 @@
+import Gate from "@/components/auth/gate";
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -70,11 +71,20 @@ export default function Navigation () {
 										Bejelentkezve, mint {session.user.name}
 									</p>
 									<p className={"muted"}>{session.user.email}</p>
-									<Link href={"/app"}>
-										<Button variant="default" className={cn("w-full")}>
-											Adminisztrációs panel
-										</Button>
-									</Link>
+									<Gate permission={"app"} inline={true}>
+										<Link href={"/app"}>
+											<Button variant="default" className={cn("w-full")}>
+												Adminisztrációs panel
+											</Button>
+										</Link>
+									</Gate>
+									<Gate permission={"client"} inline={true}>
+										<Link href={"/portal"}>
+											<Button variant="default" className={cn("w-full")}>
+												Ügyfélportál
+											</Button>
+										</Link>
+									</Gate>
 									<Link href="/auth/logout">
 										<Button variant="secondary" className={cn("w-full")}>
 											Kijelentkezés

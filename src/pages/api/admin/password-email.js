@@ -2,7 +2,7 @@ import Admin from "@/../models/adminSchema";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
 import { render } from '@react-email/render';
-import AdminPasswordSetup from "@/emails/adminpassword";
+import AdminPasswordSetup from "@/emails/admin-password";
 import sendEmail from "@/lib/email";
 
 export async function sendPasswordEmail (email, token, first_name, last_name) {

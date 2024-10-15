@@ -23,15 +23,16 @@ export default function ActionMenu ({accessid, admin, getAdmins}) {
 		const data = await axios.post("/api/admin/delete", {
 			accessid: accessid,
 			email: admin.email,
+		}).catch((e) => {
+			setDeletePopup(false);
+			toast.error("Hiba történt a törlés során");
+			console.log(e)
 		});
 
 		if (data.data.success) {
 			setDeletePopup(false);
 			toast.success("Sikeres törlés");
 			getAdmins();
-		} else {
-			setDeletePopup(false);
-			toast.error("Hiba történt a törlés során");
 		}
 	}
 
@@ -41,15 +42,16 @@ export default function ActionMenu ({accessid, admin, getAdmins}) {
 			email: admin.email,
 			first_name: admin.first_name,
 			last_name: admin.last_name,
+		}).catch((e) => {
+			setDeletePopup(false);
+			toast.error("Hiba történt a levél elküldése során");
+			console.log(e)
 		});
 
 		if (data.data.success) {
 			setDeletePopup(false);
 			toast.success("Sikeresen elküldve");
 			getAdmins();
-		} else {
-			setDeletePopup(false);
-			toast.error("Hiba történt a levél elküldése során");
 		}
 	}
 

@@ -1,5 +1,3 @@
-import Gate from "@/components/auth/gate";
-import AppButton from "@/components/ui/app-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,14 +13,14 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export function AdminNavigation () {
+export function ClientNavigation () {
 	const {data: session} = useSession();
 
 	return (
 		<>
 			<div className={"fixed top-0 w-full bg-gray-900 text-white text-sm font-semibold flex px-4 items-center" +
 				"  h-7 z-50"}>
-				<Link href={"/"}>Visszatérés a nyilvános oldalra →</Link>
+				<Link href={"/"}>Ügyfélportál - Visszatérés a főoldalra →</Link>
 			</div>
 			<nav
 				className={"flex fixed top-7 h-auto z-50 bg-white backdrop-blur bg-opacity-30 items-center w-full" +
@@ -40,7 +38,7 @@ export function AdminNavigation () {
 					</Link>
 				</div>
 				<div className={"flex items-center justify-end gap-4"}>
-					<p className={"hidden md:block"}>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
+					<p>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
 					<AccountDropdown>
 						<Avatar className={"w-8 h-8"}>
 							<AvatarImage src={session?.user?.image ?? ""}/>
@@ -59,15 +57,12 @@ export function NavigationSheet ({children}) {
 			<SheetTrigger>{children}</SheetTrigger>
 			<SheetContent side={"left"}>
 				<SheetHeader>
-					<SheetTitle>Alkalmazásválasztó</SheetTitle>
+					<SheetTitle>Lehetőségek</SheetTitle>
 				</SheetHeader>
-				<div className={"grid grid-cols-2 gap-4 mt-4"}>
-					<Gate permission={"app"} inline><AppButton link={"/app"} title={"Főoldal"}/></Gate>
-					<Gate permission={["app", "client-list"]} inline><AppButton link={"/app/client"}
-					                                                            title={"Ügyfélkezelés"}/></Gate>
-					<Gate permission={["app", "admin-management"]} inline><AppButton link={"/app/admin-management"}
-					                                                                 title={"Fiók" +
-						                                                                 " kezelés"}/></Gate>
+				<div className={"flex flex-col gap-2 mt-4"}>
+					<Link href={"/portal"}><Button variant={"secondary"} className={"w-full"}>Főoldal</Button></Link>
+					<Link href={"/portal/account"}><Button variant={"secondary"} className={"w-full"}>Személyes
+						adatok</Button></Link>
 				</div>
 			</SheetContent>
 		</Sheet>

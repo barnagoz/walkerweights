@@ -3,11 +3,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
 const formSchema = z.object({
@@ -23,31 +24,48 @@ const formSchema = z.object({
 	registerMessage: z.string(),
 });
 
-export function RegisterClientForm () {
+export function RegisterClientForm ({data, isEdit = false}) {
+	const {data: session} = useSession();
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			company_name: "",
-			email: "",
-			phone: "",
-			first_name: "",
-			last_name: "",
-			energeticInvestmentSince2021: false,
-			energeticInvestmentWhen: "",
-			energeticInvestmentType: "",
-			energeticInvestmentAmount: "",
-			registerMessage: "",
+			company_name: data?.company_name || "",
+			email: data?.email || "",
+			phone: data?.phone || "",
+			first_name: data?.first_name || "",
+			last_name: data?.last_name || "",
+			energeticInvestmentSince2021: data?.energeticInvestmentSince2021 || false,
+			energeticInvestmentWhen: data?.energeticInvestmentWhen || "",
+			energeticInvestmentType: data?.energeticInvestmentType || "",
+			energeticInvestmentAmount: data?.energeticInvestmentAmount || "",
+			registerMessage: data?.registerMessage || "",
 		},
 	});
 
 	async function onSubmit (values) {
+		if (isEdit) {
+			const resp = await axios.post("/api/client/update", {
+				...values,
+				client_id: data._id,
+				session_token: session.user.session_token,
+			}).catch((e) => {
+				toast.error("Hiba történt a mentés során, kérlek próbáld újra");
+				console.log(e);
+			});
+
+			if (resp.data.success) {
+				toast.success("Sikeresen frissítve.");
+			}
+		}
 		const resp = await axios.post("/api/client/register", {
 			...values,
+		}).catch((e) => {
+			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
+			console.log(e);
+			return;
 		});
 		if (resp.data.success) {
 			toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
-		} else {
-			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
 		}
 	}
 
@@ -98,8 +116,12 @@ export function RegisterClientForm () {
 						<FormItem className={"w-full"}>
 							<FormLabel>E-mail cím</FormLabel>
 							<FormControl>
-								<Input {...field} placeholder={"pl.: pelda.janos@walkerweights.hu"}/>
+								<Input {...field} placeholder={"pl.: pelda.janos@walkerweights.hu"} disabled={isEdit}/>
 							</FormControl>
+							{isEdit && (
+								<FormDescription>Az email cím utólagos módosításához kérjük vegye fel velünk a
+									kapcsolatot!</FormDescription>
+							)}
 							<FormMessage/>
 						</FormItem>
 					)}/>
@@ -158,7 +180,7 @@ export function RegisterClientForm () {
 					</FormItem>
 				)}/>
 				<Button className={cn("w-full mt-4")} type="submit">
-					Küldés
+					{isEdit ? "Mentés" : "Küldés"}
 				</Button>
 			</form>
 		</Form>

@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const ClientSchema = new mongoose.Schema({
+	status: {type: String, default: "Feldolgozás alatt"},
 	company_name: {type: String, required: true},
 	email: {
 		type: String,
@@ -17,6 +18,9 @@ const ClientSchema = new mongoose.Schema({
 	energeticInvestmentType: {type: String},
 	energeticInvestmentAmount: {type: String},
 	registerMessage: {type: String},
+	password: {type: String},
+	password_reset_token: {type: String, default: null},
+	session_token: {type: String, default: null},
 });
 
 module.exports = mongoose.models.Client || mongoose.model("Client", ClientSchema);

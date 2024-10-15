@@ -22,12 +22,22 @@ export default function Gate ({permission, children, inline}) {
 			if (!permission) {
 				// Allow access if no specific permission is required
 				setIsAllowed(true);
+			} else if (permission === "client") {
+				setIsAllowed(session.user.type === "client");
 			} else if (typeof permission === "string") {
 				// Allow access if the user has the required permission
-				setIsAllowed(session.user.access_list.includes(permission));
+				if (session.user.type === "admin") {
+					setIsAllowed(session.user.access_list.includes(permission));
+				} else {
+					setIsAllowed(false);
+				}
 			} else if (Array.isArray(permission)) {
 				// Allow access if the user has all the required permissions
-				setIsAllowed(permission.every(p => session.user.access_list.includes(p)));
+				if (session.user.type === "admin") {
+					setIsAllowed(permission.every(p => session.user.access_list.includes(p)));
+				} else {
+					setIsAllowed(false);
+				}
 			}
 		}
 	}, [status, permission, session]);
@@ -40,7 +50,7 @@ export default function Gate ({permission, children, inline}) {
 			<Link href={"/auth/login"}><Button className={"px-12 mt-2"}>Bejelentkezés →</Button></Link>
 		</div>);
 	} else if (status === "loading" || isAllowed === undefined) {
-		return <div className={"w-full h-screen flex items-center justify-center flex-col"}>
+		return <div className={`w-full ${inline ? "h-screen" : "h-auto"} flex items-center justify-center flex-col`}>
 			<LoadingSpinner/>
 			<p>Betöltés...</p>
 		</div>;

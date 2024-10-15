@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function AdminManagement () {
 	const {data: session} = useSession();
@@ -15,6 +16,9 @@ export default function AdminManagement () {
 		if (!session) return;
 		const data = await axios.post("/api/admin/list", {
 			accessid: session.user.id,
+		}).catch((e) => {
+			toast.error("Hiba történt az adminisztrátorok lekérdezése során");
+			console.log(e);
 		});
 		const admins = data.data.data;
 

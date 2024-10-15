@@ -2,6 +2,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { permissionList } from "@/lib/data/permission";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -9,7 +10,6 @@ import * as z from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import axios from "axios";
 
 const formSchema = z.object({
 	first_name: z.string().min(1, "Keresztnév megadása kötelező!"),
@@ -38,11 +38,12 @@ export function CreateAdminForm ({buttonText}) {
 		const resp = await axios.post("/api/admin/create", {
 			...values,
 			accessid: session.user.id,
+		}).catch((e) => {
+			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
+			console.log(e);
 		});
 		if (resp.data.success) {
 			toast.success("Sikeresen elküldve");
-		} else {
-			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
 		}
 	}
 
@@ -96,23 +97,23 @@ export function CreateAdminForm ({buttonText}) {
 							<FormLabel>Jogosultságok</FormLabel>
 							<FormControl>
 								<>
-								{permissionList.map((permission) => (
-									<div key={permission.code}>
-										<Checkbox id={permission.code} value={permission.code}
-										          {...field}
-										          checked={field.value.includes(permission.code)}
-										          onCheckedChange={(e) => {
-											          if (e) {
-												          field.onChange([...field.value, permission.code]);
-											          } else {
-												          field.onChange(field.value.filter((code) => code !== permission.code));
-											          }
-										          }}/>
-										<label htmlFor={permission.code}>
-											{permission.name}
-										</label>
-									</div>
-								))}
+									{permissionList.map((permission) => (
+										<div key={permission.code}>
+											<Checkbox id={permission.code} value={permission.code}
+											          {...field}
+											          checked={field.value.includes(permission.code)}
+											          onCheckedChange={(e) => {
+												          if (e) {
+													          field.onChange([...field.value, permission.code]);
+												          } else {
+													          field.onChange(field.value.filter((code) => code !== permission.code));
+												          }
+											          }}/>
+											<label htmlFor={permission.code}>
+												{permission.name}
+											</label>
+										</div>
+									))}
 								</>
 							</FormControl>
 							<FormMessage/>

@@ -1,5 +1,8 @@
 import Client from "@/../models/clientSchema";
+import ClientPasswordSetup from "@/emails/client-password";
+import sendEmail from "@/lib/email";
 import dbConnect from "@/lib/mongoose";
+import { render } from '@react-email/render';
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
@@ -21,6 +24,8 @@ export default async function handler (req, res) {
 			return res.status(400).json({success: false, message: "Missing fields"});
 		}
 
+		const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
 		// Create new client
 		await dbConnect();
 		const newClient = new Client({
@@ -29,14 +34,28 @@ export default async function handler (req, res) {
 			phone,
 			first_name,
 			last_name,
-			energeticInvestmentSince2011: energeticInvestmentSince2011 || false,
+			energeticInvestmentSince2011: energeticInvestmentSince2011 !== undefined ? energeticInvestmentSince2011 : false,
 			energeticInvestmentWhen: energeticInvestmentWhen || "",
 			energeticInvestmentType: energeticInvestmentType || "",
 			energeticInvestmentAmount: energeticInvestmentAmount || "",
 			registerMessage: registerMessage || "",
+			password_reset_token: resetToken
 		});
 		try {
 			await newClient.save();
+
+			const link = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/password-setup/${resetToken}`;
+			const html = await render(<ClientPasswordSetup first_name={first_name} last_name={last_name}
+			                                               password_setup_link={link}/>, {pretty: true});
+			const text = await render(<ClientPasswordSetup first_name={first_name} last_name={last_name}
+			                                               password_setup_link={link}/>, {plainText: true});
+
+			await sendEmail({
+				to: email,
+				subject: "Köszönjük a kitöltést!",
+				html: html,
+				text: text,
+			});
 			res.status(201).json({success: true, data: newClient});
 		} catch (error) {
 			console.log(error)

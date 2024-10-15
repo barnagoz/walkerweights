@@ -11,6 +11,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { saveAs } from "file-saver";
+import { toast } from "sonner";
 
 export default function ListClients () {
 	const {data: session} = useSession();
@@ -20,6 +21,9 @@ export default function ListClients () {
 		if (!session) return;
 		const data = await axios.post("/api/admin/data/list-companies", {
 			accessid: session.user.id,
+		}).catch((e) => {
+			toast.error("Hiba történt az adatok lekérdezése során");
+			console.log(e);
 		});
 		setClients(data.data.data);
 	}
@@ -28,7 +32,10 @@ export default function ListClients () {
 		if (!session) return;
 		const spreadsheet = await axios.post("/api/admin/data/export", {
 			accessid: session.user.id,
-		}, {responseType: "arraybuffer"});
+		}, {responseType: "arraybuffer"}).catch((e) => {
+			toast.error("Hiba történt az adatok exportálása során");
+			console.log(e);
+		});
 		const blob = new Blob([spreadsheet.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 		saveAs(blob, `ugyfelek.xlsx`);
 	}

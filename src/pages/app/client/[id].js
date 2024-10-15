@@ -4,15 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import StatCard from "@/components/ui/statcard";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { CheckboxIndicator } from "@radix-ui/react-checkbox";
-import { CheckboxIcon, PersonIcon } from "@radix-ui/react-icons";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import axios from "axios";
 import { CalendarIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ShowClient () {
 	const {data: session} = useSession();
@@ -25,6 +24,9 @@ export default function ShowClient () {
 		const data = await axios.post("/api/admin/data/company", {
 			accessid: session.user.id,
 			clientid: id,
+		}).catch((e) => {
+			toast.error("Hiba történt az adatok lekérdezése során");
+			console.log(e);
 		});
 		console.log(data.data.data)
 		setClient(data.data.data);
