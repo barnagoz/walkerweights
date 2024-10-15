@@ -59,9 +59,9 @@ export default function SignIn () {
                             </CardHeader>
                             <CardContent>
                                 <CredentialForm buttonText={"Bejelentkezés"}/>
-                                <Link href={"/auth/forgot-password"}><Button variant={"ghost"}
-                                                                             className={"w-full mt-2"}>Elfelejtett
-                                    jelszó →</Button></Link>
+                                <Link href={"/auth/forgot-password"}>
+                                  <Button variant={"ghost"} className={"w-full mt-2"}>Elfelejtett jelszó →</Button>
+                                </Link>
                                 <ErrorAlert error={error}/>
                             </CardContent>
                         </Card>

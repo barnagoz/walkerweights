@@ -13,7 +13,7 @@ const formSchema = z.object({
 	access_list: z.array(z.string()).min(1, "Legalább egy jogosultságot meg kell adni!"),
 });
 
-export function UpdateAdminAccessForm ({defaultValues, email, accessid}) {
+export function UpdateAdminAccessForm ({defaultValues, email, accessid, setPanelOpen, update}) {
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -32,6 +32,8 @@ export function UpdateAdminAccessForm ({defaultValues, email, accessid}) {
 		});
 
 		if (resp.data.success) {
+			update();
+			setPanelOpen(false);
 			toast.success("Sikeresen frissítve");
 		}
 	}

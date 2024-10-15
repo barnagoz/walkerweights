@@ -23,44 +23,9 @@ export default function ErrorAlert ({error}) {
             {error && (
                 <Alert variant="destructive" className={"mt-2"}>
                     <ExclamationTriangleIcon className={cn("h-4 w-4")}/>
-                    <AlertTitle>Hiba történt</AlertTitle>
+                    <AlertTitle>Hibás e-mail cím vagy jelszó</AlertTitle>
                     <AlertDescription>
-                        A bejelentkezés során hiba történt, kérlek próbáld meg újra,
-                        vagy lépj kapcsolatba az adminisztrátorral.
-                        <br/>
-                        <AlertDialog>
-                            <AlertDialogTrigger>
-                                <Button
-                                    variant="link"
-                                    className={cn(
-                                        "text-xs px-2 py-0 -my-1 text-destructive"
-                                    )}
-                                >
-                                    További információ
-                                </Button>
-                            </AlertDialogTrigger>
-                            <AlertDialogOverlay>
-                                <AlertDialogContent>
-                                    <AlertDialogHeader>
-                                        <AlertDialogTitle>
-                                            Fejlesztői információ
-                                        </AlertDialogTitle>
-                                        <AlertDialogDescription>
-                                            A bejelentkezés közben &quot;{error}&quot; típusú
-                                            hiba történt.
-                                        </AlertDialogDescription>
-                                    </AlertDialogHeader>
-                                    <AlertDialogFooter>
-                                        <AlertDialogCancel>Bezárás</AlertDialogCancel>
-                                        <Link href="mailto:barnagoz@icloud.com">
-                                            <AlertDialogAction>
-                                                Visszajelzés küldése
-                                            </AlertDialogAction>
-                                        </Link>
-                                    </AlertDialogFooter>
-                                </AlertDialogContent>
-                            </AlertDialogOverlay>
-                        </AlertDialog>
+                        A bejelentkezés során hiba történt, kérlek próbáld meg újra.
                     </AlertDescription>
                 </Alert>
             )}

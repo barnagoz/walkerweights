@@ -76,7 +76,8 @@ export default function ActionMenu ({accessid, admin, getAdmins}) {
 					<DropdownMenuItem onClick={() => setDeletePopup(true)}>Törlés</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
-			<UpdateAdminAccessPanel admin={admin} accessid={accessid} isOpen={editPanel} setIsOpen={setEditPanel}/>
+			<UpdateAdminAccessPanel admin={admin} accessid={accessid} isOpen={editPanel} setIsOpen={setEditPanel}
+			                        update={getAdmins}/>
 			<AreYouSurePopup title={"Biztosan visszaállítod a fiók jelszavát?"}
 			                 message={"A jelszó visszaállítása után az adminisztrátor emailt kap, amelyben egy link" +
 				                 " segítségével megváltoztathatja a jelszavát. Amennyiben az adminisztrátor nem" +
