@@ -48,26 +48,27 @@ export default function Home () {
 				>
 					<div
 						className={cn("lg:w-4/5 w-full min-h-[50vh] h-full bg-gradient-to-r from-brand-green" +
-							" to-transparent" +
-							" flex" + " flex-col" + " justify-center items-start text-white p-8 !py-36")}
+							" to-transparent flex flex-col justify-center items-start text-white p-8 !py-36")}
 					>
-						<h1 className={cn("text-4xl font-bold mb-4")}>
+						<h1 className={cn("text-3xl md:text-4xl font-bold mb-4")}>
 							A mi célunk, hogy minél több extra profitot szerezzen!
 						</h1>
-						<h2 className={"text-2xl font-semibold mb-4"}>Okos energiahatékonysági beruházásokkal gyorsan és
+						<h2 className={"text-xl md:text-2xl font-semibold mb-4"}>Okos energiahatékonysági beruházásokkal
+							gyorsan és
 							egyszerűen!</h2>
 					</div>
 				</div>
 			</div>
-			<div className={"p-8"}><p className={"text-2xl w-4/5 font-semibold"}>
+			<div className={"p-6 md:p-8"}><p className={"text-2xl w-full md:w-4/5 font-semibold"}>
 				A Walker & Weigths profi csapatával Ön is könnyedén kihasználhatja az <span
 				className={"text-brand-gold"}>energiahatákonysági
 				rendszer előnyeit</span>, amivel rövid és hosszú távon is <span className={"text-brand-gold"}>többletbevételhez juthat</span>!
 			</p></div>
 			<div className={"flex flex-col p-6 gap-2 max-w-full"}>
 				<div
-					className={"shadow-sm relative rounded-3xl p-8 text-gray-950 grid grid-cols-2 gap-4"}>
-					<div className={"flex flex-col p-4 gap-4 justify-center"}>
+					className={"shadow-sm relative rounded-3xl md:p-8 text-gray-950 grid grid-cols-1 md:grid-cols-2" +
+						" gap-4"}>
+					<div className={"flex flex-col p-4 gap-4 justify-center order-last md:order-none"}>
 						<div className={"flex justify-start items-center gap-2"}>
 							<div
 								className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold aspect-square"}>1
@@ -83,7 +84,8 @@ export default function Home () {
 					       className={"rounded-xl"}/>
 				</div>
 				<div
-					className={"shadow-sm relative rounded-3xl p-8 text-gray-950 grid grid-cols-2 gap-4"}>
+					className={"shadow-sm relative rounded-3xl md:p-8 text-gray-950 grid grid-cols-1" +
+						" md:grid-cols-2 gap-4"}>
 					<Image src={"https://picsum.photos/800/400"} alt={"Placeholder Image"} width={800} height={400}
 					       className={"rounded-xl"}/>
 					<div className={"flex flex-col p-4 gap-4 justify-center"}>
@@ -102,9 +104,10 @@ export default function Home () {
 					</div>
 				</div>
 				<div
-					className={"shadow-sm relative rounded-3xl p-8 text-gray-950 grid grid-cols-2 gap-4"}>
-					<div className={"flex flex-col p-4 gap-4 justify-center"}>
-						<div className={"flex justify-start items-center gap-2"}>
+					className={"shadow-sm relative rounded-3xl md:p-8 text-gray-950 grid grid-cols-1 md:grid-cols-2" +
+						" gap-4"}>
+					<div className={"flex flex-col p-4 gap-4 justify-center order-last md:order-none"}>
+						<div className={"flex justify-start items-center gap-2 "}>
 							<div
 								className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold" +
 									" aspect-square"}>3
@@ -120,7 +123,8 @@ export default function Home () {
 					       className={"rounded-xl"}/>
 				</div>
 				<div
-					className={"shadow-sm relative rounded-3xl p-8 text-gray-950 grid grid-cols-2 gap-4"}>
+					className={"shadow-sm relative rounded-3xl md:p-8 text-gray-950 grid grid-cols-1 md:grid-cols-2" +
+						" gap-4"}>
 					<Image src={"https://picsum.photos/800/400"} alt={"Placeholder Image"} width={800} height={400}
 					       className={"rounded-xl"}/>
 					<div className={"flex flex-col p-4 gap-4 justify-center"}>
@@ -138,8 +142,9 @@ export default function Home () {
 					</div>
 				</div>
 				<div
-					className={"shadow-sm relative rounded-3xl p-8 text-gray-950 grid grid-cols-2 gap-4"}>
-					<div className={"flex flex-col p-4 gap-4 justify-center"}>
+					className={"shadow-sm relative rounded-3xl md:p-8 text-gray-950 grid grid-cols-1 md:grid-cols-2" +
+						" gap-4"}>
+					<div className={"flex flex-col p-4 gap-4 justify-center order-last md:order-none"}>
 						<div className={"flex justify-start items-center gap-2"}>
 							<div
 								className={"bg-brand-gold rounded-full text-white px-4 flex items-center font-bold" +
@@ -157,7 +162,7 @@ export default function Home () {
 					       className={"rounded-xl"}/>
 				</div>
 			</div>
-			<div className={cn("p-8 bg-brand-green")}>
+			<div className={cn("md:p-8 p-6 bg-brand-green")}>
 				<Card>
 					<CardHeader>
 						<CardTitle className={"text-xl"}>Üzleti partnereink, akik már profitáltak
@@ -167,7 +172,8 @@ export default function Home () {
 						<div className={cn("flex flex-wrap gap-3 font-medium text-white justify-center")}>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300" +
+									" w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/omw.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -179,7 +185,7 @@ export default function Home () {
 							</HoverCard>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300 w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/eon.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -191,7 +197,7 @@ export default function Home () {
 							</HoverCard>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300 w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/audax.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -203,7 +209,7 @@ export default function Home () {
 							</HoverCard>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300 w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/castrum.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -215,7 +221,7 @@ export default function Home () {
 							</HoverCard>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300 w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/aramcentrum.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -227,7 +233,8 @@ export default function Home () {
 							</HoverCard>
 							<HoverCard>
 								<HoverCardTrigger className={cn("px-4 py-1.5 items-center flex bg-brand-green" +
-									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300")}>
+									" bg-opacity-90 hover:bg-opacity-100 rounded-lg transition-shadow duration-300" +
+									" w-full md:w-auto justify-center")}>
 									<Image src={"/asset/clients/emoga.svg"} width={150} height={50}/>
 								</HoverCardTrigger>
 								<HoverCardContent>
@@ -247,13 +254,14 @@ export default function Home () {
 			>
 				Több mint
 				<div
-					className={cn("flex border-gray-200 border py-4 px-4 rounded-lg text-center items-center justify-center font-bold text-3xl")}
+					className={cn("flex border-gray-300 border py-4 px-4 rounded-lg text-center items-center" +
+						" justify-center font-bold text-3xl")}
 				>
 					{count} GJ
 				</div>
 				értékesített EKR tanúsítvány
 			</div>
-			<div className={cn("p-8 bg-cover")} style={{backgroundImage: "url('/asset/background-1.jpg')"}}>
+			<div className={cn("p-6 md:p-8 bg-cover")} style={{backgroundImage: "url('/asset/background-1.jpg')"}}>
 				<h3 className={"text-xl font-semibold text-white"}>
 					Energiakereskedőként EKR tanúsítványt vásárolna?
 				</h3>
@@ -316,7 +324,7 @@ export default function Home () {
 					</Card>
 				</div>
 			</div>
-			<div className={"bg-brand-gold p-8 text-white"}>
+			<div className={"bg-brand-gold p-6 md:p-8 text-white"}>
 				<h3 className={"text-xl font-semibold"}>
 					Lépjen velünk kapcsolatba!
 				</h3>
@@ -327,7 +335,7 @@ export default function Home () {
 					<RegisterClientForm/>
 				</div>
 			</div>
-			<div className={"flex flex-col gap-4 p-8"}>
+			<div className={"flex flex-col gap-4 p-6 md:p-8"}>
 				<div className={"grid grid-cols-1 lg:grid-cols-3 gap-4"}>
 					<Card className={"flex items-center"}>
 						<CardHeader>
@@ -339,8 +347,8 @@ export default function Home () {
 							</CardDescription>
 						</CardHeader>
 					</Card>
-					<Image src={"/asset/team-1.jpg"} alt={"A csapatunk."} width={900} height={150}
-					       className={"rounded-xl col-span-2"}></Image>
+					<div className={"w-auto lg:col-span-2 rounded-xl bg-cover min-h-[400px]"}
+					     style={{backgroundImage: "url(/asset/team-1.jpg)"}}></div>
 				</div>
 				<Card>
 					<CardHeader>
