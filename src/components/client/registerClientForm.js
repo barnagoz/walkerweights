@@ -10,6 +10,7 @@ import * as z from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import Link from "next/link";
 
 const formSchema = z.object({
 	company_name: z.string().min(1, {message: "Cégnév megadása kötelező"}).max(255, {message: "A cégnév maximum 255 karakter lehet"}),
@@ -182,6 +183,9 @@ export function RegisterClientForm ({data, isEdit = false}) {
 				<Button className={cn("w-full mt-4")} type="submit">
 					{isEdit ? "Mentés" : "Küldés"}
 				</Button>
+				<p className={"muted mt-2"}>A gombra kattintva automatikusan elfogadja <Link
+					href={"/docs/adatvedelmi-szabalyzat.pdf"} className={"underline cursor-pointer"}>adatvédelmi
+					szabályzatunkat</Link>.</p>
 			</form>
 		</Form>
 	);

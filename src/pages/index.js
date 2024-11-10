@@ -350,7 +350,7 @@ export default function Home () {
 					<div className={"w-auto lg:col-span-2 rounded-xl bg-cover min-h-[400px]"}
 					     style={{backgroundImage: "url(/asset/team-1.jpg)"}}></div>
 				</div>
-				<Card>
+				<Card id={"kapcsolat"}>
 					<CardHeader>
 						<CardTitle>Nézzen be hozzánk!</CardTitle>
 						<CardDescription>Önt is szeretettel várjuk Budapest belvárosában lévő
