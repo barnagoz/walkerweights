@@ -13,12 +13,10 @@ const ClientSchema = new mongoose.Schema({
 	last_name: {type: String},
 	created_at: {type: Date, default: Date.now},
 	energeticInvestment: {
-		type: {
-			since2021: {type: Boolean},
-			when: {type: String},
-			type: {type: String},
-			amount: {type: String}
-		}
+		since2021: {type: Boolean},
+		when: {type: String},
+		type: {type: String},
+		amount: {type: String}
 	},
 	registerMessage: {type: String},
 	password: {type: String},

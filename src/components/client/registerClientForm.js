@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import Link from "next/link";
 
 const formSchema = z.object({
 	company_name: z.string().min(1, {message: "Cégnév megadása kötelező"}).max(255, {message: "A cégnév maximum 255 karakter lehet"}),
@@ -35,10 +35,10 @@ export function RegisterClientForm ({data, isEdit = false}) {
 			phone: data?.phone || "",
 			first_name: data?.first_name || "",
 			last_name: data?.last_name || "",
-			energeticInvestmentSince2021: data?.energeticInvestmentSince2021 || false,
-			energeticInvestmentWhen: data?.energeticInvestmentWhen || "",
-			energeticInvestmentType: data?.energeticInvestmentType || "",
-			energeticInvestmentAmount: data?.energeticInvestmentAmount || "",
+			energeticInvestmentSince2021: data?.energeticInvestment.since2021,
+			energeticInvestmentWhen: data?.energeticInvestment.when || "",
+			energeticInvestmentType: data?.energeticInvestment.type || "",
+			energeticInvestmentAmount: data?.energeticInvestment.amount || "",
 			registerMessage: data?.registerMessage || "",
 		},
 	});
@@ -57,16 +57,17 @@ export function RegisterClientForm ({data, isEdit = false}) {
 			if (resp.data.success) {
 				toast.success("Sikeresen frissítve.");
 			}
-		}
-		const resp = await axios.post("/api/client/register", {
-			...values,
-		}).catch((e) => {
-			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
-			console.log(e);
-			return;
-		});
-		if (resp.data.success) {
-			toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
+		} else {
+			const resp = await axios.post("/api/client/register", {
+				...values,
+			}).catch((e) => {
+				toast.error("Hiba történt a küldés során, kérlek próbáld újra");
+				console.log(e);
+				return;
+			});
+			if (resp.data.success) {
+				toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
+			}
 		}
 	}
 
@@ -136,7 +137,7 @@ export function RegisterClientForm ({data, isEdit = false}) {
 							<div className={"flex gap-1 items-center my-4"}>
 								<Checkbox {...field}
 								          onCheckedChange={(e) => form.setValue("energeticInvestmentSince2021", e)}
-								          value={form.getValues("energeticInvestmentSince2021")}/>
+								          checked={form.getValues("energeticInvestmentSince2021")}/>
 								<FormLabel>2021 óta történt energetikai beruházás a cégemnél.</FormLabel>
 							</div>
 						</FormControl>

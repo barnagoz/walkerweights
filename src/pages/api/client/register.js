@@ -26,6 +26,13 @@ export default async function handler (req, res) {
 
 		const resetToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
+		const energeticInvestment = {
+			since2021: energeticInvestmentSince2011,
+			when: energeticInvestmentWhen || "",
+			type: energeticInvestmentType || "",
+			amount: energeticInvestmentAmount || ""
+		};
+
 		// Create new client
 		await dbConnect();
 		const newClient = new Client({
@@ -34,10 +41,7 @@ export default async function handler (req, res) {
 			phone,
 			first_name,
 			last_name,
-			energeticInvestmentSince2011: energeticInvestmentSince2011 !== undefined ? energeticInvestmentSince2011 : false,
-			energeticInvestmentWhen: energeticInvestmentWhen || "",
-			energeticInvestmentType: energeticInvestmentType || "",
-			energeticInvestmentAmount: energeticInvestmentAmount || "",
+			energeticInvestment,
 			registerMessage: registerMessage || "",
 			password_reset_token: resetToken
 		});

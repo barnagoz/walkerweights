@@ -12,7 +12,7 @@ export default async function handler (req, res) {
 			phone,
 			first_name,
 			last_name,
-			energeticInvestmentSince2011,
+			energeticInvestmentSince2021,
 			energeticInvestmentWhen,
 			energeticInvestmentType,
 			energeticInvestmentAmount,
@@ -35,6 +35,15 @@ export default async function handler (req, res) {
 			return;
 		}
 
+		console.log(energeticInvestmentSince2021)
+
+		const energeticInvestment = {
+			since2021: energeticInvestmentSince2021,
+			when: energeticInvestmentWhen || "",
+			type: energeticInvestmentType || "",
+			amount: energeticInvestmentAmount || ""
+		};
+
 		// Update client
 		try {
 			await dbConnect();
@@ -44,10 +53,7 @@ export default async function handler (req, res) {
 				phone,
 				first_name,
 				last_name,
-				energeticInvestmentSince2011: energeticInvestmentSince2011 || false,
-				energeticInvestmentWhen: energeticInvestmentWhen || "",
-				energeticInvestmentType: energeticInvestmentType || "",
-				energeticInvestmentAmount: energeticInvestmentAmount || "",
+				energeticInvestment,
 				registerMessage: registerMessage || "",
 			}, {new: true});
 
