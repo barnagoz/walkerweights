@@ -11,16 +11,20 @@ const ClientSchema = new mongoose.Schema({
 	phone: {type: String, required: true},
 	first_name: {type: String},
 	last_name: {type: String},
-	data: {type: Array, default: []},
 	created_at: {type: Date, default: Date.now},
-	energeticInvestmentSince2021: {type: Boolean},
-	energeticInvestmentWhen: {type: String},
-	energeticInvestmentType: {type: String},
-	energeticInvestmentAmount: {type: String},
+	energeticInvestment: {
+		type: {
+			since2021: {type: Boolean},
+			when: {type: String},
+			type: {type: String},
+			amount: {type: String}
+		}
+	},
 	registerMessage: {type: String},
 	password: {type: String},
 	password_reset_token: {type: String, default: null},
 	session_token: {type: String, default: null},
+	project_type: {type: Array, default: []}
 });
 
 module.exports = mongoose.models.Client || mongoose.model("Client", ClientSchema);
