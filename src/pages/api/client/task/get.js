@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongoose";
+import Task from "@/../models/taskSchema";
+import Client from "@/../models/clientSchema";
 import { ObjectId } from "mongodb";
-import Client from "@/../models/clientSchema"
-import Task from "@/../models/taskSchema"
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
@@ -10,7 +10,8 @@ export default async function handler (req, res) {
 		try {
 			// Check for valid session token
 			await dbConnect();
-			const client = await Client.findOne({_id: new ObjectId(client_id)});
+			const client = await
+				Client.findOne({_id: new ObjectId(client_id)});
 			if (!client || client.session_token !== session_token) {
 				return res.status(403).json({success: false, message: "Invalid session token"});
 			}
@@ -18,12 +19,8 @@ export default async function handler (req, res) {
 			// Find client tasks
 			const tasks = await Task.find({client_id: client_id});
 
-			// Send client data
-			client.password = undefined;
-			client.password_reset_token = undefined;
-			client.session_token = undefined;
-
-			res.status(200).json({success: true, data: {client, tasks}});
+			// Send tasks
+			res.status(200).json({success: true, data: tasks});
 		} catch (error) {
 			res.status(400).json({success: false, error: error.message});
 		}

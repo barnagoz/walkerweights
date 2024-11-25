@@ -1,12 +1,13 @@
 import Gate from "@/components/auth/gate";
 import Template from "@/components/common/template";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 
 export default function Portal () {
@@ -41,30 +42,37 @@ export default function Portal () {
 						<h1 className={"text-2xl font-semibold"}>Üdvözlünk a
 							Walker&Weights-nél, {session.user.name}!</h1>
 						<p className={"muted"}>Ez itt az ügyfélportál. Erről a felületről szerkesztheted megadott
-							adataid, fájlok feltöltésével segítheted auditoraink munkáját, valamint nyomon követheted
+							adataid, fájlok feltöltésével segítheted auditoraink munkáját, valamint nyomonkövetheted
 							projekted állapotát.</p>
 						{companyData && (
 							<Card className={"my-3"}>
 								<CardHeader>
 									<CardTitle
-										className={"flex gap-2 items-center"}>{companyData.company_name} projektjének
+										className={"flex gap-2 items-center"}>{companyData.client.company_name} projektjének
 										jelenlegi
-										állapota: <Badge>{companyData.status}</Badge></CardTitle>
+										állapota: <Badge>{companyData.client.status}</Badge></CardTitle>
 									<CardDescription>Alább láthatod az esetleges szükséges lépéseket a projekttel
 										kapcsolatban.</CardDescription>
 								</CardHeader>
-								<CardContent>
-									<Card className={"w-[350px]"}>
-										<CardHeader>
-											<CardTitle>Lecserélt kazán technikai paramétereinek megadása</CardTitle>
-											<CardDescription>Kérjük töltse fel felületünkre az önök által lecserélt
-												kazán paramétereit</CardDescription>
-										</CardHeader>
-										<CardFooter>
-											<Link href={"/portal/data/add"}><Button variant={"link"}>Dokumentum
-												feltöltése →</Button></Link>
-										</CardFooter>
-									</Card>
+								<CardContent className={"flex gap-2 overflow-x-scroll"}>
+									{companyData.tasks.map((task, index) => (
+										<Card className={"w-[350px] min-w-[300px]"} key={index}>
+											<CardHeader>
+												<CardTitle className={"leading-normal"}><Badge
+													className={"mr-2"}>{task.status}</Badge>{task.title}</CardTitle>
+												<CardDescription>{task.description}</CardDescription>
+											</CardHeader>
+											<CardFooter className={"flex flex-col items-start justify-start"}>
+												{(task.status === "Új" || task.status === "Újraküldendő") && (
+													<Link href={"/portal/data/add"}><Button variant={"link"}>Dokumentum
+														feltöltése →</Button></Link>)}
+												{task.comment && (
+													<Alert>
+														<AlertTitle>Megjegyzés:</AlertTitle>
+														<AlertDescription>{task.comment}</AlertDescription>
+													</Alert>)}
+											</CardFooter>
+										</Card>))}
 								</CardContent>
 							</Card>
 

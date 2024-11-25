@@ -30,16 +30,16 @@ export function RegisterClientForm ({data, isEdit = false}) {
 	const form = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			company_name: data?.company_name || "",
-			email: data?.email || "",
-			phone: data?.phone || "",
-			first_name: data?.first_name || "",
-			last_name: data?.last_name || "",
-			energeticInvestmentSince2021: data?.energeticInvestment.since2021,
-			energeticInvestmentWhen: data?.energeticInvestment.when || "",
-			energeticInvestmentType: data?.energeticInvestment.type || "",
-			energeticInvestmentAmount: data?.energeticInvestment.amount || "",
-			registerMessage: data?.registerMessage || "",
+			company_name: data?.client.company_name || "",
+			email: data?.client.email || "",
+			phone: data?.client.phone || "",
+			first_name: data?.client.first_name || "",
+			last_name: data?.client.last_name || "",
+			energeticInvestmentSince2021: data?.client.energeticInvestment.since2021,
+			energeticInvestmentWhen: data?.client.energeticInvestment.when || "",
+			energeticInvestmentType: data?.client.energeticInvestment.type || "",
+			energeticInvestmentAmount: data?.client.energeticInvestment.amount || "",
+			registerMessage: data?.client.registerMessage || "",
 		},
 	});
 
@@ -63,7 +63,6 @@ export function RegisterClientForm ({data, isEdit = false}) {
 			}).catch((e) => {
 				toast.error("Hiba történt a küldés során, kérlek próbáld újra");
 				console.log(e);
-				return;
 			});
 			if (resp.data.success) {
 				toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
