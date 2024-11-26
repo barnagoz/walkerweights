@@ -86,6 +86,7 @@ export default function ShowClient () {
 							Vissza</Button></Link>
 						<div className={"flex flex-row space-x-2 justify-between"}>
 							<h1 className={"text-2xl font-bold"}>{client.company_name}</h1>
+							<Gate permission={"client-task-send"}>
 							<Sheet>
 								<SheetTrigger asChild>
 									<Button className={"gap-1 pl-3"}><PlusIcon className={"w-4 h-4"}/> Feladat kiosztása</Button>
@@ -139,6 +140,7 @@ export default function ShowClient () {
 									</SheetFooter>
 								</SheetContent>
 							</Sheet>
+							</Gate>
 						</div>
 						<div className={"flex flex-row space-x-2 mt-4"}>
 							<StatCard title={"Kapcsolatfelvétel dátuma"}
