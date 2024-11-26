@@ -4,6 +4,15 @@ import Template from "@/components/common/template";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -21,7 +30,7 @@ import StatCard from "@/components/ui/statcard";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { CalendarIcon, PlusIcon } from "lucide-react";
+import { CalendarIcon, LightbulbIcon, LucideNewspaper, PlusIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -37,6 +46,8 @@ export default function ShowClient () {
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("");
+	const [status, setStatus] = useState("");
+	const [projectType, setProjectType] = useState("");
 
 	async function getData () {
 		if (!session) return;
@@ -50,6 +61,8 @@ export default function ShowClient () {
 		});
 		console.log(data.data.data)
 		setClient(data.data.data);
+		setStatus(data.data.data.status);
+		setProjectType(data.data.data.project_type);
 	}
 
 	async function sendTask () {
@@ -73,6 +86,23 @@ export default function ShowClient () {
 		}
 	}
 
+	async function changeStatus () {
+		const data = await axios.post("/api/admin/data/change-state", {
+			accessid: session.user.id,
+			clientid: id,
+			status: status,
+			type: projectType,
+		}).catch((e) => {
+			toast.error("Hiba történt a státusz módosítása során");
+			console.log(e);
+		});
+
+		if (data.data.success) {
+			toast.success("Státusz sikeresen módosítva");
+			getData();
+		}
+	}
+
 	useEffect(() => {
 		getData();
 	}, [session]);
@@ -86,6 +116,52 @@ export default function ShowClient () {
 							Vissza</Button></Link>
 						<div className={"flex flex-row space-x-2 justify-between"}>
 							<h1 className={"text-2xl font-bold"}>{client.company_name}</h1>
+							<div className={"flex flex-row gap-2 justify-end"}>
+								<Dialog>
+									<DialogTrigger>
+										<Button variant={"outline"}>Projekt státuszának módosítása</Button>
+									</DialogTrigger>
+									<DialogContent>
+										<DialogHeader>
+											<DialogTitle>Projekt státuszának módosítása</DialogTitle>
+											<DialogDescription>
+												Itt tudod a projekt státuszát, valamint típusát módosítani.
+											</DialogDescription>
+										</DialogHeader>
+										<div className={"flex flex-col gap-2"}>
+											<Label htmlFor="status">
+												Státusz
+											</Label>
+											<Select onValueChange={(e) => setStatus(e)} defaultValue={status}>
+												<SelectTrigger>
+													<SelectValue placeholder="Státusz kiválasztása"/>
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem value="Feldolgozás alatt">Feldolgozás alatt</SelectItem>
+													<SelectItem value="Folyamatban">Folyamatban</SelectItem>
+													<SelectItem value="Késleltetett">Késleltetett</SelectItem>
+													<SelectItem value="Befejezve">Befejezve</SelectItem>
+													<SelectItem value="Törölve">Törölve</SelectItem>
+												</SelectContent>
+											</Select>
+											<Label htmlFor="type">
+												Típus
+											</Label>
+											<Select onValueChange={(e) => setProjectType(e)} defaultValue={projectType}>
+												<SelectTrigger>
+													<SelectValue placeholder="Típus kiválasztása"/>
+												</SelectTrigger>
+												<SelectContent>
+													<SelectItem
+														value="Világításkorszerűsítés">Világításkorszerűsítés</SelectItem>
+												</SelectContent>
+											</Select>
+										</div>
+										<DialogFooter>
+											<Button onClick={changeStatus}>Elküldés</Button>
+										</DialogFooter>
+									</DialogContent>
+								</Dialog>
 							<Gate permission={"client-task-send"}>
 							<Sheet>
 								<SheetTrigger asChild>
@@ -141,8 +217,15 @@ export default function ShowClient () {
 								</SheetContent>
 							</Sheet>
 							</Gate>
+							</div>
 						</div>
 						<div className={"flex flex-row space-x-2 mt-4"}>
+							<StatCard title={"Projekt státusza"}
+							          icon={<LucideNewspaper className={"muted w-4 h-4"}/>}
+							          value={client.status}/>
+							<StatCard title={"Projekt típusa"}
+							          icon={<LightbulbIcon className={"muted w-4 h-4"}/>}
+							          value={client.project_type}/>
 							<StatCard title={"Kapcsolatfelvétel dátuma"}
 							          icon={<CalendarIcon className={"muted w-4 h-4"}/>}
 							          value={new Date(client.created_at).toLocaleDateString()}/>

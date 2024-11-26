@@ -22,7 +22,7 @@ const ClientSchema = new mongoose.Schema({
 	password: {type: String},
 	password_reset_token: {type: String, default: null},
 	session_token: {type: String, default: null},
-	project_type: {type: Array, default: []}
+	project_type: {type: String, default: ""}
 });
 
 module.exports = mongoose.models.Client || mongoose.model("Client", ClientSchema);
