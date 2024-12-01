@@ -96,9 +96,9 @@ export const authOptions = {
 
     },
     pages: {
-        signIn: encodeURIComponent("/auth/login"),
-        signOut: encodeURIComponent("/auth/logout"),
-        error: encodeURIComponent("/auth/login"),
+        signIn: "/auth/login",
+        signOut: "/auth/logout",
+        error: "/auth/login",
     },
 };
 
