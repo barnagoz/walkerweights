@@ -50,6 +50,7 @@ export default function ShowClient () {
 	const [formID, setFormID] = useState("");
 	const [status, setStatus] = useState("");
 	const [projectType, setProjectType] = useState("");
+	const [addTasks, setAddTasks] = useState(false);
 
 	async function getData () {
 		if (!session) return;
@@ -95,6 +96,7 @@ export default function ShowClient () {
 			clientid: id,
 			status: status,
 			type: projectType,
+			addTasks: addTasks,
 		}).catch((e) => {
 			toast.error("Hiba történt a státusz módosítása során");
 			console.log(e);
@@ -171,85 +173,100 @@ export default function ShowClient () {
 														value="Világításkorszerűsítés">Világításkorszerűsítés</SelectItem>
 												</SelectContent>
 											</Select>
+											<div className={"flex flex-row gap-2 items-center"}>
+												<Checkbox checked={addTasks}
+												          onCheckedChange={(e) => setAddTasks(e)}></Checkbox>
+												<Label>Projekthez tartozó feladatok hozzáadása</Label>
+											</div>
+											<p className={"!text-red-600 muted"}>Figyelem! Amennyiben ez be van pipálva,
+												akkor
+												függetlenül a korábbi feladatoktól hozzá fogja adni a rendszer a
+												projekt alapvető feladatait.</p>
 										</div>
 										<DialogFooter>
 											<Button onClick={changeStatus}>Elküldés</Button>
 										</DialogFooter>
 									</DialogContent>
 								</Dialog>
-							<Gate permission={"client-task-send"}>
-							<Sheet>
-								<SheetTrigger asChild>
-									<Button className={"gap-1 pl-3"}><PlusIcon className={"w-4 h-4"}/> Feladat kiosztása</Button>
-								</SheetTrigger>
-								<SheetContent>
-									<SheetHeader>
-										<SheetTitle>Feladat kiosztása</SheetTitle>
-										<SheetDescription>
-											Osszon ki egy feladatot az ügyfélnek, ezzel adatok megadását kérve tőle.
-										</SheetDescription>
-									</SheetHeader>
-									<div className={"flex flex-col gap-2"}>
-										<div>
-											<Label htmlFor="title">
-												Cím
-											</Label>
-											<Input id="title" value={title} onChange={(e) => setTitle(e.target.value)}
-											       placeholder={"pl." +
-												       " Dokumentált" +
-												       " fénymérést igazoló" +
-												       " dokumentum feltöltése"} className="col-span-3"/>
-										</div>
-										<div>
-											<Label htmlFor="description">
-												Leírás
-											</Label>
-											<Textarea id="description" value={description}
-											          onChange={(e) => setDescription(e.target.value)}
-											          className="col-span-3"/>
-										</div>
-										<div>
-											<Label htmlFor="type">
-												Típus
-											</Label>
-											<Select onValueChange={(e) => setType(e)} defaultValue={type}>
-												<SelectTrigger>
-													<SelectValue placeholder="Típus kiválasztása"/>
-												</SelectTrigger>
-												<SelectContent>
-													<SelectItem value="form">Kérdőív</SelectItem>
-													<SelectItem value="pdf">Feltöltött PDF dokumentum</SelectItem>
-													<SelectItem value="xlsx">Feltöltött Excel táblázat</SelectItem>
-												</SelectContent>
-											</Select>
-										</div>
-										{type === "form" && (
-											<div>
-												<Label htmlFor="form">
-													Kérdőív
-												</Label>
-												<Select onValueChange={(e) => setFormID(e)} defaultValue={formID}>
-													<SelectTrigger>
-														<SelectValue placeholder="Kérdőív kiválasztása"/>
-													</SelectTrigger>
-													<SelectContent>
-														{forms.map((form, index) => (
-															<SelectItem value={form._id}
-															            key={index}>{form.title}</SelectItem>
-														))}
-													</SelectContent>
-												</Select>
+								<Gate permission={"client-task-send"}>
+									<Sheet>
+										<SheetTrigger asChild>
+											<Button className={"gap-1 pl-3"}><PlusIcon className={"w-4 h-4"}/> Feladat
+												kiosztása</Button>
+										</SheetTrigger>
+										<SheetContent>
+											<SheetHeader>
+												<SheetTitle>Feladat kiosztása</SheetTitle>
+												<SheetDescription>
+													Osszon ki egy feladatot az ügyfélnek, ezzel adatok megadását kérve
+													tőle.
+												</SheetDescription>
+											</SheetHeader>
+											<div className={"flex flex-col gap-2"}>
+												<div>
+													<Label htmlFor="title">
+														Cím
+													</Label>
+													<Input id="title" value={title}
+													       onChange={(e) => setTitle(e.target.value)}
+													       placeholder={"pl." +
+														       " Dokumentált" +
+														       " fénymérést igazoló" +
+														       " dokumentum feltöltése"} className="col-span-3"/>
+												</div>
+												<div>
+													<Label htmlFor="description">
+														Leírás
+													</Label>
+													<Textarea id="description" value={description}
+													          onChange={(e) => setDescription(e.target.value)}
+													          className="col-span-3"/>
+												</div>
+												<div>
+													<Label htmlFor="type">
+														Típus
+													</Label>
+													<Select onValueChange={(e) => setType(e)} defaultValue={type}>
+														<SelectTrigger>
+															<SelectValue placeholder="Típus kiválasztása"/>
+														</SelectTrigger>
+														<SelectContent>
+															<SelectItem value="form">Kérdőív</SelectItem>
+															<SelectItem value="pdf">Feltöltött PDF
+																dokumentum</SelectItem>
+															<SelectItem value="xlsx">Feltöltött Excel
+																táblázat</SelectItem>
+														</SelectContent>
+													</Select>
+												</div>
+												{type === "form" && (
+													<div>
+														<Label htmlFor="form">
+															Kérdőív
+														</Label>
+														<Select onValueChange={(e) => setFormID(e)}
+														        defaultValue={formID}>
+															<SelectTrigger>
+																<SelectValue placeholder="Kérdőív kiválasztása"/>
+															</SelectTrigger>
+															<SelectContent>
+																{forms.map((form, index) => (
+																	<SelectItem value={form._id}
+																	            key={index}>{form.title}</SelectItem>
+																))}
+															</SelectContent>
+														</Select>
+													</div>
+												)}
 											</div>
-										)}
-									</div>
-									<SheetFooter className={"mt-4"}>
-										<SheetClose asChild>
-											<Button onClick={sendTask}>Küldés</Button>
-										</SheetClose>
-									</SheetFooter>
-								</SheetContent>
-							</Sheet>
-							</Gate>
+											<SheetFooter className={"mt-4"}>
+												<SheetClose asChild>
+													<Button onClick={sendTask}>Küldés</Button>
+												</SheetClose>
+											</SheetFooter>
+										</SheetContent>
+									</Sheet>
+								</Gate>
 							</div>
 						</div>
 						<div className={"flex flex-row space-x-2 mt-4"}>

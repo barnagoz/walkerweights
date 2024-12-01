@@ -1,12 +1,14 @@
 import dbConnect from "@/lib/mongoose";
+import { sendTask } from "@/pages/api/admin/data/task/send";
 import { ObjectId } from "mongodb";
 import Admin from "@/../models/adminSchema";
 import Client from "@/../models/clientSchema";
+import { project_types } from "@/lib/data/project_types";
 
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
-		const {accessid, clientid, status, type} = req.body;
+		const {accessid, clientid, status, type, addTasks} = req.body;
 
 		// Check for fields
 		if (!accessid || !clientid || !status || !type) {
@@ -31,6 +33,15 @@ export default async function handler (req, res) {
 			client.status = status;
 			client.project_type = type;
 			await client.save();
+
+			// Add tasks
+			if (addTasks) {
+				await Promise.all(
+					project_types.find((project) => project.title === type).tasks.map(async (task) => {
+						await sendTask(task.title, task.description, clientid, task.type, task.form_id);
+					})
+				);
+			}
 
 			res.status(200).json({success: true});
 		} catch (error) {
