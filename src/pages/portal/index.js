@@ -24,7 +24,8 @@ export default function Portal () {
 		});
 
 		if (resp.status === 200) {
-			setCompanyData(resp.data.data);
+			const data = resp.data?.data;
+			setCompanyData(data);
 		}
 	}
 
@@ -64,8 +65,8 @@ export default function Portal () {
 											</CardHeader>
 											<CardFooter className={"flex flex-col items-start justify-start"}>
 												{(task.status === "Új" || task.status === "Újraküldendő") && (
-													<Link href={"/portal/data/add"}><Button variant={"link"}>Dokumentum
-														feltöltése →</Button></Link>)}
+													<Link href={"/portal/data/add"}><Button
+														variant={"link"}>{task.type === "form" ? "Kérdőív kitöltése →" : "Dokumentum feltöltése →"}</Button></Link>)}
 												{task.comment && (
 													<Alert>
 														<AlertTitle>Megjegyzés:</AlertTitle>
@@ -97,7 +98,7 @@ export default function Portal () {
 										rendszerünkbe!</CardDescription>
 								</CardHeader>
 								<CardFooter>
-									<Link href={"/portal/data"}><Button variant={"link"}>Dokumentumok
+									<Link href={"/portal/data/docs"}><Button variant={"link"}>Dokumentumok
 										→</Button></Link>
 								</CardFooter>
 							</Card>

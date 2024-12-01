@@ -4,6 +4,8 @@ import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
 import Task from "@/../models/taskSchema";
 import FileSubmission from "@/../models/fileSubmissionSchema";
+import FormSubmission from "@/../models/formSubmissionSchema";
+import Form from "@/../models/formSchema";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
@@ -30,17 +32,22 @@ export default async function handler (req, res) {
 				clients = clients.toObject();
 				clients.tasks = await Task.find({
 					client_id: clientid,
-				});
-				await Promise.all(clients.tasks.map(async (task, index) => {
-					task = task.toObject();
+				}).lean();
+
+				for (let task of clients.tasks) {
 					if (task.file_submission_id) {
-						const fileSubmission = await FileSubmission.findById(task.file_submission_id);
-						clients.tasks[index] = {
-							...task,
-							file_submission: fileSubmission ? fileSubmission.toObject() : null
-						};
+						const fileSubmission = await FileSubmission.findById(task.file_submission_id).lean();
+						task.file_submission = fileSubmission || null;
 					}
-				}));
+					if (task.form_submission_id) {
+						const formSubmission = await FormSubmission.findById(task.form_submission_id).lean();
+						task.form_submission = formSubmission || null;
+					}
+					if (task.form_id) {
+						const form = await Form.findById(task.form_id).lean();
+						task.form = form || null;
+					}
+				}
 			}
 
 			res.status(200).json({success: true, data: clients});

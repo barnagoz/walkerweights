@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { saveAs } from "file-saver";
 import { toast } from "sonner";
+import { Badge } from "@/components/ui/badge";
 
 export default function ListClients () {
 	const {data: session} = useSession();
@@ -66,6 +67,7 @@ export default function ListClients () {
 							<Table>
 								<TableHeader>
 									<TableRow>
+										<TableHead>Státusz</TableHead>
 										<TableHead>Cég neve</TableHead>
 										<TableHead>Kapcsolattartó</TableHead>
 										<TableHead>Email cím</TableHead>
@@ -75,6 +77,7 @@ export default function ListClients () {
 								<TableBody>
 									{clients.map((client, index) => (
 										<TableRow key={index}>
+											<TableCell><Badge>{client.status}</Badge></TableCell>
 											<TableCell><Link href={`/app/client/${client._id}`}><Button
 												variant={"link"}>{client.company_name} →</Button></Link></TableCell>
 											<TableCell>{client.last_name + " " + client.first_name}</TableCell>

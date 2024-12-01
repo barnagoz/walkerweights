@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { MenuIcon } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -65,6 +65,8 @@ export function NavigationSheet ({children}) {
 					<Gate permission={"app"} inline><AppButton link={"/app"} title={"Főoldal"}/></Gate>
 					<Gate permission={["app", "client-list"]} inline><AppButton link={"/app/client"}
 					                                                            title={"Ügyfélkezelés"}/></Gate>
+					<Gate permission={["app", "form-list"]} inline><AppButton link={"/app/forms"}
+					                                                          title={"Űrlapok"}/></Gate>
 					<Gate permission={["app", "admin-management"]} inline><AppButton link={"/app/admin-management"}
 					                                                                 title={"Fiók" +
 						                                                                 " kezelés"}/></Gate>

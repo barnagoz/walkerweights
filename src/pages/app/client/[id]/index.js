@@ -42,10 +42,12 @@ export default function ShowClient () {
 	const router = useRouter();
 	const {id} = router.query;
 	const [client, setClient] = useState(undefined);
+	const [forms, setForms] = useState([]);
 
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [type, setType] = useState("");
+	const [formID, setFormID] = useState("");
 	const [status, setStatus] = useState("");
 	const [projectType, setProjectType] = useState("");
 
@@ -72,6 +74,7 @@ export default function ShowClient () {
 			title: title,
 			description: description,
 			type: type,
+			formID: formID,
 		}).catch((e) => {
 			toast.error("Hiba történt a feladat kiosztása során");
 			console.log(e);
@@ -103,8 +106,20 @@ export default function ShowClient () {
 		}
 	}
 
+	async function getForms () {
+		if (!session) return;
+		const data = await axios.post("/api/admin/data/form/list", {
+			accessid: session?.user?.id,
+		}).catch((e) => {
+			toast.error("Hiba történt az adatok lekérdezése során");
+			console.log(e);
+		});
+		setForms(data.data.data);
+	}
+
 	useEffect(() => {
 		getData();
+		getForms();
 	}, [session]);
 
 	return (
@@ -208,6 +223,24 @@ export default function ShowClient () {
 												</SelectContent>
 											</Select>
 										</div>
+										{type === "form" && (
+											<div>
+												<Label htmlFor="form">
+													Kérdőív
+												</Label>
+												<Select onValueChange={(e) => setFormID(e)} defaultValue={formID}>
+													<SelectTrigger>
+														<SelectValue placeholder="Kérdőív kiválasztása"/>
+													</SelectTrigger>
+													<SelectContent>
+														{forms.map((form, index) => (
+															<SelectItem value={form._id}
+															            key={index}>{form.title}</SelectItem>
+														))}
+													</SelectContent>
+												</Select>
+											</div>
+										)}
 									</div>
 									<SheetFooter className={"mt-4"}>
 										<SheetClose asChild>

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEdgeStore } from '@/lib/edgestore';
 import axios from "axios";
@@ -18,6 +19,7 @@ export default function DocumentUpload () {
 	const {edgestore} = useEdgeStore();
 	const [Tasks, setTasks] = useState(null);
 	const [selected, setSelected] = useState(null);
+	const [answers, setAnswers] = useState([]);
 
 	async function getTasks () {
 		const resp = await axios.post("/api/client/task/get", {
@@ -64,14 +66,55 @@ export default function DocumentUpload () {
 		}
 	}
 
+	function setFormFieldValue (value, index) {
+		setAnswers((prevAnswers) => {
+			const updatedAnswers = [...prevAnswers];
+			const answerIndex = updatedAnswers.findIndex((a) => a.index === index);
+			if (answerIndex !== -1) {
+				updatedAnswers[answerIndex].value = value;
+			} else {
+				updatedAnswers.push({index, value});
+			}
+			return updatedAnswers;
+		});
+	}
+
+	function getFormFieldValue (index) {
+		const answer = answers.find((a) => a.index === index);
+		return answer ? answer.value : "";
+	}
+
+	function saveForm () {
+		toast.loading("Űrlap beküldése folyamatban...");
+		axios.post("/api/client/task/submit", {
+			client_id: session.user.id,
+			session_token: session.user.session_token,
+			task_id: selected._id,
+			answers
+		}).then((resp) => {
+			if (resp.data.success === true) {
+				toast.dismiss()
+				toast.success("Űrlap sikeresen beküldve");
+				getTasks()
+				setSelected("")
+				setAnswers([])
+			}
+		}).catch((e) => {
+			toast.dismiss()
+			toast.error("Hiba történt az űrlap beküldése során");
+			console.log(e);
+		});
+	}
+
 	return (
 		<Gate permission="client">
 			<Template>
 				<>
 					{session && (
 						<div className={"p-4"}>
-							<h1 className={"text-2xl font-semibold"}>Dokumentumok feltöltése</h1>
-							<p className={"muted"}>Ezen a felületen töltheted fel a szükséges dokumentumokat,
+							<h1 className={"text-2xl font-semibold"}>Adatok megadása</h1>
+							<p className={"muted"}>Ezen a felületen töltheted fel a szükséges dokumentumokat, avagy
+								adatokat,
 								amelyek alapján tovább tudunk dolgozni.</p>
 						</div>
 					)}
@@ -91,7 +134,29 @@ export default function DocumentUpload () {
 								</SelectContent>
 							</Select>
 							{selected?.type === "form" && (
-								<h2>Forms coming soon!</h2>
+								<Card className={"mt-4"}>
+									<CardHeader className={"pb-2"}>
+										<CardTitle>{selected.title}</CardTitle>
+										<CardDescription>{selected.description}</CardDescription>
+										{selected.comment && (
+											<Alert>
+												<AlertTitle>Megjegyzés az előző feltöltés alapján:</AlertTitle>
+												<AlertDescription>{selected.comment}</AlertDescription>
+											</Alert>)}
+									</CardHeader>
+									<CardContent>
+										{selected.form.fields.map((field, index) => (
+											<div key={index} className={"flex flex-col gap-1 my-2"}>
+												<Label>{field}</Label>
+												<Input placeholder={"Válasz megadása"} value={getFormFieldValue(index)}
+												       onChange={(e) => setFormFieldValue(e.target.value, index)}></Input>
+											</div>
+										))}
+									</CardContent>
+									<CardFooter>
+										<Button onClick={saveForm}>Beküldés</Button>
+									</CardFooter>
+								</Card>
 							)}
 							{selected?.type === "pdf" && (
 								<Card className={"mt-4"}>

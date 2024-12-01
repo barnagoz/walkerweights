@@ -8,6 +8,8 @@ import {
 	DialogTitle,
 	DialogTrigger
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
@@ -71,7 +73,17 @@ export default function TaskModal ({task, children, getData}) {
 				{task.status !== "Új" && (
 					<>
 						{task.type === "form" && (
-							<h2>Forms coming soon!</h2>
+							<div className={"flex flex-col gap-3"}>
+								{task.form_submission?.answers.map((answer, index) => (
+									<div key={index} className={"flex flex-col gap-2"}>
+										<Label>{task.form.fields[answer.index]}</Label>
+										<Input value={answer.value} disabled={true} className={"!cursor-text" +
+											" !opacity-100"}></Input>
+									</div>
+								))}
+								<p className={"text-muted muted mt-1"}>Beküldve
+									ekkor: {new Date(task.form_submission?.submitted_at).toLocaleString()}</p>
+							</div>
 						)}
 						{task.type === "pdf" && (
 							<div>

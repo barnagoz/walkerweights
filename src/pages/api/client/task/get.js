@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import Task from "@/../models/taskSchema";
 import Client from "@/../models/clientSchema";
+import Form from "@/../models/formSchema";
 import { ObjectId } from "mongodb";
 
 export default async function handler (req, res) {
@@ -19,8 +20,22 @@ export default async function handler (req, res) {
 			// Find client tasks
 			const tasks = await Task.find({client_id: client_id});
 
+			// get forms for tasks
+			const tasksWithForms = await Promise.all(tasks.map(async (task) => {
+					if (task.type === "form") {
+						const form = await Form.findOne({_id: task.form_id});
+						return {
+							...task.toObject(),
+							form: form
+						};
+					}
+					return task;
+				}
+			));
+
+
 			// Send tasks
-			res.status(200).json({success: true, data: tasks});
+			res.status(200).json({success: true, data: tasksWithForms});
 		} catch (error) {
 			res.status(400).json({success: false, error: error.message});
 		}

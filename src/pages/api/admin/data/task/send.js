@@ -3,25 +3,41 @@ import Task from "@/../models/taskSchema";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
 
-export async function sendTask (title, description, client, type) {
-	const task = new Task({
-		title,
-		description,
-		client_id: client,
-		type,
-		status: "Új",
-		created_at: new Date(),
-	});
+export async function sendTask (title, description, client, type, formID) {
+	if (type === "form") {
+		const task = new Task({
+			title,
+			description,
+			client_id: client,
+			type,
+			status: "Új",
+			created_at: new Date(),
+			form_id: new ObjectId(formID),
+		});
+		return await task.save();
+	} else {
+		const task = new Task({
+			title,
+			description,
+			client_id: client,
+			type,
+			status: "Új",
+			created_at: new Date(),
+		});
 
-	return await task.save();
+		return await task.save();
+	}
 }
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {
-		const {clientid, accessid, title, description, type} = req.body;
+		const {clientid, accessid, title, description, type, formID} = req.body;
 
 		// Check for fields
 		if (!clientid || !accessid || !title || !description || !type) {
+			return res.status(400).json({success: false, message: "Missing fields"});
+		}
+		if (type === "form" && !formID) {
 			return res.status(400).json({success: false, message: "Missing fields"});
 		}
 
@@ -34,6 +50,10 @@ export default async function handler (req, res) {
 
 		// Add task to client
 		try {
+			if (type === "form") {
+				const newTask = await sendTask(title, description, clientid, type, formID);
+				res.status(200).json({success: true, data: newTask});
+			}
 			const newTask = await sendTask(title, description, clientid, type);
 			res.status(200).json({success: true, data: newTask});
 		} catch (error) {
