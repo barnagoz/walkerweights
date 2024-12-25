@@ -15,7 +15,7 @@ import {
 } from "@react-email/components";
 import * as React from "react";
 
-const baseUrl = process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : "http://localhost:3000";
+const baseUrl = process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : "https://walkerweights.vercel.app";
 
 export const ClientPasswordSetup = ({
 	first_name,
@@ -31,17 +31,17 @@ export const ClientPasswordSetup = ({
 			<Tailwind>
 				<Body className="bg-white my-auto mx-auto font-sans px-2">
 					<Container
-						className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+						className="border border-solid border-[#eaeaea] rounded-lg my-[40px] mx-auto p-[20px] max-w-[465px]">
 						<Section className="mt-[32px]">
 							<Img
-								src={`${baseUrl}/asset/logo.png`}
-								width="40"
-								height="37"
+								src={`${baseUrl}/asset/logo.svg`}
+								width="140"
+								height="auto"
 								alt="Walker&Weights"
 								className="my-0 mx-auto"
 							/>
 						</Section>
-						<Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+						<Heading className="text-black text-[24px] font-semibold text-center p-0 my-[30px] mx-0">
 							Jelentkezzen be a Walker&Weights portáljára
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
@@ -55,7 +55,7 @@ export const ClientPasswordSetup = ({
 						</Text>
 						<Section className="text-center mt-[32px] mb-[32px]">
 							<Button
-								className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+								className="bg-[#000000] rounded-md text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
 								href={password_setup_link}
 							>
 								Jelszó beállítása
@@ -67,7 +67,12 @@ export const ClientPasswordSetup = ({
 								{password_setup_link}
 							</Link>
 						</Text>
-						<Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full"/>
+						<Text className={"text-black text-[14px] leading-[24px]"}>
+							Üdvözlettel,
+							<br/>
+							Walker&Weights csapata
+						</Text>
+						<Hr className="border border-solid border-[#eaeaea] my-[16px] mx-0 w-full"/>
 						<Text className="text-[#666666] text-[12px] leading-[24px]">
 							Ezt az emailt azért kapta, mert ezzel az email címmel kitöltötték a Walker&Weights
 							konzultációs űrlapját. Amennyiben nem Ön volt, kérjük hagyja figyelmen kívül.

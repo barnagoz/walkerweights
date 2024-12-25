@@ -10,18 +10,19 @@ import {
 	Link,
 	Preview,
 	Section,
-	Text,
 	Tailwind,
+	Text,
 } from "@react-email/components";
 import * as React from "react";
 
 const baseUrl = process.env.NEXTAUTH_URL ? process.env.NEXTAUTH_URL : "https://walkerweights.vercel.app";
-export const ResetPasswordEmail = ({
+export const DataRejectedEmail = ({
 	first_name,
 	last_name,
-	password_setup_link,
+	company_name,
+	portal_link,
 }) => {
-	const previewText = `Jelszó visszaállítása`;
+	const previewText = `Adatok újraküldése szükséges`;
 
 	return (
 		<Html>
@@ -41,28 +42,31 @@ export const ResetPasswordEmail = ({
 							/>
 						</Section>
 						<Heading className="text-black text-[24px] font-semibold text-center p-0 my-[30px] mx-0">
-							Elfelejtett jelszó visszaállítása
+							Adatok újraküldése szükséges
 						</Heading>
 						<Text className="text-black text-[14px] leading-[24px]">
 							Kedves {last_name} {first_name},
 						</Text>
 						<Text className="text-black text-[14px] leading-[24px]">
-							Pár perccel ezelőtt az Ön email címével egy jelszóvisszaállítási kérést kezdeményeztek a
-							Walker&Weights portálján. Amennyiben Ön szeretné visszaállítani a jelszavát, az alábbi
-							gombra kattintva megteheti.
+							Az Ön által beküldött adatok egy részét nem tudtuk elfogadni. Kérjük, hogy az alábbi gombra
+							kattintva nyissa meg a {company_name} egyedi portálját, ahol újra beküldheti az adatokat.
+							Auditorunk megjegyzést is fűzött a visszautasított adatokhoz, amelyet a portálon
+							megtekinthet.
+							<br/>
+							Kérjük, szíveskedjen a portálra belépni és a kért adatokat a lehető leghamarabb megadni.
 						</Text>
 						<Section className="text-center mt-[32px] mb-[32px]">
 							<Button
 								className="bg-[#000000] rounded-md text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
-								href={password_setup_link}
+								href={portal_link}
 							>
-								Jelszó visszaállítása
+								Portál megnyitása
 							</Button>
 						</Section>
 						<Text className="text-black text-[14px] leading-[24px]">
 							Amennyiben a gomb nem működött, másolja be az alábbi webcímet a böngészőjébe:{" "}
-							<Link href={password_setup_link} className="text-blue-600 no-underline">
-								{password_setup_link}
+							<Link href={portal_link} className="text-blue-600 no-underline">
+								{portal_link}
 							</Link>
 						</Text>
 						<Text className={"text-black text-[14px] leading-[24px]"}>
@@ -72,7 +76,7 @@ export const ResetPasswordEmail = ({
 						</Text>
 						<Hr className="border border-solid border-[#eaeaea] my-[16px] mx-0 w-full"/>
 						<Text className="text-[#666666] text-[12px] leading-[24px]">
-							Abban az esetben, ha nem Ön kezdeményezte a jelszóvisszaállítást, kérjük, hagyja figyelmen
+							Abban az esetben, ha nem Ön a levél címzettje, kérjük, hagyja figyelmen
 							kívül ezt az üzenetet és ne kattintson a gombra.
 						</Text>
 					</Container>
@@ -82,10 +86,11 @@ export const ResetPasswordEmail = ({
 	);
 };
 
-ResetPasswordEmail.PreviewProps = {
+DataRejectedEmail.PreviewProps = {
 	first_name: "Barnabás",
 	last_name: "Kovács",
-	password_setup_link: "https://example.com",
+	portal_link: "https://example.com",
+	company_name: "Swietelsky",
 };
 
-export default ResetPasswordEmail;
+export default DataRejectedEmail;
