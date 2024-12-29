@@ -9,7 +9,7 @@ export default async function handler (req, res) {
 
 	// Check for fields
 	if (!accessid) {
-		return res.status(400).json({success: false, message: "Missing fields"});
+		return res.status(401).json({success: false, message: "Missing fields"});
 	}
 
 	// Check for sufficient permissions

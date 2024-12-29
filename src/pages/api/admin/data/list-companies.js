@@ -8,6 +8,11 @@ export default async function handler (req, res) {
 	if (req.method === "POST") {
 		const {accessid} = req.body;
 
+		// Check for missing fields
+		if (!accessid) {
+			return res.status(401).json({success: false, message: "Missing fields"});
+		}
+
 		// Check for sufficient permissions
 		await dbConnect();
 		const admin = await Admin.findOne({_id: new ObjectId(accessid)});
@@ -20,7 +25,7 @@ export default async function handler (req, res) {
 			let clients = await Client.find();
 			res.status(200).json({success: true, data: clients});
 		} catch (error) {
-			res.status(400).json({success: false, error: error.message});
+			res.status(500).json({success: false, error: error.message});
 		}
 	} else {
 		res.status(400).json({success: false, message: "Invalid request method"});

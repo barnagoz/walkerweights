@@ -15,7 +15,7 @@ export default async function handler (req, res) {
 
 		// Check for missing fields
 		if (!email) {
-			return res.status(400).json({success: false, message: "Missing fields"});
+			return res.status(401).json({success: false, message: "Missing fields"});
 		}
 
 		// Delete admin
@@ -23,7 +23,7 @@ export default async function handler (req, res) {
 			const deletedAdmin = await Admin.findOneAndDelete({email: email});
 			res.status(201).json({success: true, data: deletedAdmin});
 		} catch (error) {
-			res.status(400).json({success: false, error: error.message});
+			res.status(500).json({success: false, error: error.message});
 		}
 	} else {
 		res.status(400).json({success: false, message: "Invalid request method"});

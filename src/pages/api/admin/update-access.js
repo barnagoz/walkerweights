@@ -25,7 +25,7 @@ export default async function handler (req, res) {
 			await admin.save();
 			res.status(201).json({success: true, data: admin});
 		} catch (error) {
-			res.status(400).json({success: false, error: error.message});
+			res.status(500).json({success: false, error: error.message});
 		}
 	} else {
 		res.status(400).json({success: false, message: "Invalid request method"});

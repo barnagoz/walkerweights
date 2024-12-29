@@ -9,7 +9,7 @@ export default async function handler (req, res) {
 
 		// Check for fields
 		if (!accessid || !title || !description || !questions) {
-			return res.status(400).json({success: false, message: "Missing fields"});
+			return res.status(401).json({success: false, message: "Missing fields"});
 		}
 
 		// Check for sufficient permissions
@@ -28,9 +28,9 @@ export default async function handler (req, res) {
 			});
 			await form.save();
 
-			res.status(200).json({success: true, data: form});
+			res.status(201).json({success: true, data: form});
 		} catch (error) {
-			res.status(400).json({success: false, error: error.message});
+			res.status(500).json({success: false, error: error.message});
 		}
 	} else {
 		res.status(400).json({success: false, message: "Invalid request method"});

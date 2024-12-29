@@ -1,0 +1,561 @@
+openapi: 3.1.0
+info:
+  title: Walker&Weights API
+  description: Walker&Weights API
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:3000/api'
+    description: Local server
+  - url: 'https://walkerweights.vercel.app/api'
+    description: Production server
+tags:
+  - name: admin
+    description: Administrator operations
+  - name: client
+    description: Client operations
+  - name: auth
+    description: Authentication operations
+paths:
+  /admin/create:
+    post:
+      tags:
+        - admin
+      summary: Create a new user
+      description: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: email of the user
+                first_name:
+                  type: string
+                  description: first name of the user
+                last_name:
+                  type: string
+                  description: last name of the user
+                access_list:
+                  type: array
+                  items:
+                    type: string
+                  description: list of access levels for the user
+                accessid:
+                  type: string
+                  description: objectid of the user creating
+              $ref: '/models/adminSchema.js'
+              required:
+                - email
+                - first_name
+                - last_name
+                - access_list
+                - accessid
+      responses:
+        201:
+          description: User created
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/delete:
+    post:
+      tags:
+        - admin
+      summary: Delete a user
+      description: Delete a user
+      operationId: deleteUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: email of the user currently being deleted
+                accessid:
+                  type: string
+                  description: objectid of the user deleting
+              required:
+                - email
+                - accessid
+      responses:
+        201:
+          description: User deleted
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/update-access:
+    post:
+      tags:
+        - admin
+      summary: Update a user's access
+      description: Update a user's access
+      operationId: updateUserAccess
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: email of the user currently being updated
+                access_list:
+                  type: array
+                  items:
+                    type: string
+                  description: list of access levels for the user
+                accessid:
+                  type: string
+                  description: objectid of the user updating
+              required:
+                - email
+                - access_list
+                - accessid
+      responses:
+        201:
+          description: User access updated
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/list:
+    post:
+      tags:
+        - admin
+      summary: List all users
+      description: List all users
+      operationId: listUsers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user listing
+              required:
+                - accessid
+      responses:
+        200:
+          description: List of users
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/password-email:
+    post:
+      tags:
+        - admin
+      summary: Send password setup email
+      description: Send password setup email to admin
+      operationId: sendPasswordEmail
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: email of the user
+                accessid:
+                  type: string
+                  description: objectid of the user sending email
+                first_name:
+                  type: string
+                  description: first name of the user
+                last_name:
+                  type: string
+                  description: last name of the user
+              required:
+                - email
+      responses:
+        200:
+          description: Email sent
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/list-companies:
+    post:
+      tags:
+        - admin
+      summary: List all companies
+      description: List all companies
+      operationId: listCompanies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user listing
+              required:
+                - accessid
+      responses:
+        200:
+          description: List of companies
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/export:
+    post:
+      tags:
+        - admin
+      summary: Export data
+      description: Export data
+      operationId: exportData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user exporting
+              required:
+                - accessid
+      responses:
+        200:
+          description: Data exported
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/company:
+    post:
+      tags:
+        - admin
+      summary: Get company data
+      description: Get company data
+      operationId: getCompanyData
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user getting company data
+                companyid:
+                  type: string
+                  description: objectid of the company
+                getTasks:
+                  type: boolean
+                  description: get tasks for company
+              required:
+                - accessid
+                - companyid
+      responses:
+        200:
+          description: Company data
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/change-state:
+    post:
+      tags:
+        - admin
+      summary: Change company state
+      description: Change company state
+      operationId: changeCompanyState
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user changing company state
+                clientid:
+                  type: string
+                  description: objectid of the company
+                status:
+                  type: string
+                  description: new state of the company
+                type:
+                  type: string
+                  description: new type of company actions
+                addTasks:
+                  type: boolean
+                  description: add tasks associated with new type for company
+              required:
+                - accessid
+                - clientid
+                - status
+                - type
+      responses:
+        200:
+          description: Company state changed
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        404:
+          description: Company not found
+        500:
+          description: Internal server error
+  /admin/data/form/list:
+    post:
+      tags:
+        - admin
+      summary: List all forms
+      description: List all forms
+      operationId: listForms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user listing forms
+              required:
+                - accessid
+      responses:
+        200:
+          description: List of forms
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/form/create:
+    post:
+      tags:
+        - admin
+      summary: Create a new form
+      description: Create a new form
+      operationId: createForm
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user creating form
+                title:
+                  type: string
+                  description: title of the form
+                description:
+                  type: string
+                  description: description of the form
+                questions:
+                  type: array
+                  items:
+                    type: string
+                  description: list of questions for the form
+              required:
+                - accessid
+                - title
+                - description
+                - questions
+      responses:
+        201:
+          description: Form created
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        500:
+          description: Internal server error
+  /admin/data/task/send:
+    post:
+      tags:
+        - admin
+      summary: Send task
+      description: Send task
+      operationId: sendTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user sending task
+                clientid:
+                  type: string
+                  description: objectid of the company
+                title:
+                  type: string
+                  description: title of the task
+                description:
+                  type: string
+                  description: description of the task
+                type:
+                  type: string
+                  description: type of the task, either form or file format (pdf, xlsx)
+                formID:
+                  type: string
+                  description: objectid of the form; required if type is form
+              required:
+                - accessid
+                - clientid
+                - title
+                - description
+                - type
+      responses:
+        201:
+          description: Task sent
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        404:
+          description: Company not found
+        500:
+          description: Internal server error
+  /admin/data/task/resend:
+    post:
+      tags:
+        - admin
+      summary: Resend task
+      description: Resend task
+      operationId: resendTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user resending task
+                taskid:
+                  type: string
+                  description: objectid of the task
+                comment:
+                  type: string
+                  description: comment for the task
+              required:
+                - accessid
+                - taskid
+      responses:
+        201:
+          description: Task resent
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        404:
+          description: Task not found
+        500:
+          description: Internal server error
+  /admin/data/task/accept:
+    post:
+      tags:
+        - admin
+      summary: Accept task
+      description: Accept task
+      operationId: acceptTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user accepting task
+                taskid:
+                  type: string
+                  description: objectid of the task
+                comment:
+                  type: string
+                  description: comment for the task
+              required:
+                - accessid
+                - taskid
+      responses:
+        201:
+          description: Task accepted
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        403:
+          description: Unauthorized
+        404:
+          description: Task not found
+        500:
+          description: Internal server error

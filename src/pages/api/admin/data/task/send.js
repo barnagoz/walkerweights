@@ -35,10 +35,10 @@ export default async function handler (req, res) {
 
 		// Check for fields
 		if (!clientid || !accessid || !title || !description || !type) {
-			return res.status(400).json({success: false, message: "Missing fields"});
+			return res.status(401).json({success: false, message: "Missing fields"});
 		}
 		if (type === "form" && !formID) {
-			return res.status(400).json({success: false, message: "Missing fields"});
+			return res.status(401).json({success: false, message: "Missing fields"});
 		}
 
 		// Check for sufficient permissions
@@ -52,12 +52,12 @@ export default async function handler (req, res) {
 		try {
 			if (type === "form") {
 				const newTask = await sendTask(title, description, clientid, type, formID);
-				res.status(200).json({success: true, data: newTask});
+				res.status(201).json({success: true, data: newTask});
 			}
 			const newTask = await sendTask(title, description, clientid, type);
-			res.status(200).json({success: true, data: newTask});
+			res.status(201).json({success: true, data: newTask});
 		} catch (error) {
-			res.status(400).json({success: false, error: error.message});
+			res.status(500).json({success: false, error: error.message});
 		}
 	} else {
 		res.status(400).json({success: false, message: "Invalid request method"});
