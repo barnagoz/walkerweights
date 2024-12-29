@@ -5,4 +5,5 @@ export const permissionList = [
 	{code: "client-task-send", name: "Feladat küldése ügyfélnek"},
 	{code: "admin-management", name: "Adminisztrátori fiókok kezelése"},
 	{code: "form-list", name: "Űrlapok megtekintése"},
+	{code: "send-notification", name: "Értesítés küldése"},
 ]

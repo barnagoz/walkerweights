@@ -559,3 +559,45 @@ paths:
           description: Task not found
         500:
           description: Internal server error
+  /admin/data/send-notification:
+    post:
+      tags:
+        - admin
+      summary: Send notification
+      description: Send notification
+      operationId: sendNotification
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                accessid:
+                  type: string
+                  description: objectid of the user sending notification
+                clientid:
+                  type: string
+                  description: objectid of the company
+                emailtemplate:
+                  type: string
+                  description: email template to use
+                  format: enum
+                  enum:
+                    - more-details-needed
+                    - data-rejected
+              required:
+                - accessid
+                - clientid
+                - emailtemplate
+      responses:
+        201:
+          description: Notification sent
+        400:
+          description: Bad request, wrong method used
+        401:
+          description: Bad request, missing fields
+        404:
+          description: Company not found
+        500:
+          description: Internal server error

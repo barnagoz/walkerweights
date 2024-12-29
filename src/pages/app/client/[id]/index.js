@@ -13,6 +13,14 @@ import {
 	DialogTitle,
 	DialogTrigger
 } from "@/components/ui/dialog";
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -30,7 +38,7 @@ import StatCard from "@/components/ui/statcard";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
-import { CalendarIcon, LightbulbIcon, LucideNewspaper, PlusIcon } from "lucide-react";
+import { CalendarIcon, ChevronDown, LightbulbIcon, LucideNewspaper, PlusIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -124,6 +132,21 @@ export default function ShowClient () {
 		getForms();
 	}, [session]);
 
+	async function sendNotification (type) {
+		const data = await axios.post("/api/admin/data/send-notification", {
+			accessid: session.user.id,
+			clientid: id,
+			emailtemplate: type,
+		}).catch((e) => {
+			toast.error("Hiba történt az értesítés küldése során");
+			console.log(e);
+		});
+
+		if (data.data.success) {
+			toast.success("Értesítés sikeresen elküldve");
+		}
+	}
+
 	return (
 		<Gate permission={['app', 'client-list']}>
 			<Template>
@@ -134,9 +157,23 @@ export default function ShowClient () {
 						<div className={"flex flex-row space-x-2 justify-between"}>
 							<h1 className={"text-2xl font-bold"}>{client.company_name}</h1>
 							<div className={"flex flex-row gap-2 justify-end"}>
+								<Gate permission={"send-notification"} inline={true}>
+									<DropdownMenu>
+										<DropdownMenuTrigger><Button variant={"outline"}>Értesítés <ChevronDown
+											className="ml-1" size={15}/></Button></DropdownMenuTrigger>
+										<DropdownMenuContent>
+											<DropdownMenuLabel>Értesítés küldése a kliensnek</DropdownMenuLabel>
+											<DropdownMenuSeparator/>
+											<DropdownMenuItem onClick={() => sendNotification("data-rejected")}>Adatfeltöltés
+												elutasítva →</DropdownMenuItem>
+											<DropdownMenuItem onClick={() => sendNotification("more-details-needed")}>További
+												adatok feltöltése szükséges →</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
+								</Gate>
 								<Dialog>
 									<DialogTrigger>
-										<Button variant={"outline"}>Projekt státuszának módosítása</Button>
+										<Button variant={"outline"}>Projekt státusz mód.</Button>
 									</DialogTrigger>
 									<DialogContent>
 										<DialogHeader>
