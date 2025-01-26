@@ -19,7 +19,7 @@ To set up the application locally, follow these steps:
 Ensure you have the following installed:
 
 - **Node.js** (v14 or later)
-- **npm** (v6 or later) or **Yarn**
+- **npm** (v6 or later)
 
 ### Installation
 
