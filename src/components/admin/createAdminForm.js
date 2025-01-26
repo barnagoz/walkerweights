@@ -31,6 +31,7 @@ export function CreateAdminForm ({buttonText}) {
 	});
 
 	async function onSubmit (values) {
+		toast.loading("Adminisztrátor regisztrációja folyamatban...")
 		if (status !== "authenticated") {
 			alert("Nincs bejelentkezve!");
 			return;
@@ -39,10 +40,11 @@ export function CreateAdminForm ({buttonText}) {
 			...values,
 			accessid: session.user.id,
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt a küldés során, kérlek próbáld újra");
-			console.log(e);
 		});
 		if (resp.data.success) {
+			toast.dismiss();
 			toast.success("Sikeresen elküldve");
 		}
 	}

@@ -15,6 +15,7 @@ import {
 	SheetTitle,
 	SheetTrigger
 } from "@/components/ui/sheet";
+import { LoadingSpinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { MinusIcon, PlusIcon } from "lucide-react";
@@ -29,8 +30,10 @@ export default function Forms () {
 	const [description, setDescription] = useState("");
 	const [questions, setQuestions] = useState([]);
 	const [newQuestion, setNewQuestion] = useState("");
+	const [loading, setLoading] = useState(false)
 
 	async function getForms () {
+		setLoading(true)
 		if (!session) return;
 		const data = await axios.post("/api/admin/data/form/list", {
 			accessid: session?.user?.id,
@@ -39,6 +42,7 @@ export default function Forms () {
 			console.log(e);
 		});
 		setForms(data.data.data);
+		setLoading(false)
 	}
 
 	function addQuestion () {
@@ -51,17 +55,20 @@ export default function Forms () {
 	}
 
 	async function saveForm () {
+		toast.loading("Űrlap mentése folyamatban...")
 		const response = await axios.post("/api/admin/data/form/create", {
 			accessid: session?.user?.id,
 			title,
 			description,
 			questions
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt az űrlap létrehozása során");
 			console.log(e);
 		});
 
 		if (response.data.success === true) {
+			toast.dismiss();
 			toast.success("Űrlap sikeresen létrehozva");
 			setTitle("");
 			setDescription("");
@@ -148,7 +155,12 @@ export default function Forms () {
 					<p className={"muted mt-2"}>Alább láthatók a különböző űrlapok, amelyeket az ügyfeleknek lehet
 						küldeni.</p>
 					<div className={"flex flex-row space-x-2 mt-4 flex-wrap"}>
-						{forms.map((form, index) => (
+						{loading ? (
+							<div className={"w-full flex justify-center items-center p-4 gap-2"}>
+								<LoadingSpinner/>
+								<p>Betöltés...</p>
+							</div>
+						) : (forms.length > 0 ? forms.map((form, index) => (
 							<Card key={index} className={"min-w-[300px] flex-grow"}>
 								<CardHeader>
 									<CardTitle>{form.title}</CardTitle>
@@ -158,7 +170,7 @@ export default function Forms () {
 									<p>Felhasználva {form.usages} feladatban</p>
 									<Collapsible>
 										<CollapsibleTrigger className={"font-semibold hover:underline"}>Kérdések
-											mutatása →</CollapsibleTrigger>
+											megjelenítése →</CollapsibleTrigger>
 										<CollapsibleContent>
 											{form.fields.map((question, index) => (
 												<p key={index}>{question}</p>
@@ -167,6 +179,10 @@ export default function Forms () {
 									</Collapsible>
 								</CardContent>
 							</Card>
+						)) : (
+							<div className={"w-full flex justify-center items-center p-4 gap-2"}>
+								<p>Nincsenek kérdőívek...</p>
+							</div>
 						))}
 					</div>
 				</div>

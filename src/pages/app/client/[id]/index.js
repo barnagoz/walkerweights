@@ -77,6 +77,7 @@ export default function ShowClient () {
 	}
 
 	async function sendTask () {
+		toast.loading("Feladat kiosztása folyamatban...")
 		const data = await axios.post("/api/admin/data/task/send", {
 			accessid: session.user.id,
 			clientid: id,
@@ -85,11 +86,13 @@ export default function ShowClient () {
 			type: type,
 			formID: formID,
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt a feladat kiosztása során");
 			console.log(e);
 		});
 
 		if (data.data.success) {
+			toast.dismiss();
 			toast.success("Feladat sikeresen kiosztva");
 			getData();
 			setTitle("");
@@ -99,6 +102,7 @@ export default function ShowClient () {
 	}
 
 	async function changeStatus () {
+		toast.loading("Státusz módosítása folyamatban...");
 		const data = await axios.post("/api/admin/data/change-state", {
 			accessid: session.user.id,
 			clientid: id,
@@ -106,11 +110,13 @@ export default function ShowClient () {
 			type: projectType,
 			addTasks: addTasks,
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt a státusz módosítása során");
 			console.log(e);
 		});
 
 		if (data.data.success) {
+			toast.dismiss();
 			toast.success("Státusz sikeresen módosítva");
 			getData();
 		}
@@ -133,16 +139,19 @@ export default function ShowClient () {
 	}, [session]);
 
 	async function sendNotification (type) {
+		toast.loading("Értesítés küldése folyamatban...");
 		const data = await axios.post("/api/admin/data/send-notification", {
 			accessid: session.user.id,
 			clientid: id,
 			emailtemplate: type,
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt az értesítés küldése során");
 			console.log(e);
 		});
 
 		if (data.data.success) {
+			toast.dismiss();
 			toast.success("Értesítés sikeresen elküldve");
 		}
 	}

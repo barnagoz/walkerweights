@@ -45,26 +45,32 @@ export function RegisterClientForm ({data, isEdit = false}) {
 
 	async function onSubmit (values) {
 		if (isEdit) {
+			toast.loading("Adatok frissítése folyamatban...")
 			const resp = await axios.post("/api/client/update", {
 				...values,
 				client_id: data._id,
 				session_token: session.user.session_token,
 			}).catch((e) => {
-				toast.error("Hiba történt a mentés során, kérlek próbáld újra");
+				toast.dismiss();
+				toast.error("Hiba történt az adatok frissítése során, próbálja újra");
 				console.log(e);
 			});
 
 			if (resp.data.success) {
+				toast.dismiss();
 				toast.success("Sikeresen frissítve.");
 			}
 		} else {
+			toast.loading("Adatok küldése folyamatban...");
 			const resp = await axios.post("/api/client/register", {
 				...values,
 			}).catch((e) => {
-				toast.error("Hiba történt a küldés során, kérlek próbáld újra");
+				toast.dismiss();
+				toast.error("Hiba történt a küldés során, próbálja újra");
 				console.log(e);
 			});
 			if (resp.data.success) {
+				toast.dismiss();
 				toast.success("Sikeresen elküldve, hamarosan jelentkezünk");
 			}
 		}

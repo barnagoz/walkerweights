@@ -50,7 +50,7 @@ export default function Gate ({permission, children, inline}) {
 			<Link href={"/auth/login"}><Button className={"px-12 mt-2"}>Bejelentkezés →</Button></Link>
 		</div>);
 	} else if (status === "loading" || isAllowed === undefined) {
-		return <div className={`w-full ${inline ? "h-screen" : "h-auto"} flex items-center justify-center flex-col`}>
+		return <div className={`w-full ${inline ? "h-auto" : "h-screen"} flex items-center justify-center flex-col`}>
 			<LoadingSpinner/>
 			<p>Betöltés...</p>
 		</div>;

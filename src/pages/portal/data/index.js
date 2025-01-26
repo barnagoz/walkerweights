@@ -1,6 +1,7 @@
 import Gate from "@/components/auth/gate";
 import Template from "@/components/common/template";
 import { Button } from "@/components/ui/button";
+import { LoadingSpinner } from "@/components/ui/spinner";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
 import axios from "axios";
 import { PlusIcon } from "lucide-react";
@@ -12,8 +13,10 @@ import Link from "next/link";
 export default function DocumentUpload () {
 	const {data: session} = useSession();
 	const [Tasks, setTasks] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	async function getTasks () {
+		setLoading(true);
 		const resp = await axios.post("/api/client/task/get", {
 			client_id: session.user.id,
 			session_token: session.user.session_token
@@ -25,6 +28,7 @@ export default function DocumentUpload () {
 		if (resp.data.success === true) {
 			setTasks(resp.data.data);
 		}
+		setLoading(false);
 	}
 
 	useEffect(() => {
@@ -49,7 +53,12 @@ export default function DocumentUpload () {
 								dokumentumot rendszerünkbe!</p>
 						</div>
 					)}
-					{Tasks && (
+					{loading ? (
+						<div className={"w-full p-4 gap-2 flex justify-center items-center"}>
+							<LoadingSpinner/>
+							<p>Betöltés...</p>
+						</div>
+					) : (Tasks && (
 						<div className={"px-4"}>
 							<Table>
 								<TableHeader>
@@ -74,7 +83,7 @@ export default function DocumentUpload () {
 								</TableBody>
 							</Table>
 						</div>
-					)}
+					))}
 				</>
 			</Template>
 		</Gate>

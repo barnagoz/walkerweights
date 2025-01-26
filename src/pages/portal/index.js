@@ -4,6 +4,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { LoadingSpinner } from "@/components/ui/spinner";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -13,8 +14,10 @@ import { toast } from "sonner";
 export default function Portal () {
 	const {data: session} = useSession();
 	const [companyData, setCompanyData] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	async function getCompanyData () {
+		setLoading(true);
 		const resp = await axios.post("/api/client/get-account", {
 			client_id: session.user.id,
 			session_token: session.user.session_token
@@ -27,6 +30,7 @@ export default function Portal () {
 			const data = resp.data?.data;
 			setCompanyData(data);
 		}
+		setLoading(false);
 	}
 
 	useEffect(() => {
@@ -45,7 +49,12 @@ export default function Portal () {
 						<p className={"muted"}>Ez itt az ügyfélportál. Erről a felületről szerkesztheted megadott
 							adataid, fájlok feltöltésével segítheted auditoraink munkáját, valamint nyomonkövetheted
 							projekted állapotát.</p>
-						{companyData && (
+						{loading ? (
+							<div className={"w-full p-4 my-3 flex justify-center items-center gap-2"}>
+								<LoadingSpinner/>
+								<p>Betöltés...</p>
+							</div>
+						) : (companyData && (
 							<Card className={"my-3"}>
 								<CardHeader>
 									<CardTitle
@@ -77,7 +86,7 @@ export default function Portal () {
 								</CardContent>
 							</Card>
 
-						)}
+						))}
 						<h2 className={"text-xl font-semibold mt-6"}>Egyéb lehetőségek:</h2>
 						<div className={"grid grid-cols-1 md:grid-cols-2 gap-4 mt-2"}>
 							<Card>

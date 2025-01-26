@@ -25,15 +25,18 @@ export function PasswordForm ({token, apiLink}) {
 	});
 
 	async function onSubmit (values) {
+		toast.loading("Mentés folyamatban...")
 		const resp = await axios.post(apiLink, {
 			...values,
 			token: token,
 		}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt a mentés során, kérlek próbáld újra", {description: "Amennyiben nem sikerül, vedd fel a kapcsolatot velünk"});
 			console.log(e);
 		});
 
 		if (resp.data.success) {
+			toast.dismiss();
 			toast.success("Sikeresen elmentve", {description: "Hamarosan átirányítunk a bejelentkező felületre"});
 			setTimeout(() => {
 				router.push("/auth/login");

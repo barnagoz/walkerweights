@@ -14,12 +14,15 @@ export default function ForgotPassword () {
 	const [email, setEmail] = useState("");
 
 	async function resetPassword () {
+		toast.loading("Email küldése folyamatban...")
 		const resp = await axios.post("/api/auth/forgot-password", {email: email}).catch((e) => {
+			toast.dismiss();
 			toast.error("Hiba történt a jelszó visszaállítása során!");
 			console.log(e);
 		});
 
 		if (resp.status === 200) {
+			toast.dismiss();
 			toast.success("Jelszó visszaállítási email elküldve!");
 			Router.push("/auth/login");
 		}
