@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import axios from "axios";
 import { useState } from "react";
 import Router from "next/router";
@@ -29,7 +29,7 @@ export default function ForgotPassword () {
 	}
 
 	return (
-		<Template includeFooter={false} className={"bg-gradient-to-bl from-brand-green to-black"}>
+		<Layout includeFooter={false} className={"bg-gradient-to-bl from-brand-green to-black"}>
 			<NextSeo
 				title={"Jelszó visszaállítása"}
 				noindex={true}
@@ -51,6 +51,6 @@ export default function ForgotPassword () {
 					</CardContent>
 				</Card>
 			</div>
-		</Template>
+		</Layout>
 	);
 }

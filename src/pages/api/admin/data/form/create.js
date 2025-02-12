@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
-import Admin from "@/../models/adminSchema";
-import Form from "@/../models/formSchema";
+import Admin from "../../../../../../models/admin-schema";
+import Form from "../../../../../../models/form-schema";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {

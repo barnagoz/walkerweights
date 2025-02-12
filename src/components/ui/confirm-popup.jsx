@@ -9,7 +9,7 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
-export default function AreYouSurePopup ({isOpen, setIsOpen, onConfirm, message, title}) {
+export default function ConfirmPopup ({isOpen, setIsOpen, onConfirm, message, title}) {
 	return (
 		<AlertDialog open={isOpen} onDismiss={() => setIsOpen(false)}>
 			<AlertDialogContent>

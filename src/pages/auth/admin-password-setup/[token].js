@@ -1,4 +1,4 @@
-import { PasswordForm } from "@/components/auth/passwordForm";
+import { PasswordForm } from "@/components/auth/forms/password-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/router";
 

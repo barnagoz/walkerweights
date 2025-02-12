@@ -1,7 +1,7 @@
-import ActionMenu from "@/components/admin/actionMenu";
-import CreateAdminPanel from "@/components/admin/createAdminPanel";
+import ActionMenu from "@/components/admin/menus/action-menu";
+import CreateAdminPanel from "@/components/admin/menus/create-admin-panel";
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { LoadingSpinner } from "@/components/ui/spinner";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import axios from "axios";
@@ -35,7 +35,7 @@ export default function AdminManagement () {
 
 	return (
 		<Gate permission={['app', 'admin-management']}>
-			<Template>
+			<Layout>
 				<div className={"p-4"}>
 					<div className={"flex justify-between"}>
 						<h1 className={"text-2xl font-bold"}>Adminisztrátorok</h1>
@@ -73,7 +73,7 @@ export default function AdminManagement () {
 						</Table>
 					)}
 				</div>
-			</Template>
+			</Layout>
 		</Gate>
 	);
 }

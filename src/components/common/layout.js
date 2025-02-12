@@ -1,11 +1,11 @@
-import { ClientNavigation } from "@/components/common/clientNavigation";
+import { ClientNavigation } from "@/components/client/client-navigation";
 import Navigation from "./navigation";
 import Footer from "./footer";
 import {cn} from "@/lib/utils";
 import { useRouter } from "next/router";
-import { AdminNavigation } from "./adminNavigation";
+import { AdminNavigation } from "../admin/admin-navigation";
 
-export default function Template (
+export default function Layout (
     {
         children,
         includeFooter = true,

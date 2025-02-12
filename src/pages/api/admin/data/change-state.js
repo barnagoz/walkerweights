@@ -1,9 +1,9 @@
 import dbConnect from "@/lib/mongoose";
 import { sendTask } from "@/pages/api/admin/data/task/send";
 import { ObjectId } from "mongodb";
-import Admin from "@/../models/adminSchema";
-import Client from "@/../models/clientSchema";
-import { project_types } from "@/lib/data/project_types";
+import Admin from "../../../../../models/admin-schema";
+import Client from "../../../../../models/client-schema";
+import { projectTypes } from "@/lib/data/project-types";
 
 
 export default async function handler (req, res) {
@@ -37,7 +37,7 @@ export default async function handler (req, res) {
 			// Add tasks
 			if (addTasks) {
 				await Promise.all(
-					project_types.find((project) => project.title === type).tasks.map(async (task) => {
+					projectTypes.find((project) => project.title === type).tasks.map(async (task) => {
 						await sendTask(task.title, task.description, clientid, task.type, task.form_id);
 					})
 				);

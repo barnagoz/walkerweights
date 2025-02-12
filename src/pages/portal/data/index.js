@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Button } from "@/components/ui/button";
 import { LoadingSpinner } from "@/components/ui/spinner";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "@/components/ui/table";
@@ -40,7 +40,7 @@ export default function DocumentUpload () {
 
 	return (
 		<Gate permission="client">
-			<Template>
+			<Layout>
 				<>
 					{session && (
 						<div className={"p-4"}>
@@ -85,7 +85,7 @@ export default function DocumentUpload () {
 						</div>
 					))}
 				</>
-			</Template>
+			</Layout>
 		</Gate>
 	)
 		;

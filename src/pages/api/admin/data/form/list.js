@@ -1,6 +1,6 @@
-import Admin from "@/../models/adminSchema";
-import Form from "@/../models/formSchema";
-import Task from "@/../models/taskSchema";
+import Admin from "../../../../../../models/admin-schema";
+import Form from "../../../../../../models/form-schema";
+import Task from "../../../../../../models/task-schema";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
 

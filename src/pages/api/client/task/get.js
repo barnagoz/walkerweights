@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongoose";
-import Task from "@/../models/taskSchema";
-import Client from "@/../models/clientSchema";
-import Form from "@/../models/formSchema";
+import Task from "../../../../../models/task-schema";
+import Client from "../../../../../models/client-schema";
+import Form from "../../../../../models/form-schema";
 import { ObjectId } from "mongodb";
 
 export default async function handler (req, res) {

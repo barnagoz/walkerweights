@@ -6,8 +6,8 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { Button } from "../ui/button";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import { Button } from "../../ui/button";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "../../ui/form";
 
 const formSchema = z.object({
 	access_list: z.array(z.string()).min(1, "Legalább egy jogosultságot meg kell adni!"),

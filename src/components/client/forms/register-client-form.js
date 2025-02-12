@@ -8,9 +8,9 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { Button } from "../ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
+import { Button } from "../../ui/button";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../ui/form";
+import { Input } from "../../ui/input";
 
 const formSchema = z.object({
 	company_name: z.string().min(1, {message: "Cégnév megadása kötelező"}).max(255, {message: "A cégnév maximum 255 karakter lehet"}),

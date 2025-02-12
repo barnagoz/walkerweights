@@ -1,6 +1,6 @@
-import TaskModal from "@/components/admin/taskModal";
+import TaskModal from "@/components/admin/menus/task-modal";
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -158,7 +158,7 @@ export default function ShowClient () {
 
 	return (
 		<Gate permission={['app', 'client-list']}>
-			<Template>
+			<Layout>
 				{client && (
 					<div className={"p-4"}>
 						<Link href={"/app/client"}><Button variant={"link"} className={"h-auto p-0"}>←
@@ -434,7 +434,7 @@ export default function ShowClient () {
 						</div>
 					</div>
 				)}
-			</Template>
+			</Layout>
 		</Gate>
 	)
 }

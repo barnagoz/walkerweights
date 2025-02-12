@@ -1,4 +1,4 @@
-import Client from "@/../models/clientSchema";
+import Client from "../../../../models/client-schema";
 import ClientPasswordSetup from "@/emails/client-password";
 import sendEmail from "@/lib/email";
 import dbConnect from "@/lib/mongoose";

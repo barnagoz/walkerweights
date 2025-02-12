@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
@@ -84,7 +84,7 @@ export default function Forms () {
 
 	return (
 		<Gate permission={["app", "form-list"]}>
-			<Template>
+			<Layout>
 				<div className={"p-4"}>
 					<div className={"flex flex-row justify-between"}>
 						<h1 className={"text-2xl font-bold"}>Űrlapok</h1>
@@ -186,7 +186,7 @@ export default function Forms () {
 						))}
 					</div>
 				</div>
-			</Template>
+			</Layout>
 		</Gate>
 	);
 }

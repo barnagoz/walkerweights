@@ -1,4 +1,4 @@
-export const project_types = [
+export const projectTypes = [
 	{
 		title: "Világításkorszerűsítés",
 		tasks: [

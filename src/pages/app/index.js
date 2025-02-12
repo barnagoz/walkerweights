@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
@@ -11,7 +11,7 @@ export default function App () {
 
 	return (
 		<Gate permission="app">
-			<Template>
+			<Layout>
 				{session ? (
 					<div className={"p-4"}>
 						<h1 className={"text-2xl font-semibold"}>Üdv, {session.user.name}!</h1>
@@ -65,7 +65,7 @@ export default function App () {
 						<p>Betöltés...</p>
 					</div>
 				)}
-			</Template>
+			</Layout>
 		</Gate>
 	);
 }

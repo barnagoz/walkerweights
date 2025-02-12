@@ -1,9 +1,9 @@
-import { RegisterClientForm } from "@/components/client/registerClientForm";
-import Template from "@/components/common/template";
+import { RegisterClientForm } from "@/components/client/forms/register-client-form";
+import Layout from "@/components/common/layout";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { useIsVisible } from "@/lib/isVisible";
+import { useIsVisible } from "@/lib/is-visible";
 import { cn } from "@/lib/utils";
 import { NextSeo } from "next-seo";
 import Image from "next/image";
@@ -34,7 +34,7 @@ export default function Home () {
 		return () => clearInterval(interval);
 	}, [count, maxCount, isVisible5]);
 
-	return (<Template>
+	return (<Layout>
 			<NextSeo
 				title={"Kezdőlap"}
 				description={"Ha csak egyszer is megfordult a fejében, hogy energetikai" + "korszerűsítést hajtson végre, akkor jó hírünk van: most van, aki a" + "beruházás költségeinek egy részét átvállalja."}
@@ -381,6 +381,6 @@ export default function Home () {
 					</CardContent>
 				</Card>
 			</div>
-		</Template>
+		</Layout>
 	);
 }

@@ -1,5 +1,5 @@
-import Admin from "@/../models/adminSchema";
-import Client from "@/../models/clientSchema";
+import Admin from "../../../../../models/admin-schema";
+import Client from "../../../../../models/client-schema";
 import { permissionList } from "@/lib/data/permission";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";

@@ -1,4 +1,4 @@
-import Admin from "@/../models/adminSchema";
+import Admin from "../../../../models/admin-schema";
 import dbConnect from "@/lib/mongoose";
 import { sendPasswordEmail } from "@/pages/api/admin/password-email";
 import { ObjectId } from "mongodb";

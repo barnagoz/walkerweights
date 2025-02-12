@@ -2,9 +2,9 @@ import * as z from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import {signIn} from "next-auth/react";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "../ui/form";
-import {Input} from "../ui/input";
-import {Button} from "../ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "../../ui/form";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 import {cn} from "@/lib/utils";
 
 const formSchema = z.object({

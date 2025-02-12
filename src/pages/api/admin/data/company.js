@@ -1,11 +1,11 @@
-import Admin from "@/../models/adminSchema";
-import Client from "@/../models/clientSchema";
+import Admin from "../../../../../models/admin-schema";
+import Client from "../../../../../models/client-schema";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
-import Task from "@/../models/taskSchema";
-import FileSubmission from "@/../models/fileSubmissionSchema";
-import FormSubmission from "@/../models/formSubmissionSchema";
-import Form from "@/../models/formSchema";
+import Task from "../../../../../models/task-schema";
+import FileSubmission from "../../../../../models/file-submission-schema";
+import FormSubmission from "../../../../../models/form-submission-schema";
+import Form from "../../../../../models/form-schema";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {

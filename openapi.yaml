@@ -48,7 +48,7 @@ paths:
                 accessid:
                   type: string
                   description: objectid of the user creating
-              $ref: '/models/adminSchema.js'
+              $ref: '/models/admin-schema.js'
               required:
                 - email
                 - first_name

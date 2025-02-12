@@ -1,4 +1,4 @@
-import { CreateAdminForm } from "@/components/admin/createAdminForm";
+import { CreateAdminForm } from "@/components/admin/forms/create-admin-form";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 

@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -112,7 +112,7 @@ export default function DocumentUpload () {
 
 	return (
 		<Gate permission="client">
-			<Template>
+			<Layout>
 				<>
 					{session && (
 						<div className={"p-4"}>
@@ -213,7 +213,7 @@ export default function DocumentUpload () {
 							</div>
 						))}
 				</>
-			</Template>
+			</Layout>
 		</Gate>
 	)
 		;

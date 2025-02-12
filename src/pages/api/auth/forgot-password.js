@@ -2,8 +2,8 @@ import { ResetPasswordEmail } from "@/emails/reset-password";
 import sendEmail from "@/lib/email";
 import dbConnect from "@/lib/mongoose";
 import { render } from "@react-email/render";
-import Admin from "@/../models/adminSchema";
-import Client from "@/../models/clientSchema";
+import Admin from "../../../../models/admin-schema";
+import Client from "../../../../models/client-schema";
 
 async function sendResetPassEmail (email, token, first_name, last_name) {
 	const link = `${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password/${token}`;

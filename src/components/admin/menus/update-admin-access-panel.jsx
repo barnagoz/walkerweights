@@ -1,4 +1,4 @@
-import { UpdateAdminAccessForm } from "@/components/admin/updateAdminAccessForm";
+import { UpdateAdminAccessForm } from "@/components/admin/forms/update-admin-access-form";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 
 export default function UpdateAdminAccessPanel ({admin, accessid, isOpen, setIsOpen, update}) {

@@ -1,4 +1,4 @@
-import Admin from "@/../models/adminSchema";
+import Admin from "../../../../models/admin-schema";
 import { permissionList } from "@/lib/data/permission";
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";

@@ -1,8 +1,8 @@
 import dbConnect from "@/lib/mongoose";
 import ExcelJS from 'exceljs';
 import { ObjectId } from "mongodb";
-import Admin from "../../../../../models/adminSchema";
-import Client from "../../../../../models/clientSchema";
+import Admin from "../../../../../models/admin-schema";
+import Client from "../../../../../models/client-schema";
 
 export default async function handler (req, res) {
 	const {accessid} = req.body;

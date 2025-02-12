@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default function Portal () {
 
 	return (
 		<Gate permission="client">
-			<Template>
+			<Layout>
 				{session && (
 					<div className={"p-4"}>
 						<h1 className={"text-2xl font-semibold"}>Üdvözlünk a
@@ -114,7 +114,7 @@ export default function Portal () {
 						</div>
 					</div>
 				)}
-			</Template>
+			</Layout>
 		</Gate>
 	);
 }

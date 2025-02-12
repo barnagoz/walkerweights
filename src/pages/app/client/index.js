@@ -1,5 +1,5 @@
 import Gate from "@/components/auth/gate";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -54,7 +54,7 @@ export default function ListClients () {
 	}, [session]);
 	return (
 		<Gate permission={['app', 'client-list']}>
-			<Template>
+			<Layout>
 				<div className={"p-4"}>
 					<div className={"flex flex-row justify-between"}>
 						<h1 className={"text-2xl font-bold"}>Ügyfelek</h1>
@@ -110,7 +110,7 @@ export default function ListClients () {
 						</div>
 					))}
 				</div>
-			</Template>
+			</Layout>
 		</Gate>
 	)
 }

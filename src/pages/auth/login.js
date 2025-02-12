@@ -1,8 +1,8 @@
-import {CredentialForm} from "@/components/auth/credentialForm";
+import { CredentialForm } from "@/components/auth/forms/credential-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {cn} from "@/lib/utils";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import {useEffect} from "react";
 import Router from "next/router";
 import {useSearchParams} from "next/navigation";
@@ -34,7 +34,7 @@ export default function SignIn () {
     }, [status, session]);
 
     return (
-        <Template includeFooter={false} className={"bg-gradient-to-bl from-brand-green to-black"}>
+        <Layout includeFooter={false} className={"bg-gradient-to-bl from-brand-green to-black"}>
             <NextSeo
                 title={"Bejelentkezés"}
                 noindex={true}
@@ -67,6 +67,6 @@ export default function SignIn () {
                         </Card>
                     )}
             </div>
-        </Template>
+        </Layout>
     );
 }

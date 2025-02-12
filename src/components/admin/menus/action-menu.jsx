@@ -1,5 +1,5 @@
-import UpdateAdminAccessPanel from "@/components/admin/updateAdminAccessPanel";
-import AreYouSurePopup from "@/components/common/areYouSurePopup";
+import UpdateAdminAccessPanel from "@/components/admin/menus/update-admin-access-panel";
+import ConfirmPopup from "@/components/ui/confirm-popup";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -78,22 +78,22 @@ export default function ActionMenu ({accessid, admin, getAdmins}) {
 			</DropdownMenu>
 			<UpdateAdminAccessPanel admin={admin} accessid={accessid} isOpen={editPanel} setIsOpen={setEditPanel}
 			                        update={getAdmins}/>
-			<AreYouSurePopup title={"Biztosan visszaállítod a fiók jelszavát?"}
-			                 message={"A jelszó visszaállítása után az adminisztrátor emailt kap, amelyben egy link" +
+			<ConfirmPopup title={"Biztosan visszaállítod a fiók jelszavát?"}
+			              message={"A jelszó visszaállítása után az adminisztrátor emailt kap, amelyben egy link" +
 				                 " segítségével megváltoztathatja a jelszavát. Amennyiben az adminisztrátor nem" +
 				                 " kattint a linkre, a jelszó nem fog változni."}
-			                 onConfirm={resetPassword}
-			                 isOpen={passwordPopup}
-			                 setIsOpen={setPasswordPopup}
-			></AreYouSurePopup>
-			<AreYouSurePopup title={"Biztosan kitörlöd a fiókot?"}
-			                 message={"A törlést követően az" +
+			              onConfirm={resetPassword}
+			              isOpen={passwordPopup}
+			              setIsOpen={setPasswordPopup}
+			></ConfirmPopup>
+			<ConfirmPopup title={"Biztosan kitörlöd a fiókot?"}
+			              message={"A törlést követően az" +
 				                 " adminisztrátor nem fog tudni többet bejelentkezni, adatokat megtekinteni, megváltaztotni." +
 				                 " Biztosan ezt akarod?"}
-			                 onConfirm={deleteAccount}
-			                 isOpen={deletePopup}
-			                 setIsOpen={setDeletePopup}
-			></AreYouSurePopup>
+			              onConfirm={deleteAccount}
+			              isOpen={deletePopup}
+			              setIsOpen={setDeletePopup}
+			></ConfirmPopup>
 		</>
 	);
 }

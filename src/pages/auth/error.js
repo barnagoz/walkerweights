@@ -3,7 +3,7 @@ import {cn} from "@/lib/utils";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import {ExclamationTriangleIcon} from "@radix-ui/react-icons";
 import Link from "next/link";
-import Template from "@/components/common/template";
+import Layout from "@/components/common/layout";
 import {useSearchParams} from "next/navigation";
 import {
     AlertDialog,
@@ -24,7 +24,7 @@ export default function Error () {
     const error = searchParams.get("error");
 
     return (
-        <Template includeFooter={false}>
+        <Layout includeFooter={false}>
             <NextSeo
                 title={"Bejelentkezés"}
                 noindex={true}
@@ -96,6 +96,6 @@ export default function Error () {
                     </Link>
                 </div>
             </div>
-        </Template>
+        </Layout>
     );
 }

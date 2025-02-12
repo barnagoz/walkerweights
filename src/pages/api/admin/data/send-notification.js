@@ -2,8 +2,8 @@ import DataRejectedEmail from "@/emails/data-rejected";
 import { MoreDetailsNeededEmail } from "@/emails/more-details-needed";
 import dbConnect from "@/lib/mongoose";
 import sendEmail from "@/lib/email";
-import Admin from "@/../models/adminSchema";
-import Client from "@/../models/clientSchema";
+import Admin from "../../../../../models/admin-schema";
+import Client from "../../../../../models/client-schema";
 import { render } from "@react-email/render";
 
 export default async function handler (req, res) {

@@ -1,8 +1,8 @@
 import { ObjectId } from "mongodb";
 import dbConnect from "@/lib/mongoose";
-import Client from "@/../models/clientSchema";
-import Task from "@/../models/taskSchema";
-import FormSubmission from "@/../models/formSubmissionSchema";
+import Client from "../../../../../models/client-schema";
+import Task from "../../../../../models/task-schema";
+import FormSubmission from "../../../../../models/form-submission-schema";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {

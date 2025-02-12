@@ -1,4 +1,4 @@
-import Client from "@/../models/clientSchema";
+import Client from "../../../../models/client-schema";
 import dbConnect from "@/lib/mongoose";
 import bcrypt from "bcryptjs";
 

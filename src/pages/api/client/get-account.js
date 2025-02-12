@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/mongoose";
 import { ObjectId } from "mongodb";
-import Client from "@/../models/clientSchema"
-import Task from "@/../models/taskSchema"
+import Client from "../../../../models/client-schema"
+import Task from "../../../../models/task-schema"
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {

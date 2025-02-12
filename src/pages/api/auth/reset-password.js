@@ -1,7 +1,7 @@
-import Client from "@/../models/clientSchema";
+import Client from "../../../../models/client-schema";
 import dbConnect from "@/lib/mongoose";
 import bcrypt from "bcryptjs";
-import Admin from "@/../models/adminSchema";
+import Admin from "../../../../models/admin-schema";
 
 export default async function handler (req, res) {
 	if (req.method === "POST") {

@@ -1,6 +1,6 @@
 import Gate from "@/components/auth/gate";
-import { RegisterClientForm } from "@/components/client/registerClientForm";
-import Template from "@/components/common/template";
+import { RegisterClientForm } from "@/components/client/forms/register-client-form";
+import Layout from "@/components/common/layout";
 import { LoadingSpinner } from "@/components/ui/spinner";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -36,7 +36,7 @@ export default function Account () {
 
 	return (
 		<Gate permission="client">
-			<Template>
+			<Layout>
 				{session && (
 					<div className={"p-4"}>
 						<h1 className={"text-2xl font-semibold"}>Adatok módosítása</h1>
@@ -53,7 +53,7 @@ export default function Account () {
 						))}
 					</div>
 				)}
-			</Template>
+			</Layout>
 		</Gate>
 	);
 }

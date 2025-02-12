@@ -3,8 +3,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import {MongoDBAdapter} from "@auth/mongodb-adapter";
 import clientPromise from "@/lib/mongodb";
 import dbConnect from "@/lib/mongoose";
-import Admin from "/models/adminSchema";
-import Client from "/models/clientSchema";
+import Admin from "/models/admin-schema";
+import Client from "/models/client-schema";
 import bcrypt from "bcryptjs";
 
 export const authOptions = {
