@@ -1,5 +1,4 @@
 import Gate from "@/components/auth/gate";
-import AppButton from "@/components/ui/app-button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +8,18 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
+import {
+	SidebarContent,
+	SidebarFooter,
+	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarRail,
+	SidebarTrigger,
+	Sidebar
+} from "@/components/ui/sidebar";
+import { PersonIcon } from "@radix-ui/react-icons";
+import { HomeIcon, KeyIcon, PaperclipIcon } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,28 +28,20 @@ export function AdminNavigation () {
 	const {data: session} = useSession();
 
 	return (
-		<>
-			<div className={"fixed top-0 w-full bg-gray-900 text-white text-sm font-semibold flex px-4 items-center" +
+		<div class={"relative w-full"}>
+			<div className={"absolute top-0  left-0 w-full bg-gray-900 text-white text-sm font-semibold flex px-4" +
+				" items-center" +
 				"  h-7 z-50"}>
-				<Link href={"/public"}>Visszatérés a nyilvános oldalra →</Link>
+				<Link href={"/"}>Visszatérés a nyilvános oldalra →</Link>
 			</div>
 			<nav
-				className={"flex fixed top-7 h-auto z-50 bg-white backdrop-blur bg-opacity-30 items-center w-full" +
-					" py-2" +
-					" px-4" +
-					" justify-between"}>
-				<div className={"flex items-center gap-4 py-1.5"}>
-					<NavigationSheet>
-						<Button variant={"secondary"} className={"px-2"}>
-							<MenuIcon className={"w-5 h-5"}/>
-						</Button>
-					</NavigationSheet>
-					<Link href={"/app"}>
-						<Image src="/asset/logo.svg" alt="Logo" width={75 / 3 * 4} height={34 / 3 * 4}/>
-					</Link>
+				className={"flex items-center w-full py-2 px-4 justify-between border-b border-gray-200" +
+					" dark:border-gray-700 pt-9"}>
+				<div className={"flex items-center gap-4"}>
+					<SidebarTrigger/>
 				</div>
 				<div className={"flex items-center justify-end gap-4"}>
-					<p className={"hidden md:block"}>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
+					<p>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
 					<AccountDropdown>
 						<Avatar className={"w-8 h-8"}>
 							<AvatarImage src={session?.user?.image ?? ""}/>
@@ -49,31 +50,62 @@ export function AdminNavigation () {
 					</AccountDropdown>
 				</div>
 			</nav>
-		</>
+		</div>
 	);
 }
 
-export function NavigationSheet ({children}) {
+export function AdminNavigationSheet () {
 	return (
-		<Sheet>
-			<SheetTrigger>{children}</SheetTrigger>
-			<SheetContent side={"left"}>
-				<SheetHeader>
-					<SheetTitle>Alkalmazásválasztó</SheetTitle>
-				</SheetHeader>
-				<div className={"grid grid-cols-2 gap-4 mt-4"}>
-					<Gate permission={"app"} inline><AppButton link={"/app"} title={"Főoldal"}/></Gate>
-					<Gate permission={["app", "client-list"]} inline><AppButton link={"/app/client"}
-					                                                            title={"Ügyfélkezelés"}/></Gate>
-					<Gate permission={["app", "form-list"]} inline><AppButton link={"/app/forms"}
-					                                                          title={"Űrlapok"}/></Gate>
-					<Gate permission={["app", "admin-management"]} inline><AppButton link={"/app/admin-management"}
-					                                                                 title={"Fiók" +
-						                                                                 " kezelés"}/></Gate>
-				</div>
-			</SheetContent>
-		</Sheet>
-	)
+		<Sidebar collapsible={"icon"}>
+			<SidebarHeader className="group-data-[collapsible=icon]:hidden p-4 gap-2">
+				<Link href={"/app"}>
+					<Image src="/asset/logo.svg" alt="Logo" width={75 / 3 * 4} height={34 / 3 * 4}/>
+				</Link>
+				<h2 className={"text-xl font-semibold"}>Alkalmazásválasztó</h2>
+			</SidebarHeader>
+			<SidebarContent className={"group-data-[collapsible=icon]:p-2 p-4 pt-0"}>
+				<SidebarMenu>
+					<SidebarMenuButton asChild>
+						<Link href="/app">
+							<HomeIcon/>
+							<span>Kezdőlap</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenu>
+				<Gate permission={["app", "client-list"]} inline>
+					<SidebarMenu>
+						<SidebarMenuButton asChild>
+							<Link href="/app/client">
+								<PersonIcon/>
+								<span>Ügyfelek kezelése</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenu>
+				</Gate>
+				<Gate permission={["app", "form-list"]} inline>
+					<SidebarMenu>
+						<SidebarMenuButton asChild>
+							<Link href="/app/forms">
+								<PaperclipIcon/>
+								<span>Űrlapok kezelése</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenu>
+				</Gate>
+				<Gate permission={["app", "admin-management"]} inline>
+					<SidebarMenu>
+						<SidebarMenuButton asChild>
+							<Link href="/app/admin-management">
+								<KeyIcon/>
+								<span>Adminisztrátorok kezelése</span>
+							</Link>
+						</SidebarMenuButton>
+					</SidebarMenu>
+				</Gate>
+			</SidebarContent>
+			<SidebarFooter/>
+			<SidebarRail/>
+		</Sidebar>);
 }
 
 export function AccountDropdown ({children}) {

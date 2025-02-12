@@ -7,9 +7,17 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
-import { signOut, useSession } from "next-auth/react";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarHeader,
+	SidebarMenu,
+	SidebarMenuButton, SidebarRail, SidebarTrigger
+} from "@/components/ui/sidebar";
+import { PersonIcon } from "@radix-ui/react-icons";
+import { HomeIcon, PaperclipIcon, ScanIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,25 +25,17 @@ export function ClientNavigation () {
 	const {data: session} = useSession();
 
 	return (
-		<>
-			<div className={"fixed top-0 w-full bg-gray-900 text-white text-sm font-semibold flex px-4 items-center" +
+		<div class={"relative w-full"}>
+			<div className={"absolute top-0  left-0 w-full bg-gray-900 text-white text-sm font-semibold flex px-4" +
+				" items-center" +
 				"  h-7 z-50"}>
-				<Link href={"/public"}>Ügyfélportál - Visszatérés a főoldalra →</Link>
+				<Link href={"/"}>Ügyfélportál - Visszatérés a nyilvános oldalra →</Link>
 			</div>
 			<nav
-				className={"flex fixed top-7 h-auto z-50 bg-white backdrop-blur bg-opacity-30 items-center w-full" +
-					" py-2" +
-					" px-4" +
-					" justify-between"}>
-				<div className={"flex items-center gap-4 py-1.5"}>
-					<NavigationSheet>
-						<Button variant={"secondary"} className={"px-2"}>
-							<MenuIcon className={"w-5 h-5"}/>
-						</Button>
-					</NavigationSheet>
-					<Link href={"/app"}>
-						<Image src="/asset/logo.svg" alt="Logo" width={75 / 3 * 4} height={34 / 3 * 4}/>
-					</Link>
+				className={"flex items-center w-full py-2 px-4 justify-between border-b border-gray-200" +
+					" dark:border-gray-700 pt-9"}>
+				<div className={"flex items-center gap-4"}>
+					<SidebarTrigger/>
 				</div>
 				<div className={"flex items-center justify-end gap-4"}>
 					<p>Üdv, {session?.user?.name ?? "Betöltés..."}!</p>
@@ -47,26 +47,56 @@ export function ClientNavigation () {
 					</AccountDropdown>
 				</div>
 			</nav>
-		</>
+		</div>
 	);
 }
 
-export function NavigationSheet ({children}) {
+export function ClientNavigationSheet () {
 	return (
-		<Sheet>
-			<SheetTrigger>{children}</SheetTrigger>
-			<SheetContent side={"left"}>
-				<SheetHeader>
-					<SheetTitle>Lehetőségek</SheetTitle>
-				</SheetHeader>
-				<div className={"flex flex-col gap-2 mt-4"}>
-					<Link href={"/portal"}><Button variant={"secondary"} className={"w-full"}>Főoldal</Button></Link>
-					<Link href={"/portal/account"}><Button variant={"secondary"} className={"w-full"}>Személyes
-						adatok</Button></Link>
-				</div>
-			</SheetContent>
-		</Sheet>
-	)
+		<Sidebar collapsible={"icon"}>
+			<SidebarHeader className="group-data-[collapsible=icon]:hidden p-4 gap-2">
+				<Link href={"/app"}>
+					<Image src="/asset/logo.svg" alt="Logo" width={75 / 3 * 4} height={34 / 3 * 4}/>
+				</Link>
+				<h2 className={"text-xl font-semibold"}>Alkalmazásválasztó</h2>
+			</SidebarHeader>
+			<SidebarContent className={"group-data-[collapsible=icon]:p-2 p-4 pt-0"}>
+				<SidebarMenu>
+					<SidebarMenuButton asChild>
+						<Link href="/portal">
+							<HomeIcon/>
+							<span>Kezdőlap</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenu>
+				<SidebarMenu>
+					<SidebarMenuButton asChild>
+						<Link href="/portal/account">
+							<PersonIcon/>
+							<span>Személyes adatok</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenu>
+				<SidebarMenu>
+					<SidebarMenuButton asChild>
+						<Link href="/portal/data">
+							<PaperclipIcon/>
+							<span>Adatok megtekintése</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenu>
+				<SidebarMenu>
+					<SidebarMenuButton asChild>
+						<Link href="/portal/data/add">
+							<ScanIcon/>
+							<span>Adatok feltöltése</span>
+						</Link>
+					</SidebarMenuButton>
+				</SidebarMenu>
+			</SidebarContent>
+			<SidebarFooter/>
+			<SidebarRail/>
+		</Sidebar>);
 }
 
 export function AccountDropdown ({children}) {
