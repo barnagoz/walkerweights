@@ -36,11 +36,11 @@ export default async function handler (req, res) {
 				case "data-rejected":
 					const htmldr = await render(<DataRejectedEmail first_name={client.first_name}
 					                                               last_name={client.last_name}
-					                                               portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/login`}
+																   portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/auth/login`}
 					                                               company_name={client.company_name}/>, {pretty: true});
 					const textdr = await render(<DataRejectedEmail first_name={client.first_name}
 					                                               last_name={client.last_name}
-					                                               portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/login`}
+																   portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/auth/login`}
 					                                               company_name={client.company_name}/>, {plainText: true});
 
 					await sendEmail({
@@ -53,11 +53,11 @@ export default async function handler (req, res) {
 				case "more-details-needed":
 					const htmlmdn = await render(<MoreDetailsNeededEmail first_name={client.first_name}
 					                                                     last_name={client.last_name}
-					                                                     portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/login`}
+																		 portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/auth/login`}
 					                                                     company_name={client.company_name}/>, {pretty: true});
 					const textmdn = await render(<MoreDetailsNeededEmail first_name={client.first_name}
 					                                                     last_name={client.last_name}
-					                                                     portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/login`}
+																		 portal_link={`${process.env.NEXT_PUBLIC_SITE_URL}/auth/login`}
 					                                                     company_name={client.company_name}/>, {plainText: true});
 
 					await sendEmail({
