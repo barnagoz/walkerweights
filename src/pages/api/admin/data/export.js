@@ -54,6 +54,6 @@ export default async function handler (req, res) {
 	// Write workbook to buffer
 	const buffer = await workbook.xlsx.writeBuffer();
 	res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-	res.setHeader("Content-Disposition", `attachment; filename=Ügyfelek.xlsx`);
+	res.setHeader("Content-Disposition", `attachment; filename=ugyfelek.xlsx`);
 	res.status(200).send(buffer);
 }
