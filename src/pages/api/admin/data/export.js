@@ -35,7 +35,7 @@ export default async function handler (req, res) {
 	}
 	;
 	clients.forEach((row, rowIndex) => {
-		const rowValues = [row.created_at, row.company_name, row.last_name, row.first_name, row.email, row.phone, row.energeticInvestmentSince2021, row.energeticInvestmentWhen, row.energeticInvestmentType, row.energeticInvestmentAmount, row.registerMessage];
+		const rowValues = [row.created_at, row.company_name, row.last_name, row.first_name, row.email, row.phone, row.energeticInvestment.since2021, row.energeticInvestment.when, row.energeticInvestment.type, row.energeticInvestment.amount, row.registerMessage];
 		const excelRow = worksheet.addRow(rowValues);
 	});
 
